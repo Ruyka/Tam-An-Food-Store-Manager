@@ -1,0 +1,18 @@
+<IfModule mod_rewrite.c>
+    Options +FollowSymLinks
+	RewriteEngine On
+
+	RewriteRule ^style.*$ http://google.com/ [R=301,L]
+	
+	RewriteRule ^(.*)$ public_HTML/$1 [L]
+	
+	RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-s
+	RewriteRule ^(.*)$ api.php?rquest=$1 [QSA,NC,L]
+
+	RewriteCond %{REQUEST_FILENAME} -d
+	RewriteRule ^(.*)$ api.php [QSA,NC,L]
+
+	RewriteCond %{REQUEST_FILENAME} -s
+	RewriteRule ^(.*)$ api.php [QSA,NC,L]	
+</IfModule>
