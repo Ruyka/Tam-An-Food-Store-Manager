@@ -33,7 +33,7 @@
         or define("CLASS_PATH", realpath(dirname(__FILE__) . '/class/' ));
     //store global function handle the unrelated to class problem
     defined("FUNCTION_PATH")
-        or define("CLASS_PATH", realpath(dirname(__FILE__) . '/includes/function/' ));
+        or define("FUNCTION_PATH", realpath(dirname(__FILE__) . '/includes/function/' ));
         
     //the interface of website will be slit into different views and we store it in view
     defined("VIEW_PATH")
