@@ -1,2 +1,6 @@
 Kim Nhat Thanh
+<<<<<<< HEAD
 this is another test
+=======
+Trinh Hoang Trieu
+>>>>>>> 50d514116c8a7a26dcb42dfa2ed2ef62422d7d52
