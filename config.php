@@ -61,7 +61,7 @@
 	defined("ROOT_SERVER")
         or define("ROOT_SERVER", "http://".$_SERVER['HTTP_HOST']."/".PROJECT."/");
    	     
-    
+      
     $config = array(
         //database infomation
         //we use the localhost to build our project
@@ -94,11 +94,11 @@
             //store css file
             "style" =>ROOT_SERVER . "style/",
             //store class file (object) used in the project
-            "class" =>ROOT_SERVER ."/includes/class/",
+            "class" =>ROOT_SERVER ."includes/class/",
             //store global function handle the unrelated to class porblem
-            "function" =>ROOT_SERVER ."/includes/function/",
+            "function" =>ROOT_SERVER ."includes/function/",
             //the interface of website will be slit into different views and we store it in view
-            "view" =>ROOT_SERVER . "/includes/view/",
+            "view" =>ROOT_SERVER . "includes/view/",
             //store the images, background,...
             "image" =>ROOT_SERVER . "media/image/"   
         )
@@ -112,8 +112,8 @@
 /*
     Error reporting.
 */
-ini_set("error_reporting", "true");
-error_reporting(E_ALL|E_STRCT);
+    ini_set("error_reporting", "true");
+    error_reporting(E_ALL|E_STRCT);
  
 
 ?>
