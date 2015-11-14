@@ -54,18 +54,25 @@
      ///root with server name http://...
 	defined("ROOT_SERVER")
         or define("ROOT_SERVER", "http://".$_SERVER['HTTP_HOST']."/".PROJECT."/");
-   	     
-      
-    $config = array(
-        //database infomation
-        //we use the localhost to build our project
-        "db" => array(
-            "dbname" => "Tam_An_Food_Store_Manager",
-            "username" => "root",
-            "password" => "",
-            "host" => "localhost"
+   	
+    //database infomation
+        //we use the localhost to build our project 
+    //database name
+    defined("DBNAME")
+        or define("DBNAME", "Tam_An_Food_Store_Manager");
+    //user name to log into database
+    defined("USERNAME")
+        or define("USERNAME", "root");
+    //password
+    defined("PASSWORD")
+        or define("PASSWORD", "");
+    //the host of the project
+    defined("HOST")
+        or define("HOST", "localhost");
             
-        ),
+    $config = array(
+        
+        
         //set base Url, to use
         "urls" => array(
             "baseUrl" => "http://tam-anfoodstore.com/"
@@ -102,6 +109,7 @@
         global $config;
         return $config["paths"][$tmp];
     }
+    
 
 /*
     Error reporting.
