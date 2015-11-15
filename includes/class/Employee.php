@@ -18,8 +18,9 @@
 			$this->CMND = $CMND;
 		}
 		public function convert_to_HTML(){
-			return $this->basic_info->convert_to_HTML();
+            //dummy code, for testing
+			return $this->basic_info->convert_to_HTML() . $this->role_id . $this->CMND . $this->salary ;
 		}
 	}
-
+    
 ?>

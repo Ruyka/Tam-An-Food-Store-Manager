@@ -23,10 +23,11 @@
 		}
 		//convert Object into HTML, to display to users
 		public function convert_to_HTML(){
-
+		  //dummy code, for testing
+            return "Trade Mark " . $this->basic_info->convert_to_HTML(). " " . $this->nation . $this->website;
 		}
 
 	}
-
-
+    
+    
 ?>

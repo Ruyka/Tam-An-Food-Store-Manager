@@ -14,20 +14,16 @@ class Product{
 	private $trademark ;
 	// the date that the product will be depleted
 	private $dated;
-	// constructor for full info product
-	public function __construct( $name, $total_num, $unit, $trademark, $dated) {
-		$this->name = $name;
+	
+	//this function add the attribute for the product
+    public function addAttribute( $name, $total_num, $unit, $trademark = NULL, $dated = NULL) {
+    	$this->name = $name;
 		$this->total_num = $total_num;
 		$this->unit = $unit;
 		$this->trademark = $trademark;
 		$this->dated = $dated;
-	}
-	// constructor for knowing a name and unit and total numbe of product
-	public function __construct( $name, $unit, $total_num) {
-		$this->name = $name;
-		$this->total_num = $total_num;
-		$this->unit = $unit;
-	}
+    }
+    
 	//get name of product to display
 	public function get_name(){
 		return $this->name;
@@ -42,7 +38,12 @@ class Product{
 	}
 	//convert the product to format HTML to display for user
 	public function convert_to_HTML(){
-
+        //dummy code, for testing
+        if (!is_null($this->trademark))
+            return "Product " . $this->name . $this->total_number . $this->dated . $this->unit->get_name() . $this->trademark->convert_to_HTML();
+        else
+        return "Product " . $this->name . $this->total_number . $this->dated . $this->unit->get_name() ;
 	}
 }
+    
 ?>

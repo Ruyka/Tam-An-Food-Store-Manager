@@ -13,5 +13,5 @@
 			return $this->basic_info->convert_to_HTML();
 		}
 	}
-
+    
 ?>
