@@ -18,12 +18,15 @@
 		}
 		//convert to HTML format to display
 		public function convert_to_HTML(){
-
+		  //dummy code for testing
+            return $this->name . $this->email .$this->phone . $this->address;
 		}
 		//get the name
 		public function get_name(){
 			return $this->name;
 		}
 	}
+    
+    
 
 ?>

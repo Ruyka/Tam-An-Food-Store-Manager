@@ -1,12 +1,12 @@
 <?php
-	require_once($_SERVER["DOCUMENT_ROOT" . 'Tam-An-Food-Store-Manager/'. 'config.php');
+	require_once($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php');
 	
 	class Database{
 		// this infomation can be found in config file
-		private const DB_SERVER = HOST;
-		private const DB_USER = USERNAME;
-		private const DB_PASSWORD = PASSWORD;
-		private const DB_NAME = DBNAME;
+		const DB_SERVER = HOST;
+		const DB_USER = USERNAME;
+        const DB_PASSWORD = PASSWORD;
+	   	const DB_NAME = DBNAME;
 		private $db = NULL;
 		//connect to database
 		public function connect(){
