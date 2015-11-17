@@ -7,7 +7,7 @@
 
 	}
 	body {
-	margin:0;
+		margin:0;
 	}
 	#logodiv {
 		float: left;
@@ -51,4 +51,25 @@
 	.TacVu {
 		float: left;
 		width:50%;
+	}
+
+	/* print section hide print block in mormal use and hide the other when print */
+
+	.print-blocks{display:none;}
+
+	@media print {
+		.no-print{display: none;}
+		.print-blocks {
+			display: block;
+		}
+	}
+
+	/* Clear */
+	.clear {
+		clear: both;
+	}
+
+	.bigBtn{
+		width:80px;
+		margin: 5px;
 	}
