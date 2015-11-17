@@ -59,7 +59,7 @@
         //we use the localhost to build our project 
     //database name
     defined("DBNAME")
-        or define("DBNAME", "Tam_An_Food_Store_Manager");
+        or define("DBNAME", "tam_an");
     //user name to log into database
     defined("USERNAME")
         or define("USERNAME", "root");
@@ -67,8 +67,8 @@
     defined("PASSWORD")
         or define("PASSWORD", "");
     //the host of the project
-    defined("HOST")
-        or define("HOST", "localhost");
+    defined("SERVER")
+        or define("SERVER", "localhost");
             
     $config = array(
         
