@@ -1,6 +1,8 @@
+
 <?php
 	require_once($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php');
-	require_once(VIEW_PATH."head.php");
+	//require_once(VIEW_PATH."head.php");
+	 
 	class Database{
 		// this infomation can be found in config file
 		const DB_SERVER = SERVER;
@@ -27,6 +29,8 @@
 		}
 
 		public function get_list_of_product_info(){
+            mysqli_query($this->db, "SET character_set_results = 'utf8', character_set_client = 'utf8', 
+            character_set_connection = 'utf8', character_set_database = 'utf8', character_set_server = 'utf8'");
             
             $sql = mysqli_query($this->db,"SELECT * FROM Product");
     					
@@ -40,8 +44,8 @@
 		}
 
 		public function get_list_of_user_name(){
-			mysqli_query($this->db, "SET character_set_results = 'utf16', character_set_client = 'utf16', 
-            character_set_connection = 'utf16', character_set_database = 'utf16', character_set_server = 'utf16'");
+			
+            
             $sql = mysqli_query($this->db,"SELECT * FROM Employee");
     				
             if($sql && mysqli_num_rows($sql)!=0){    
@@ -56,8 +60,8 @@
     $tmp = new Database;
     $tmp->connect();
     
-    print_r($tmp->get_list_of_user_name());
-    
+    print_r($tmp->get_list_of_product_info());
+	echo 'Kim Nhật Thành'    ;
     
  
 
