@@ -15,6 +15,7 @@ class Product{
 	// the date that the product will be depleted
 	private $dated;
 	
+	
 	//this function add the attribute for the product
     public function addAttribute( $name, $total_num, $unit, $trademark = NULL, $dated = NULL) {
     	$this->name = $name;
@@ -28,14 +29,17 @@ class Product{
 	public function get_name(){
 		return $this->name;
 	}
+	
 	//get total number of the product to display
 	public function get_total_number(){
 		return $this->total_number;
 	}
+	
 	//get price of product
 	public function get_price(){
 		return $this->unit->get_price();
 	}
+
 	//convert the product to format HTML to display for user
 	public function convert_to_HTML(){
         //dummy code, for testing
@@ -44,6 +48,34 @@ class Product{
         else
         return "Product " . $this->name . $this->total_number . $this->dated . $this->unit->get_name() ;
 	}
+	
+
+	// convert object to json format
+	// code = true, return json encode, else just return object data encode as an array
+	public function json_encode($code = true){
+		// 3 basic elements of the product must have
+		$json = array(
+	        'name' => $this->name,
+	        'total_number' => $this->total_number,
+	        // json_encode parameter = false, return object not encode with json
+	        'unit' => $this->unit->json_encode(false),	
+    	);
+    	
+    	// json_encode parameter = false, return object not encode with json
+    	//trademark is an Object so we must check its existence
+    	if (!is_null($this->trademark)) 
+    		$json['trademark'] = $this->trademark->json_encode(false);
+    	
+    	//trademark is optional so we check its existence
+    	if (!is_null($this->dated))
+    		$json['dated'] = $this->dated;
+    	// code = true, return json encode, else just return object data encode as an array
+    	if ($code)
+    		return json_encode($json);
+    	else
+    		return $json;
+	}
 }
+
     
 ?>

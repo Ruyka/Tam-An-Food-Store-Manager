@@ -21,6 +21,27 @@
             //dummy code, for testing
 			return $this->basic_info->convert_to_HTML() . $this->role_id . $this->CMND . $this->salary ;
 		}
+
+		// convert object to json format
+		// code = true, return json encode, else just return object data encode as an array
+		public function json_encode($code = true){
+			
+			//properties of TradeMark instance
+			$json = array(
+				//basic_info is an Object BasicInfo, so we must encode it to an array 
+	        	'basic_info' => $this->basic_info->json_encode(false),
+	        	'role_id' => $this->role_id,
+	        	'CMND' => $this->CMND,
+	        	'salary' =>	$this->salary,
+    		);
+
+    		// code = true, return json encode, else just return object data encode as an array
+			if ($code)
+    			return json_encode($json);
+    		else 
+    			return $json;
+		
+		}
 	}
     
 ?>

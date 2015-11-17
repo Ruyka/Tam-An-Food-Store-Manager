@@ -44,11 +44,18 @@
 				if (!isset($this->list_product)){
 					$this->list_product = array();
 				}
-				else{
+				// if list of product has many value
+				if (is_array($list_of_product)){
 					//add value to the end of array list_product
-					foreach ($list_of_product as $value) 
-	    				$this->list_product[] = $value;
-	    		}
+					foreach ($list_of_product as $value){
+						$this->list_product[] = $value;
+					
+					} 
+				}
+				//in case just 1 value at once
+				else
+					$this->list_product[] = $list_of_product;
+	    			
     		}	
 		}
 
@@ -73,7 +80,56 @@
 	    		return $price;
 			}
 		}
+		
+		// convert object to json format
+		// code = true, return json encode, else just return object data encode as an array
+		public function json_encode($code = true){
+
+
+			// basic elements of the product must have
+			 
+			$json = array(
+				
+		        'receipt_id' => $this->receipt_id,
+		        'time' => $this->time,
+		        // json_encode parameter = false, return object not encode with json
+		        'receiver' => $this->receiver->json_encode(false),	
+		        'clients'  => $this->clients->json_encode(false),	
+	    	);
+	    	
+	    	//for each productm add and value that are encoding to array data
+			$i = 0;
+			foreach ($this->list_product as $value) {
+				$json['list_product']["$i"] = $value->json_encode(false);
+				++$i;
+				
+	    	}
+
+	    	// json_encode parameter = false, return object not encode with json
+	    	// code = true, return json encode, else just return object data encode as an array
+	    	if ($code)
+	    		return json_encode($json);
+	    	else
+	    		return $json;
+		}
 	}
+	
+	//SAMPLE CODE TO TEST, READ FOR FUN lol :V
 
+ //    $tmp = new SoldProduct(100);
+ //    $tmp->addAttribute("Sữa",100,new Unit("hộp",10000), 
+ //    		new Trademark(
+ //    			new BasicInfo("Hồ Hữu Phát","hhphat@apcs.vn","0906332121","4 ABCD")
+ //    			,"Việt Nam","google.com.vn"
+ //    		)
+ //    		,"17/11/2015");
 
+ //    $BasicInfo = new BasicInfo("Kim Nhật Thành","knthanh@apcs.vn","0923232121","4 ABCD");
+
+ //    $recepit = new Receipt(1,1,new Employee($BasicInfo,10000,1,"1313131"), new Customer($BasicInfo));
+    
+ //    $recepit->add($tmp);
+ //    $recepit->add($tmp);
+
+ //    print_r(json_decode($recepit->json_encode(),true));
 ?>
