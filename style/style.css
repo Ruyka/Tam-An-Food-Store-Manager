@@ -1,0 +1,81 @@
+	#topbar {
+		background-color: #7A0000;
+		width:100%;
+		height: auto;
+		color: white;
+		margin-top: 0;
+
+	}
+	body {
+		margin:0;
+	}
+	#logodiv {
+		float: left;
+		padding-top: 5px;
+		padding-right: 10px;
+	}
+	#logo {
+		width: 140px;
+		height: 70px;
+		
+	}
+	.fixedwidth {
+		margin:0 auto;
+	}
+	#sign-in {
+		font-weight: bold;
+		float: right;
+		font-size: 1.5em;
+		border-right: 3px solid #703800;
+		width:auto;
+		padding-top: 20px;
+		height: 60px;
+		
+		
+	}
+	#sign-in img {
+		padding-left: 10px;
+		padding-right: 20px;
+	}
+	.break {
+		clear:both;
+	}
+	#newsheader {
+		margin:2px;
+		font-size:3em;
+	}
+	#VN {
+		font-size: 0.7em;
+		padding-left: 10px;
+	}
+	.TacVu {
+		float: left;
+		width:50%;
+	}
+
+	/* print section hide print block in mormal use and hide the other when print */
+
+	.print-blocks{display:none;}
+
+	@media print {
+		.no-print{display: none;}
+		.print-blocks {
+			display: block;
+		}
+	}
+
+	/* Clear */
+	.clear {
+		clear: both;
+	}
+
+	.bigBtn{
+		width:80px;
+		margin: 5px;
+	}
+
+	/* child div must be smaller than parent div */
+	.load {
+		width: 80%;
+    border: 1px solid red;
+    margin: 2px;	}
