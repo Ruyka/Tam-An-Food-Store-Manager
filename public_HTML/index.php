@@ -4,12 +4,16 @@
 <html>
 
 <?php require_once(VIEW_PATH . "head.php");?>
-<script type="text/javascript">
-function submit_now(){
-	$("#preview").modal('show');
-}
-</script>
 <body>
+	<script type="text/javascript">
+	$(document).ready(function(){		
+		var data = [{ id: 0, text: 'enhancement' }, { id: 1, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 4, text: 'wontfix' }];
+
+		$(".js-example-data-array").select2({
+			data: data
+		});
+	});
+	</script>
 	<div class="khung"> 
 		<?php require_once(VIEW_PATH."header.php");?>
 		<?php require_once(FUNCTION_PATH."print_receipt.php");?>
@@ -23,13 +27,8 @@ function submit_now(){
 				<input id="print" type="submit" value="Print" onclick="submit_now()" class="btn btn-primary pull-right bigBtn">
 				<input type="submit" value="Cancel" class="btn btn-primary pull-right bigBtn" >
 				<p class="clear"></p>
-				<table>
-					<?php 
-					$num = $GLOBALS['defaultNum'];
-					while($num--)
-						createNew();
-					?>
-				</table>
+				<!-- select2  -->
+				<select class="product "></select>
 			</form>
 			<!-- Modal -->
 			<div class="modal fade" id="preview" role="dialog">
@@ -41,13 +40,13 @@ function submit_now(){
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
 							<h4 class="modal-title">Preview</h4>
 						</div>
-						<div class="modal-body">
-							<form class="form-horizontal" role="form" method="post" action="">
-							<?php makePreview(); ?>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						</div>
+						<form class="form-horizontal" role="form" method="post" action="">
+							<div class="modal-body">							
+								<?php makePreview(); ?>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							</div>
 						</form>
 					</div>
 
@@ -63,6 +62,5 @@ function submit_now(){
 			<option value="3">Quản lý dư</option>
 		</select>
 	</div>
-</div>
 </body>
 </html>
