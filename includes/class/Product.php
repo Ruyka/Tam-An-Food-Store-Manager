@@ -4,6 +4,8 @@
 	require_once(CLASS_PATH . "Unit.php");
 // Product class contain info about a product in tam an store
 class Product{
+
+	//Properties:
 	// name of the product
 	private $name ;
 	// total number of the product in storage
@@ -15,16 +17,29 @@ class Product{
 	// the date that the product will be depleted
 	private $dated;
 	
-	
+	//save the type of the Product object
+	private $object_type;
+
+	//Constructor
+	public function __construct(){
+		$this->name = "";
+		$this->total_number = 0;
+		$this->unit = new Unit();
+		$this->trademark = new Trademark();
+		$this->dated = "";
+		$this->object_type = "Product";
+	}
 	//this function add the attribute for the product
-    public function addAttribute( $name, $total_num, $unit, $trademark = NULL, $dated = NULL) {
+    public function addAttribute( $name, $total_number, $unit, $trademark = NULL, $dated = NULL) {
     	$this->name = $name;
-		$this->total_num = $total_num;
+		$this->total_number = $total_number;
 		$this->unit = $unit;
 		$this->trademark = $trademark;
 		$this->dated = $dated;
     }
     
+
+    //Method
 	//get name of product to display
 	public function get_name(){
 		return $this->name;
@@ -54,28 +69,71 @@ class Product{
 	// code = true, return json encode, else just return object data encode as an array
 	public function json_encode($code = true){
 		// 3 basic elements of the product must have
+		$json = array();
+
 		$json = array(
 	        'name' => $this->name,
 	        'total_number' => $this->total_number,
 	        // json_encode parameter = false, return object not encode with json
 	        'unit' => $this->unit->json_encode(false),	
+	        'object_type' => $this->object_type,
     	);
     	
     	// json_encode parameter = false, return object not encode with json
     	//trademark is an Object so we must check its existence
+    	// if it equal NULL, we still has it present in JSON encode
+    	// else, we get the trademark object in to array of data
     	if (!is_null($this->trademark)) 
     		$json['trademark'] = $this->trademark->json_encode(false);
+    	else 
+    		$json['trademark'] = $this->trademark;
+
+    	//add date
+    	$json['dated'] = $this->dated;
     	
-    	//trademark is optional so we check its existence
-    	if (!is_null($this->dated))
-    		$json['dated'] = $this->dated;
     	// code = true, return json encode, else just return object data encode as an array
     	if ($code)
     		return json_encode($json);
     	else
     		return $json;
 	}
+	//get data from json_data 
+	public function get_data_from_json($json_data){
+		// decode input using json decode
+		$data = json_decode($json_data,true);
+ 		// if json last error is equal to NONE -> get the data from it
+		if (json_last_error() == JSON_ERROR_NONE){
+			$this->get_data($data);	
+		}
+	} 
+
+	//get data from an array data 
+	public function get_data_from_array($data){
+		// a right Basic info array must have 5 properties naeme, total_number, unit, trademark, dated
+		if ( isset($data['name']) && isset($data['total_number']) && isset($data['unit']) 
+				&& isset($data['trademark']) && isset($data['dated']) ){
+			
+			$this->get_data($data);
+		}
+	}
+
+	// get data from array
+	private function get_data($data){
+
+		// get name
+		$this->name = $data['name'];
+		//get total numbet off product that remains
+		$this->total_number = $data['total_number'];
+		// get unit data
+		$this->unit->get_data_from_array($data['unit']);
+		//get Trademark data
+		$this->trademark->get_data_from_array($data['trademark']);
+		//get dated
+		$this->dated = $data['dated'];
+		
+	} 
 }
 
+    
     
 ?>

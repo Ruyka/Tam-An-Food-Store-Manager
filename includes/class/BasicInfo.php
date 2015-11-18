@@ -55,23 +55,23 @@
 			$data = json_decode($json_data,true);
 	 		// if json last error is equal to NONE -> get the data from it
  			if (json_last_error() == JSON_ERROR_NONE){
- 				$this->name = $data['name'];
-				$this->email = $data['email'];
-				$this->phone = $data['phone'];
-				$this->address = $data['address'];
+ 				$this->get_data($data);
  			}
 		}
 		
 		//get data from array_data
 		public function get_data_from_array($data){
 			// a right Basic info array must have 4 properties name, email, phone and address
-			if ( isset($data['name']) && isset($data['email']) && isset($data['phone']) && isset($data['address']){
- 				$this->name = $data['name'];
-				$this->email = $data['email'];
-				$this->phone = $data['phone'];
-				$this->address = $data['address'];
+			if ( isset($data['name']) && isset($data['email']) && isset($data['phone']) && isset($data['address'])){
+ 				$this->get_data($data);	
 			}
 		}   
+		private function get_data($data){
+			$this->name = $data['name'];
+			$this->email = $data['email'];
+			$this->phone = $data['phone'];
+			$this->address = $data['address'];
+		}
 	}
     
 
