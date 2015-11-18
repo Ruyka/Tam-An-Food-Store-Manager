@@ -1,6 +1,6 @@
 <?php
 	//convert input into HTML View to Display for user
-	class HTML_View{
+	class View{
 		public static function list_product_to_HTML_selection($data){
 		
 		}

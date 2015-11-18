@@ -13,17 +13,24 @@
 		// website of the trademark
 		private $website;
 
-		//Function:
+
+		//Constructor:
 		//construct the object with data
 		//default values: basic_info = NULL
 		//				  nation and website =""
 
 		public function __construct($basic_info = NULL, $nation = "", $website = ""){
-			$this->basic_info = $basic_info;
+			// if basic info not created yet, new it
+ 			if (is_null($basic_info))
+ 				$this->basic_info = new BasicInfo();
+			else
+				$this->basic_info = $basic_info;
 			$this->nation = $nation;
 			$this->website = $website;
 		}
 
+
+		//Method:
 		//get the name of TradeMark
 		public function get_name(){
 			//get the name in basic infomation by using method get_name in BasicInfo Object
@@ -61,14 +68,8 @@
 			$data = json_decode($json_data,true);
 	 		// if json last error is equal to NONE -> get the data from it
  			if (json_last_error() == JSON_ERROR_NONE){
- 				// if basic info not created yet, new it
- 				if (is_null($this->basic_info))
- 					$this->basic_info = new BasicInfo();
- 				//else use the old one
- 				//get the data from the array that contain the data of basic infomation
- 				$this->basic_info->get_data_from_array($data['basic_info']);
-				$this->nation = $data['nation'];
-				$this->website = $data['website'];
+ 				//get the data 
+ 				$this->get_data($data);
  			}
 		} 
 
@@ -76,12 +77,19 @@
 		public function get_data_from_array($data){
 			// a right Basic info array must have 3 properties basic info, nation an website
 			if ( isset($data['basic_info']) && isset($data['nation']) && isset($data['website']) ){
- 				$this->basic_info->get_data_from_array($data['basic_info']);
-				$this->nation = $data['nation'];
-				$this->website = $data['website'];
+ 				$this->get_data($data);
 			}
 		} 
+
+		private function get_data($data){
+			//get basic info by calling its method
+			$this->basic_info->get_data_from_array($data['basic_info']);
+			//get nation
+			$this->nation = $data['nation'];
+			//get website
+			$this->website = $data['website'];
+		}
 	}
     
-    
 ?>
+

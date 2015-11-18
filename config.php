@@ -110,6 +110,10 @@
         return $config["paths"][$tmp];
     }
     
+    function TEST($value){
+        print_r($value);
+        echo "</br></br>";
+    }
 
 /*
     Error reporting.
