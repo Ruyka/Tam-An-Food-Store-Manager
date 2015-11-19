@@ -182,7 +182,7 @@
 	//SAMPLE CODE TO TEST, READ FOR FUN lol :V
 
      // $tmp = new SoldProduct(113);
-     // $tmp->addAttribute("Sữa",100,new Unit("hộp",10000), 
+     // $tmp->add_attribute("Sữa",100,new Unit("hộp",10000), 
      // 		new Trademark(
      // 			new BasicInfo("Hồ Hữu Phát","hhphat@apcs.vn","0906332121","4 ABCD")
      // 			,"Việt Nam","google.com.vn"

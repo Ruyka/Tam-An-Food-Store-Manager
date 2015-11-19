@@ -1,7 +1,6 @@
 
 <?php
 	require_once($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php');
-	//require_once(VIEW_PATH."head.php");
 	 
 	class Database{
 		// this infomation can be found in config file
@@ -21,6 +20,9 @@
             //if can connect to SQL, connect to Database 
 			if($this->db){
 				mysqli_select_db($this->db, self::DB_NAME);
+				//set Vietnamese
+				mysqli_query($this->db, "SET character_set_results = 'utf8', character_set_client = 'utf8', 
+            	character_set_connection = 'utf8', character_set_database = 'utf8', character_set_server = 'utf8'");
             }
 		}
 		//check database connectivity
@@ -29,14 +31,13 @@
 		}
 
 		public function get_list_of_product_info(){
-            mysqli_query($this->db, "SET character_set_results = 'utf8', character_set_client = 'utf8', 
-            character_set_connection = 'utf8', character_set_database = 'utf8', character_set_server = 'utf8'");
             
             $sql = mysqli_query($this->db,"SELECT * FROM Product");
     					
             if($sql && mysqli_num_rows($sql)!=0){    
                 $result = array();
 				while($rlt = mysqli_fetch_array($sql,MYSQL_ASSOC)){
+					
 					$result[] = $rlt;
 				}          
             }
@@ -56,13 +57,7 @@
             }
             return $result;
 		}
+		
 	}
-    $tmp = new Database;
-    $tmp->connect();
-    
-    print_r($tmp->get_list_of_product_info());
-	echo 'Kim Nhật Thành'    ;
-    
- 
-
+	 
 ?>
