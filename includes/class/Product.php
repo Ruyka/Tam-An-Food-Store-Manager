@@ -30,7 +30,7 @@ class Product{
 		$this->object_type = "Product";
 	}
 	//this function add the attribute for the product
-    public function addAttribute( $name, $total_number, $unit, $trademark = NULL, $dated = NULL) {
+    public function add_attribute( $name, $total_number, $unit, $trademark = NULL, $dated = NULL) {
     	$this->name = $name;
 		$this->total_number = $total_number;
 		$this->unit = $unit;

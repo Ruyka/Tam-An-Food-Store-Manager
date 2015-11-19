@@ -1,13 +1,11 @@
-<?
+<?php
 	require_once($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php');
-	require_once(CLASS_PATH .'Server.php');
+	
 	//use this class to control data frrom server
 	class Management{
 		
-		private $server;
-		
 		public function __construct(){
-			$server = new Server;
+			//$server = new Server;
 
 		}
 		public function look_up( $from, $to) {
@@ -22,26 +20,38 @@
 
 		//send the message to server to get the list of product info
 		public function get_list_of_product_info(){
-			$this->server->send_message("get list of product info");
-			return decode_data();
+			return $this->get_response_from_message("get list of product info");
 		}
 		
 		//send message to server to get the list of user name
 		public function get_list_of_user_name(){
-			$this->server->send_message("get list of user name");
-			return decode_data();	
+			return $this->get_response_from_message("get list of user name");
 		}
-		
-		//decode data by json
-		private function decode_data(){
-			//get data from server
-			$data = $this->server->get_data();
-			//decode json
-			$html_code = json_decode($data, true);
-			//return the data
-			return $html_code;
+		//send message to server and get response
+		private function get_response_from_message($message){
+			$url = 'http://localhost/Tam-An-Food-Store-Manager/includes/class/Server.php';
+			$data = array('request' => $message);
+			
+			$options = array(
+			  'http' => array(
+			    'method'  => 'POST',
+			    'content' => json_encode( $data ),
+			    'header'=>  "Content-Type: application/json\r\n" .
+			                "Accept: application/json\r\n"
+			    )
+			);
+
+			$context  = stream_context_create( $options );
+			$result = file_get_contents( $url, false, $context );
+
+			$response = json_decode( $result,true );
+
+			return $response;
+
 		}
 	}
-
+	//test code
+	// $tmp = new Management();
+	// TEST($tmp->get_list_of_user_name());
 
 ?>
