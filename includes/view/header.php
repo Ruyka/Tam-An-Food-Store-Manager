@@ -2,7 +2,7 @@
     Header part of Tam An webpage
     can import when has include config.php
  -->
-<div id="topbar">
+<div id="topbar" class="no-print">
     <div class="fixedwidth">
         <div id="logodiv">
             <img id="logo" src="<?php echo CONFIG_PATH('image')."logo.jpg"?>"  />         

@@ -75,7 +75,14 @@
 	}
 
 	/* child div must be smaller than parent div */
+	/* add red border for visibility */
 	.load {
 		width: 80%;
-    border: 1px solid red;
-    margin: 2px;	}
+		border: 1px solid red;
+		margin: 2px;	
+	}
+
+	/* add border for visibiloty */
+	.TacVu {		
+		border: 1px solid blue;
+	}
