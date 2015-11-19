@@ -1,35 +1,28 @@
 <?php
 	require_once($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php');
-	require_once(CLASS_PATH . "BasicInfo.php");
+	require_once(CLASS_PATH . "Person.php");
 	//this class conatin information about Employee
-	class Employee{
+	class Employee extends Person{
 
 		//Properties:
-		//basic infomation of employee
-		private $basic_info;
 		// role id indicates the role of employee in the company
 		private $role_id;
 		// the unique number of each person in VietNam country
 		private $CMND;
 		// salary in Vietnamese currency
 		private $salary;
-		
 
 		//Constructor
 		public function __construct($basic_info = NULL, $salary = 0, $role_id = 1, $CMND = ""){
-			// if basic info not created yet, new it
- 			if (is_null($basic_info))
- 				$this->basic_info = new BasicInfo();
-			else
-				$this->basic_info = $basic_info;
-
+			//call parent to construct
+			parent::__construct($basic_info);
 			$this->salary = $salary;
 			$this->role_id = $role_id;
 			$this->CMND = $CMND;
+			$this->object_type = "Employee";
 		}
 		public function convert_to_HTML(){
-            //dummy code, for testing
-			return $this->basic_info->convert_to_HTML() . $this->role_id . $this->CMND . $this->salary ;
+            
 		}
 
 
@@ -38,15 +31,14 @@
 		// code = true, return json encode, else just return object data encode as an array
 		public function json_encode($code = true){
 			
-			//properties of TradeMark instance
-			$json = array(
-				//basic_info is an Object BasicInfo, so we must encode it to an array 
-	        	'basic_info' => $this->basic_info->json_encode(false),
-	        	'role_id' => $this->role_id,
-	        	'CMND' => $this->CMND,
-	        	'salary' =>	$this->salary,
-    		);
-
+			//call parent to encode the basic info part
+			$json = parent::json_encode(false);
+			
+			//add properties to json
+	        $json['role_id'] = $this->role_id;
+	        $json['CMND'] = $this->CMND;
+	        $json['salary'] = $this->salary;
+    		
     		// code = true, return json encode, else just return object data encode as an array
 			if ($code)
     			return json_encode($json);
@@ -74,11 +66,20 @@
 
 		//get data
 		private function get_data($data){
-			$this->basic_info->get_data_from_array($data['basic_info']);
+			//get baisc info to Employee
+			parent::get_data_from_array($data);
 			$this->role_id = $data['role_id'];
 			$this->salary = $data['salary'];
 			$this->CMND = $data['CMND'];
 		}
 	}
     
+
+    //test code
+    $basic = new BasicInfo("Trịnh Hoàng Triều","0903302234","thtrieu@apcs.vn","asdsadsad");
+    $e = new Employee($basic,10000,1,"131313");
+    TEST($e->json_encode(false));
+    $ee = new Employee();
+    $ee->get_data_from_json($e->json_encode());
+    TEST($ee->json_encode(false));
 ?>

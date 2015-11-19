@@ -1,21 +1,15 @@
 <?php
 	require_once($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php');
-	require_once(CLASS_PATH . "BasicInfo.php");
+	require_once(CLASS_PATH . "Person.php");
 	//this class conatin information about customer
-	class Customer{
-		//Properties
-		//customer only has the basic infomation
-		private $basic_info;
-
+	class Customer extends Person{
+		
 		//Constructor
 		// constructor receive basic info object
 		/// dafault value of basic_info will be NULL
 		public function __construct($basic_info = NULL){
-			// if basic info not created yet, new it
- 			if (is_null($basic_info))
- 				$this->basic_info = new BasicInfo();
-			else
-				$this->basic_info = $basic_info;
+ 			parent::__construct($basic_info);
+ 			$this->object_type = "Customer";
 		}
 		
 
@@ -29,12 +23,9 @@
 		// convert object to json format
 		// code = true, return json encode, else just return object data encode as an array
 		public function json_encode($code = true){
-			
-			//properties of TradeMark instance
-			$json = array(
-				//basic_info is an Object BasicInfo, so we must encode it to an array 
-	        	'basic_info' => $this->basic_info->json_encode(false),
-    		);
+			//call parent to encode the basic info part
+			$json = parent::json_encode(false);
+	        $json['object_type'] = $this->object_type;
 
     		// code = true, return json encode, else just return object data encode as an array
 			if ($code)
@@ -43,27 +34,14 @@
     			return $json;
 		
 		}
-		//get data from json_data 
-		public function get_data_from_json($json_data){
-			// decode input using json decode
-			$data = json_decode($json_data,true);
-	 		// if json last error is equal to NONE -> get the data from it
- 			if (json_last_error() == JSON_ERROR_NONE){
- 				//get the data 
- 				$this->get_data($data);
- 			}
-		} 
-
-		//get data from an array data 
-		public function get_data_from_array($data){
-			// a right Basic info array must have  property basic info
-			if ( isset($data['basic_info'])){
- 				$this->get_data($data);
-			}
-		} 
-		private function get_data($data){
-			$this->basic_info->get_data_from_array($data['basic_info']);
-		}
+		
 	}
-    
+
+	//test code
+    // $basic = new BasicInfo("Trịnh Hoàng Triều","0903302234","thtrieu@apcs.vn","asdsadsad");
+    // $e = new Customer($basic);
+    // TEST($e->json_encode(false));
+    // $ee = new Customer();
+    // $ee->get_data_from_json($e->json_encode());
+    // TEST($ee->json_encode(false));
 ?>

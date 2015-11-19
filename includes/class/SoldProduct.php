@@ -29,9 +29,8 @@
 		// code = true, return json encode, else just return object data encode as an array
 		public function json_encode($code = true){
 			// 2 basic properties of the sold product must have
-			$json = array();
+	    	$json = parent::json_encode(false);
 	    	$json['number'] = $this->number;
-	    	$json['product'] = parent::json_encode(false);
 	    	$json['object_type'] = $this->object_type;
  	    	// code = true, return json encode, else just return object data encode as an array
 	    	if ($code)
@@ -51,30 +50,27 @@
 
 		//get data from an array data 
 		public function get_data_from_array($data){
-			// a right Basic info array must have 3 properties basic info, nation an website
-			
-			if ( isset($data['product'])){
+		
  				$this->get_data($data);
-			}
 		}
 
 		// get data from array
 		private function get_data($data){
 			//call previous parent, get the data from data[product] to its properties
- 			parent::get_data_from_array($data['product']);
+ 			parent::get_data_from_array($data);
  			//get number to this instance property
 			$this->number = $data['number'];
 			$this->object_type= $data['object_type'];
 		} 
 	}
-	// $basic_info = new BasicInfo("aaaa","bbbb","cccc","ddddd");
- //    $tmp2 = new TradeMark($basic_info,"Viet Name", "google.com.vn");
- //    $product = new SoldProduct(10);
- //    $product->addAttribute("Sữa bò", "100", new Unit("hộp", 15000), $tmp2, "19/1/1995");
- //    print_r(json_decode($product->json_encode(),true));
- //    TEST("");	
- //    $product2 = new SoldProduct();
- //    $product2->get_data_from_json($product->json_encode());
- //    print_r(json_decode($product2->json_encode(),true));
+	 // $basic_info = new BasicInfo("aaaa","bbbb","cccc","ddddd");
+  //    $tmp2 = new TradeMark($basic_info,"Viet Name", "google.com.vn");
+  //    $product = new SoldProduct(10);
+  //    $product->add_attribute("Sữa bò", "100", new Unit("hộp", 15000), $tmp2, "19/1/1995");
+  //    print_r(json_decode($product->json_encode(),true));
+  //    TEST("");	
+  //    $product2 = new SoldProduct();
+  //    $product2->get_data_from_json($product->json_encode());
+  //    print_r(json_decode($product2->json_encode(),true));
 	
 ?>

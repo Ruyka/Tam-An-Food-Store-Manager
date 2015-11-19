@@ -58,7 +58,7 @@
 		}
 
 		//get the list of product info (name, unit)
-		public function get_list_of_product_info(){
+		private function get_list_of_product_info(){
 			//access to database db, call function to query list of product info
 			$list_product_info = $this->db->get_list_of_product_info();
 			
@@ -71,7 +71,7 @@
 		}
 
 		//get list of user name
-		public function get_list_of_user_name(){
+		private function get_list_of_user_name(){
 			//access to database db, call function to query list of product info
 			$list_of_user_name = $this->db->get_list_of_user_name();
 
