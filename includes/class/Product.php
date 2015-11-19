@@ -18,7 +18,7 @@ class Product{
 	private $dated;
 	
 	//save the type of the Product object
-	private $object_type;
+	protected $object_type;
 
 	//Constructor
 	public function __construct(){
