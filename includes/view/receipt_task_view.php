@@ -24,7 +24,6 @@
 				<!-- add/remove button -->
 				<td><button id="b1" class="btn add-more" type="button">+</button></td>
 			</tr>
-			<div id="field"><input autocomplete="off" class="input" id="field1" name="prof1" type="text" placeholder="Type something" data-items="8"/><button id="b1" class="btn add-more" type="button">+</button></div>
 		</table>
 	</form>
 
