@@ -76,10 +76,10 @@
     
 
     //test code
-    $basic = new BasicInfo("Trịnh Hoàng Triều","0903302234","thtrieu@apcs.vn","asdsadsad");
-    $e = new Employee($basic,10000,1,"131313");
-    TEST($e->json_encode(false));
-    $ee = new Employee();
-    $ee->get_data_from_json($e->json_encode());
-    TEST($ee->json_encode(false));
+    // $basic = new BasicInfo("Trịnh Hoàng Triều","0903302234","thtrieu@apcs.vn","asdsadsad");
+    // $e = new Employee($basic,10000,1,"131313");
+    // TEST($e->json_encode(false));
+    // $ee = new Employee();
+    // $ee->get_data_from_json($e->json_encode());
+    // TEST($ee->json_encode(false));
 ?>

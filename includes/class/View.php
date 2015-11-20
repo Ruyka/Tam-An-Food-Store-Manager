@@ -18,8 +18,9 @@
 			//return view
 			return View::$view;
 		}
+
 		// convert list of product get from database into object
-		//
+		//return: array of Product
 		public function list_product_to_json_data($data){
 			//new a new receipt
 			//basically, a Reiceipt is a list of product...
@@ -35,13 +36,15 @@
 			// return the receipt in json format
 			return $receipt->json_encode();
 		}
+		
+		//this function create a list of user name
+		//return: array of user Name
 		public function list_user_name_to_json_data($data){
 			$list_user_name = array();
 			foreach ($data as $value) {
-				
-				$e = new Employee(new BasicInfo($data["Name"]));
-				$list_user_name[] = $e;
+				$list_user_name[] = $value['Name'];
 			}
+			return json_encode($list_user_name);
 		}
 	}
 	

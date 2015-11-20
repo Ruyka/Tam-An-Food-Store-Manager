@@ -5,7 +5,7 @@
 	require_once(CLASS_PATH . "Employee.php");
 	require_once(CLASS_PATH . "Provider.php");
 	
-	class PersonFactory(){
+	class PersonFactory{
 		const PERSON = "Person";
 		const CUSTOMER = "Customer";
 		const EMPLOYEE = "Employee";

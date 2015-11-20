@@ -3,6 +3,7 @@
 	require_once(CLASS_PATH."Rest.inc.php");
 	require_once(CLASS_PATH."Database.php");
 	require_once(CLASS_PATH."View.php");
+	require_once(CLASS_PATH."ListOfPeople.php");
 	class Server extends REST{
 		//Properties
 		private $db;
@@ -71,7 +72,7 @@
 		}
 
 		//get list of user name
-		private function get_list_of_user_name(){
+		public function get_list_of_user_name(){
 			//access to database db, call function to query list of product info
 			$list_of_user_name = $this->db->get_list_of_user_name();
 
