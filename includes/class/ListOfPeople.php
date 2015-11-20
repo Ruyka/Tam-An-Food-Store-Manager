@@ -5,11 +5,11 @@
 
 	class ListOfPeople{
 		//properties
-		private $listOfPeople;
+		private $list_of_people;
 
 		//constructor
 		public function __construct(){
-			$this->listOfPeople = array();
+			$this->list_of_people = array();
 		}
 
 		//method:
@@ -18,12 +18,13 @@
 			//if there are many people, add them all
 			if (is_array($person)){
 				foreach ($person as $value) {
-					$listOfPeople[] = $value;		
+					$this->list_of_people[] = $value;		
 				}
 			}
 			else
 				//has only one person
-				$listOfPeople[] = $person;
+				$this->list_of_people[] = $person;
+
 		}
 
 		//convert to HTML for publication
@@ -37,7 +38,7 @@
 			$json = array();
 			//for each element in listOfPeople
 			// add data of that element to json key
-			foreach ($listOfPeople as $key => $value) {
+			foreach ($this->list_of_people as $key => $value) {
 				$json[$key] = $value->json_encode(false);	
 			}
 			
@@ -67,9 +68,22 @@
 		private function get_data($data){
 			foreach ($data as $key => $value) {
 				$person = PersonFactory::create_person($value['object_type']);
+				$person->get_data_from_array($value);
 				$this->add($person);
 			}
 		}
 	}
-	
+
+	//Test code
+	// $basic = new BasicInfo("Trịnh Hoàng Triều","0903302234","thtrieu@apcs.vn","asdsadsad");
+ //    $e = new Customer($basic);
+    
+ //    $l = new ListOfPeople();
+ //    $l->add($e);
+ //    $e2 = new Employee($basic,10000,10,"21321424");
+ //    $l->add($e2);
+ //    $l2 = new ListOfPeople();
+ //    $l2->get_data_from_json($l->json_encode());
+ //    TEST($l->json_encode(false));
+ //    TEST($l2->json_encode(false));
 ?>
