@@ -24,7 +24,7 @@
         or define("STYLE_PATH", realpath(dirname(__FILE__) . '/style/' ).'/');
     //store class file (object) used in the project
     defined("CLASS_PATH")
-        or define("CLASS_PATH", realpath(dirname(__FILE__) . '/class/' ).'/');
+        or define("CLASS_PATH", realpath(dirname(__FILE__) . '/includes/class/' ).'/');
     //store global function handle the unrelated to class problem
     defined("FUNCTION_PATH")
         or define("FUNCTION_PATH", realpath(dirname(__FILE__) . '/includes/function' ).'/');
@@ -110,6 +110,10 @@
         return $config["paths"][$tmp];
     }
     
+    function TEST($value){
+        print_r($value);
+        echo "</br></br>";
+    }
 
 /*
     Error reporting.

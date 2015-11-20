@@ -1,7 +1,6 @@
 <?php
 	require_once($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php');
-	require_once(CLASS_PATH . "Product.php");
-	require_once(CLASS_PATH . "SoldProduct.php");
+	require_once(CLASS_PATH . "ProductFactory.php");
 	require_once(CLASS_PATH . "Customer.php");
 	require_once(CLASS_PATH . "Employee.php");
 	
@@ -27,16 +26,30 @@
 		private $clients;
 
 		//constructer
-		public function __construct($receipt_id, $time, $receiver, $clients){
+		//Default value: receipt id = 1
+						//time = ""
+						//receiver and clients are NULL
+		public function __construct($receipt_id = -1, $time = "", $receiver = NULL, $clients = NULL){
 			$this->receipt_id = $receipt_id;
 			$this->time = $time;
-			$this->receiver = $receiver;
-			$this->clients = $clients;
+
+			//if receiver is NULL then create an empty receiver
+			if (is_null($receiver))
+				$this->receiver = new Employee();
+			else	
+				$this->receiver = $receiver;
+			
+			//if clients is null then create an empty clients
+			if (is_null($clients))
+				$this->clients = new Customer();
+			else 
+				$this->clients = $clients;
 		}
 
+		//Method:
 		//add one or list of product to Receipt
 		public function add($list_of_product){
-
+			
 			//check if list of product != NULL
 			if (isset($list_of_product)){
 				
@@ -100,6 +113,7 @@
 	    	//for each productm add and value that are encoding to array data
 			$i = 0;
 			foreach ($this->list_product as $value) {
+				
 				$json['list_product']["$i"] = $value->json_encode(false);
 				++$i;
 				
@@ -112,24 +126,76 @@
 	    	else
 	    		return $json;
 		}
+
+		//get data from json_data 
+		public function get_data_from_json($json_data){
+			// decode input using json decode
+			$data = json_decode($json_data,true);
+	 		
+	 		// if json last error is equal to NONE -> get the data from it
+			if (json_last_error() == JSON_ERROR_NONE){
+				$this->get_data($data);	
+			}
+		} 
+
+		//get data from an array data 
+		public function get_data_from_array($data){
+			// a right Basic info array must have 5 properties
+			// name, total_number, unit, trademark, dated
+			if ( isset($data['name']) && isset($data['total_number']) && isset($data['unit']) 
+					&& isset($data['trademark']) && isset($data['dated']) ){
+				
+				$this->get_data($data);
+			}
+		}
+
+		// get data from array
+		private function get_data($data){
+			// get id
+			$this->receipt_id = $data['receipt_id'];
+			
+			//get the time of receipt
+			$this->time = $data['time'];
+			
+			// get clients data
+			$this->clients->get_data_from_array($data['clients']);
+			
+			//get receiver data
+			$this->receiver->get_data_from_array($data['receiver']);
+			
+			//get list of product 
+			$list_data_product = $data['list_product'];
+			// for each value in data list product, push into the list product
+			foreach ($list_data_product as $value) {
+				
+				//get the product factory to get the right product object type
+				$product = ProductFactory::create_product($value['object_type']);
+				//get data from value array
+				$product->get_data_from_array($value);
+				//add product to list_product
+				$this->add($product);
+	    	}
+		} 
 	}
+
 	
 	//SAMPLE CODE TO TEST, READ FOR FUN lol :V
 
- //    $tmp = new SoldProduct(100);
- //    $tmp->addAttribute("Sữa",100,new Unit("hộp",10000), 
- //    		new Trademark(
- //    			new BasicInfo("Hồ Hữu Phát","hhphat@apcs.vn","0906332121","4 ABCD")
- //    			,"Việt Nam","google.com.vn"
- //    		)
- //    		,"17/11/2015");
+     // $tmp = new SoldProduct(113);
+     // $tmp->add_attribute("Sữa",100,new Unit("hộp",10000), 
+     // 		new Trademark(
+     // 			new BasicInfo("Hồ Hữu Phát","hhphat@apcs.vn","0906332121","4 ABCD")
+     // 			,"Việt Nam","google.com.vn"
+     // 		)
+     // 		,"17/11/2015");
 
- //    $BasicInfo = new BasicInfo("Kim Nhật Thành","knthanh@apcs.vn","0923232121","4 ABCD");
+     // $BasicInfo = new BasicInfo("Kim Nhật Thành","knthanh@apcs.vn","0923232121","4 ABCD");
 
- //    $recepit = new Receipt(1,1,new Employee($BasicInfo,10000,1,"1313131"), new Customer($BasicInfo));
+     // $receipt = new Receipt(1,1,new Employee($BasicInfo,10000,1,"1313131"), new Customer($BasicInfo));
     
- //    $recepit->add($tmp);
- //    $recepit->add($tmp);
-
- //    print_r(json_decode($recepit->json_encode(),true));
+     // $receipt->add($tmp);
+     // $receipt->add($tmp);
+     // $receipt2 = new Receipt();
+     // $receipt2->get_data_from_json($receipt->json_encode());
+     // TEST($receipt2->json_encode(false));
 ?>

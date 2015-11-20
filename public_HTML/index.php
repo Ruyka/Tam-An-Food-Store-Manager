@@ -7,11 +7,12 @@
 <body>
 	<script type="text/javascript">
 		// on document ready load default task
+		// might need cookie or chace in the near future
 		$(document).ready(function(){
 			$("#task1").parent().find("div.load").load('<?php echo CONFIG_PATH("view")."receipt_task_view.php"; ?>');
 			$("#task2").parent().find("div.load").load('<?php echo CONFIG_PATH("view")."receipt_task_view.php"; ?>');
-			});
-		// Switch task upon selected task in select
+		});
+		// Switch task upon selected task
 		function switch_task(task_id) {
 			var task = document.getElementById(task_id);
 			var val = task.value;
@@ -22,26 +23,28 @@
 				$("#"+task_id).parent().find("div.load").load('<?php echo CONFIG_PATH("view")."blank.php"; ?>');
 		}
 		</script>
-		<div class="khung"> 
+		<div class="khung no-print"> 
 			<?php require_once(VIEW_PATH."header.php");?>
-			<?php require_once(FUNCTION_PATH."print_receipt.php");?>
 			<div class="TacVu">
-				<select id="task1" onchange="switch_task('task1')" style="margin:10px;">
+				<select id="task1" class="no-print" onchange="switch_task('task1')" style="margin:10px;">
 					<option value="receipt">In hóa đơn</option>
 					<option value="2">Quản lý nhập</option>
 					<option value="3">Quản lý dư</option>
 				</select>	
-				<div class="load"></div>		
+
+				<div class="load">IF YOU SEE THIS THEN SWITCH TASK FUNCTION IS NOT WORKING</div>		
 			</div>
 
 			<div class="TacVu">
-				<select id="task2" onchange="switch_task('task2')" style="margin:10px;">
+				<select id="task2" class="no-print" onchange="switch_task('task2')" style="margin:10px;">
 					<option value="receipt">In hóa đơn</option>
 					<option value="2">Quản lý nhập</option>
 					<option value="3">Quản lý dư</option>
 				</select>
-				<div class="load"></div>	
+				<div class="load">IF YOU SEE THIS THEN SWITCH TASK FUNCTION IS NOT WORKING</div>	
 			</div>
 		</div>
+		<!-- Only the latest submit print is accepted  -->
+		<div class="print-blocks">IF YOU SEE THIS THEN PRINT FUNCTION IS NOT WORKING</div>
 	</body>
 	</html>
