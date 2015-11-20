@@ -34,11 +34,7 @@
 				<option value="3">Quản lý dư</option>
 			</select>
 
-		</div>
-		
-		
-		
-		
+		</div>	
 	</div>
 </div>
 </body>

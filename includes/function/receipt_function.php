@@ -1,65 +1,38 @@
-<?php 	
-require_once($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php');
-
-require_once(CLASS_PATH."AllClass.php");
+<?php 
+require_once($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php'); 
 ?>
+
 <!-- Javascript function here -->
 <script type="text/javascript">
-// change php data to js data for easier DOM manipulate
-
-</script>
-<script type="text/javascript">
+        $(".product-list").select2();
 // Add new input field for the receipt
-$(document).ready(function(){
-	var next = 1;
+next = 1;
+wrapper = $("#receipt-product-list");
 
-	$(".add-more").click(function(e){
-		e.preventDefault();
+function add_more(button_id){
         // generate new field
-        // add new auto increment class
-        var newAut = '<td class="row-auto-increment">'+(next+1)+'</td>';
-        var newAuto = $(newAut);
-        // add new product select
-        var newPL = '<td><select name="product'+next+'" class="product-list"></select></td>';
-        var newProList = $(newPL);
-        // add new product
-        var newP = '<td><p name="product'+next+'_price" class="product-price">Product Price</p></td>';
-        var newPrice = $(newP);
-        var newQ = '<td><input name="product'+next+'_quantity" type="number" min="0" placeholder="Số lượng"></td>';
-        var newQuantity = $(newQ);
-        var newT = '<td><p name="product'+next+'_total" class="total-price">Total price</p></td>';
-        var newTotal = $(newT);
-        var addBtn = '<button id="b' + next + '" class="btn btn-danger add-more" >+</button></div><div id="field">';
-        var addButton = $(addBtn);
-        var newR = '<tr id="receipt-row'+next+'" class="receipt-row">' + newAuto + newProList + newPrice + newQuantity + newTotal + addButton + '</tr>';
-        var newRow = $(newR);
-        next = next + 1;
+        var product = '<td><select name="product'+next+'" class="product-list"></select></td>';
+        var price  = '<td><p name="product'+next+'_price" class="product-price">Product Price</p></td>';
+        var quantity = '<td><input name="product'+next+'_quantity" type="number" min="0" placeholder="Số lượng"></td>';
+        var total = '<td><p name="product'+next+'_total" class="total-price">Total price</p></td>';
+        var button = '<td><button id="add'+next+'" class="btn btn-success btn-add" type="button" onclick="add_more(\'add'+next+'\')"><span class="glyphicon glyphicon-plus"></span></button></td>';
+        var row = '<tr id="receipt-row'+(next + 1)+'" class="receipt-row">' + autoInc + product + price + quantity + total + button + '</tr>';
+        $(wrapper).append(row);
 
-        $("#receipt-product-list").append(newRow);
+        $("#"+button_id).replaceWith('<td><button class="btn btn-danger btn-add" type="button" onclick="row_delete(\'receipt-row'+next+'\')"><span class="glyphicon glyphicon-minus"></span></button></td>');
+        next++;
+    }
+    function row_delete(row_id){
+     $("#"+row_id).remove();
+ }
+ </script>
 
-        $('.remove-me').click(function(e){
-        	e.preventDefault();
-        	var fieldNum = this.id.charAt(this.id.length-1);
-        	var fieldID = "#field" + fieldNum;
-        	$(this).remove();
-        	$(fieldID).remove();
-        });
-    });
-});
-</script>
-
-
-<!-- PHP function here -->
-<?php 
+ <!-- PHP function here -->
+ <?php 
 // Alter print div upon submition succesful
-function make_print_section(){
+ function make_print_section(){
 
-}
+ }
 
-function get_data_from_server(){
-	$manager = new Management;
-	$data = $manager->get_list_of_product_info();
-	echo $data;
-	return $data;
-}
-?>
+
+ ?>
