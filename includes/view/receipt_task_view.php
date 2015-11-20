@@ -9,20 +9,21 @@
 		<input type="submit" value="Cancel" class="btn btn-primary pull-right bigBtn" >
 		<p class="clear"></p>
 		<!-- select2  -->
-		<table id="receipt-product-list">
+		<table id="receipt-product-list" class="table table-striped table-bordered">
+			<tr class="success"><th>Product</th><th>Price per product</th><th>Quantity</th><th>Total</th><th></th></tr>
 			<tr id="receipt-row1" class="receipt-row">
-				<!-- auto increment -->
-				<td class="row-auto-increment">1</td>
 				<!-- product list -->
-				<td><select name="product1" class="product-list"></select></td>
+				<td><select name="product" class="product-list"></select></td>
 				<!-- price each -->
-				<td><p name="product1_price" class="product-price">Product Price</p></td>
+				<td><p name="product_price" class="product-price">Product Price</p></td>
 				<!-- quantity -->
-				<td><input name="product1_quantity" type="number" min="0" placeholder="Số lượng"></td>
+				<td><input name="product_quantity" type="number" min="0" placeholder="Số lượng"></td>
 				<!-- total price -->
-				<td><p name="product1_total" class="total-price">Total price</p></td>
+				<td><p name="product_total" class="total-price">Total price</p></td>
 				<!-- add/remove button -->
-				<td><button id="b1" class="btn add-more" type="button">+</button></td>
+				<td><button id="add" class="btn btn-success btn-add" type="button" onclick="add_more('add')"><span class="glyphicon glyphicon-plus"></span></button></td>
+				<!-- add/remove button -->
+				<td></td>
 			</tr>
 		</table>
 	</form>

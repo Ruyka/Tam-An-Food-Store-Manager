@@ -1,7 +1,4 @@
-<!-- 
-    Header part of Tam An webpage
-    can import when has include config.php
--->
+<!-- Header part of Tam An webpage can import when has include config.php -->
 <div id="topbar">
   <div class="fixedwidth">
     <div id="topbar" class="no-print">
