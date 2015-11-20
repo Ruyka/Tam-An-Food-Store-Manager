@@ -4,6 +4,9 @@
  -->
 <div id="topbar">
   <div class="fixedwidth">
+=======
+<div id="topbar" class="no-print">
+    <div class="fixedwidth">
         <div id="logodiv">
             <img id="logo" src="<?php echo CONFIG_PATH('image')."logo.jpg"?>"  />         
         </div>
