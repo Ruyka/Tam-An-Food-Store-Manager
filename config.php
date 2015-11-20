@@ -110,12 +110,16 @@
         return $config["paths"][$tmp];
     }
     
+    function TEST($value){
+        print_r($value);
+        echo "</br></br>";
+    }
 
 /*
     Error reporting.
 */
     ini_set("error_reporting", "true");
     error_reporting(E_ALL|E_STRCT);
- 
+    ini_set('default_charset', 'utf-8'); 
 
 ?>
