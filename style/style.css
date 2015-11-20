@@ -86,3 +86,9 @@
 	.TacVu {		
 		border: 1px solid blue;
 	}
+	.khung {
+		border: 1px solid grey;
+	}
+	#tb1 {
+		margin-top: 50px;
+	}

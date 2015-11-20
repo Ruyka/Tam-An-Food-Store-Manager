@@ -46,9 +46,6 @@ $(document).ready(function(){
         });
     });
 });
-function js_get_data_from_server(){
-	data = <?php echo get_data_from_server(); ?>;
-}
 </script>
 
 
