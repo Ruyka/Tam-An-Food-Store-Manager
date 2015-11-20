@@ -52,6 +52,6 @@
 	}
 	//test code
 	 $tmp = new Management();
-	 TEST($tmp->get_list_of_user_name());
+	 TEST($tmp->get_list_of_product_info());
 
 ?>
