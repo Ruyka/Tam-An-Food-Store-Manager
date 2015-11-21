@@ -77,7 +77,6 @@
 	/* child div must be smaller than parent div */
 	/* add red border for visibility */
 	.load {
-		width: 80%;
 		border: 1px solid red;
 		margin: 2px;	
 	}
