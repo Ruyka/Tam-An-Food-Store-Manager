@@ -48,4 +48,4 @@ include($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php');
 		<!-- Only the latest submit print is accepted  -->
 		<div id="print_here" class="print-blocks">IF YOU SEE THIS THEN PRINT FUNCTION IS NOT WORKING</div>
 	</body>
-	</html>
+</html>
