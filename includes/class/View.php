@@ -53,5 +53,4 @@
 	// $tmp->connect();
 	// $list_product_info = $tmp->get_list_of_product_info();
 	// TEST(json_decode($view->list_product_to_json_data($list_product_info),true);
-
 ?>
