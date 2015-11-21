@@ -3,27 +3,27 @@
 <?php require_once(FUNCTION_PATH. "receipt_function.php"); ?>
 <!-- Receipt task view -->
 <div class="receipt-view">
-	<form id="myform" action="" method="post" onsubmit="callModal">
-		<input type="submit" value="Print" class="btn btn-primary pull-right bigBtn">
-		<input type="submit" value="Preview" class="btn btn-primary pull-right bigBtn">
-		<input type="submit" value="Cancel" class="btn btn-primary pull-right bigBtn" >
-		<p class="clear"></p>
+	<form id="receipt-form" action="" method="post" role="form">
+		<div class="form-group">
+			<input type="submit" value="Print" class="btn btn-primary pull-right bigBtn" tabindex="-1">
+			<input type="submit" value="Preview" class="btn btn-primary pull-right bigBtn" tabindex="-1">
+			<input type="submit" value="Cancel" class="btn btn-primary pull-right bigBtn" tabindex="-1">
+			<p class="clear"></p>		
+		</div>
 		<!-- select2  -->
 		<table id="receipt-product-list" class="table table-striped table-bordered">
 			<tr class="success"><th>Product</th><th>Price per product</th><th>Quantity</th><th>Total</th><th></th></tr>
 			<tr id="receipt-row1" class="receipt-row">
 				<!-- product list -->
-				<td><select name="product" class="product-list"></select></td>
+				<td><select id="product" name="product" onchange="observe_change('')" class="product-list"></select></td>
 				<!-- price each -->
-				<td><p name="product_price" class="product-price">Product Price</p></td>
+				<td><p id="product_price" class="product-price form-control">Product Price</p></td>
 				<!-- quantity -->
-				<td><input name="product_quantity" type="number" min="0" placeholder="Số lượng"></td>
+				<td><input id="product_quantity" class="form-control" name="product_quantity" onchange="observe_change('')" type="number" min="0" placeholder="Số lượng"></td>
 				<!-- total price -->
-				<td><p name="product_total" class="total-price">Total price</p></td>
+				<td><p id="product_total" class="total-price form-control">Total price</p></td>
 				<!-- add/remove button -->
-				<td><button id="add" class="btn btn-success btn-add" type="button" onclick="add_more('add')"><span class="glyphicon glyphicon-plus"></span></button></td>
-				<!-- add/remove button -->
-				<td></td>
+				<td><p id="add"></p></td>
 			</tr>
 		</table>
 	</form>
