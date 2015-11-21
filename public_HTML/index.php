@@ -1,4 +1,6 @@
-<?php include($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php'); ?>
+<?php 
+include($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php');
+?>
 
 <!doctype html>
 <html>
@@ -10,7 +12,6 @@
 		// might need cookie or chace in the near future
 		$(document).ready(function(){
 			$("#task1").parent().find("div.load").load('<?php echo CONFIG_PATH("view")."receipt_task_view.php"; ?>');
-			$("#task2").parent().find("div.load").load('<?php echo CONFIG_PATH("view")."receipt_task_view.php"; ?>');
 		});
 		// Switch task upon selected task
 		function switch_task(task_id) {
@@ -25,8 +26,8 @@
 		</script>
 		<div class="khung no-print"> 
 			<?php require_once(VIEW_PATH."header.php");?>
-			<div class="TacVu">
-				<select id="task1" class="no-print" onchange="switch_task('task1')" style="margin:10px;">
+			<div id="TacVu1" class="TacVu col-md-6">
+				<select id="task1" tabindex="-1" class="form-control" onchange="switch_task('task1')" style="margin:10px;">
 					<option value="receipt">In hóa đơn</option>
 					<option value="2">Quản lý nhập</option>
 					<option value="3">Quản lý dư</option>
@@ -35,16 +36,16 @@
 				<div class="load">IF YOU SEE THIS THEN SWITCH TASK FUNCTION IS NOT WORKING</div>		
 			</div>
 
-			<div class="TacVu">
-				<select id="task2" class="no-print" onchange="switch_task('task2')" style="margin:10px;">
+			<div id="TacVu1" class="TacVu col-md-6">
+				<select id="task2" tabindex="-1" class="form-control" style="margin:10px;">
 					<option value="receipt">In hóa đơn</option>
 					<option value="2">Quản lý nhập</option>
 					<option value="3">Quản lý dư</option>
 				</select>
-				<div class="load">IF YOU SEE THIS THEN SWITCH TASK FUNCTION IS NOT WORKING</div>	
+				<div class="load">THIS FUNCTION HAS NOT BEEN IMPLEMENTED</div>	
 			</div>
 		</div>
 		<!-- Only the latest submit print is accepted  -->
-		<div class="print-blocks">IF YOU SEE THIS THEN PRINT FUNCTION IS NOT WORKING</div>
+		<div id="print_here" class="print-blocks">IF YOU SEE THIS THEN PRINT FUNCTION IS NOT WORKING</div>
 	</body>
-	</html>
+</html>

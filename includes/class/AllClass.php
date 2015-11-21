@@ -7,7 +7,7 @@
 	require_once(CLASS_PATH."Customer.php");
 	require_once(CLASS_PATH."Database.php");
 	require_once(CLASS_PATH."Employee.php");
-	//require_once(CLASS_PATH."Management.php");
+	require_once(CLASS_PATH."Management.php");
 	require_once(CLASS_PATH."Product.php");
 	require_once(CLASS_PATH."ProductFactory.php");
 	require_once(CLASS_PATH."Receipt.php");
