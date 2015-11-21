@@ -16,7 +16,6 @@ include($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php');
 		// Switch task upon selected task
 		function switch_task(task_id) {
 			var task = document.getElementById(task_id);
-			var taskid = task_id.charAt(task_id.length-1);
 			var val = task.value;
 
 			if(val == "receipt")
@@ -28,7 +27,7 @@ include($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php');
 		<div class="khung no-print"> 
 			<?php require_once(VIEW_PATH."header.php");?>
 			<div id="TacVu1" class="TacVu col-md-6">
-				<select id="task1" class="no-print" onchange="switch_task('task1')" style="margin:10px;">
+				<select id="task1" tabindex="-1" class="form-control" onchange="switch_task('task1')" style="margin:10px;">
 					<option value="receipt">In hóa đơn</option>
 					<option value="2">Quản lý nhập</option>
 					<option value="3">Quản lý dư</option>
@@ -38,7 +37,7 @@ include($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php');
 			</div>
 
 			<div id="TacVu1" class="TacVu col-md-6">
-				<select id="task2" class="no-print" style="margin:10px;">
+				<select id="task2" tabindex="-1" class="form-control" style="margin:10px;">
 					<option value="receipt">In hóa đơn</option>
 					<option value="2">Quản lý nhập</option>
 					<option value="3">Quản lý dư</option>

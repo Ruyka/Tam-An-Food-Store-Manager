@@ -10,7 +10,7 @@
             <div style="float:left;" ><p id="newsheader"> ORGANICFOOD <span id="VN"> VIỆT NAM </span> </p></div>
 
             <div id="sign-in" >
-                Just a Team <br \><a href="https://www.google.com">Log Out</a>
+                Just a Team <br \><a tabindex="-1"  href="https://www.google.com">Log Out</a>
             </div>
 
         </div>
