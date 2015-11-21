@@ -19,11 +19,13 @@
 		}
 
 		//send the message to server to get the list of product info
+		//return array type
 		public function get_list_of_product_info(){
 			return $this->get_response_from_message("get list of product info");
 		}
 		
 		//send message to server to get the list of user name
+		//return array type
 		public function get_list_of_user_name(){
 			return $this->get_response_from_message("get list of user name");
 		}

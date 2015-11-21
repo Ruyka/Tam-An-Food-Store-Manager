@@ -1,6 +1,7 @@
 <?php 
-require_once($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php'); 
+    require_once($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php'); 
     require_once(CLASS_PATH."AllClass.php");
+    require_once(CLASS_PATH."Management.php");
 ?>
 
 <!-- PHP function here -->
@@ -12,30 +13,20 @@ function make_print_section(){
 
 function get_receipt_data_from_server(){
         $manager = new Management();
-        return $manager->get_list_of_product_info();
-        
-
-        // Make fake data
-    // $product = array('1'=>"ProductA",'2'=>"ProductB",'3'=>"ProductC");
-    // $type = array('1'=>"TypeA",'2'=>"TypeB",'3'=>"TypeC");
-    // $price = array('1'=>"10",'2'=>"15",'3'=>"20");
-    // $total_quantity = array('1'=>"50",'2'=>"70",'3'=>"30");
-    // $trademark = array('1'=>"corpA",'2'=>"",'3'=>"corB");
-
-    // return array('product' => $product, 'type' => $type, 'price' => $price, 'total_quantity' => $total_quantity, 'trademark' => $trademark);
-
-        // $data = array('1' => array("ProductA", "TypeA", 10, 50, "corpA"), '2' => array("ProductB", "TypeB", 15, 70, ""), '3' => array("ProductC", "TypeC", 20, 30, "corpC"));
-        // return $data;
+        $data = $manager->get_list_of_product_info();
+        $receipt = new Receipt();
+        $receipt->get_data_from_array($data);
+        return $receipt;
 }
 
 $data = get_receipt_data_from_server();
-
-print_r($data);
 ?>
 
 <!-- Javascript function here -->
 <script type="text/javascript">
 // Fake data
+test = <?php echo $data->json_encode(); ?> ;
+alert(JSON.stringify(test));
 product_list = ['ProductA','ProductB','ProductC'];
 product_price = [10,15,20];
 option_list = "";
