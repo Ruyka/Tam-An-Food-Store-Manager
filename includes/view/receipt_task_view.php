@@ -3,11 +3,11 @@
 <?php require_once(FUNCTION_PATH. "receipt_function.php"); ?>
 <!-- Receipt task view -->
 <div class="receipt-view">
-	<form id="receipt-form" action="<?php echo CONFIG_PATH('function').'test.php'; ?>" method="post" role="form">
+	<form id="receipt-form" method="post" role="form">
 		<div class="form-group">
-			<input type="submit" value="Print" class="btn btn-primary pull-right bigBtn" tabindex="-1">
-			<input type="submit" value="Preview" class="btn btn-primary pull-right bigBtn" tabindex="-1">
-			<input type="submit" value="Cancel" class="btn btn-primary pull-right bigBtn" tabindex="-1">
+			<input type="button" value="Print" id="print" class="btn btn-primary pull-right bigBtn" tabindex="-1">
+			<input type="button" value="Preview" id="preview" class="btn btn-primary pull-right bigBtn" tabindex="-1">
+			<input type="button" value="Cancel" id="cancel" class="btn btn-primary pull-right bigBtn" tabindex="-1">
 			<p class="clear"></p>		
 		</div>
 		<!-- select2  -->
@@ -15,7 +15,7 @@
 			<tr class="success"><th>Product</th><th>Quantity</th><th>Price per product</th><th>Total</th><th></th></tr>
 			<tr id="receipt-row1" class="receipt-row">
 				<!-- product list -->
-				<td><select id="product" class="product-list" name="product" onchange="observe_change('')"></select></td>
+				<td><select id="product"  class="product-list form-control" name="product" onchange="observe_change('')"></select></td>
 				<!-- quantity -->
 				<td><input id="product_quantity" class="form-control" name="product_quantity" onchange="observe_change('')" type="number" min="0" placeholder="Số lượng"></td>
 				<!-- price each -->
