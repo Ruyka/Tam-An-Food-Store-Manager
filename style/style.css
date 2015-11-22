@@ -1,4 +1,5 @@
 	
+<<<<<<< HEAD
 body {
 	margin:0;
 }
@@ -9,6 +10,52 @@ body {
 #logo {
 	width: 140px;
 	height: 70px;
+=======
+	body {
+		margin:0;
+	}
+	/* the div contain logo*/
+	#logodiv {
+		float: left;
+		
+	}
+	/* logo Tam An*/
+	#logo {
+		width: 140px;
+		height: 70px;
+	}
+	/* sign in area in nav */
+	#sign-in {
+		font-weight: bold;
+		float: right;
+		font-size: 1.1em;
+		width:auto;
+		height: 30px;
+	}
+	
+	/* Clear */
+	.break {
+		clear:both;
+	}
+
+	/* Organic food*/
+	#header {
+		margin:2px;
+		font-size:3em;
+		position: absolute;
+		top:15px;
+		left: 200px;
+
+	}
+
+	/* Viet nam text  */
+	#VN {
+		font-size: 0.7em;
+		padding-left: 10px;
+	}
+	
+	/* print section hide print block in mormal use and hide the other when print */
+>>>>>>> 92b9a33943adfbaca1f79ae5e9a2957890b1c06b
 
 }
 .fixedwidth {
@@ -41,9 +88,21 @@ body {
 	padding-left: 10px;
 }
 
+<<<<<<< HEAD
 /* print section hide print block in mormal use and hide the other when print */
 
 .print-blocks{display:none;}
+=======
+	/* Clear */
+	.clear {
+		clear: both;
+	}
+	/* button margin (Cancel Print Preview) */
+	.bigBtn{
+		width:80px;
+		margin: 5px;
+	}
+>>>>>>> 92b9a33943adfbaca1f79ae5e9a2957890b1c06b
 
 @media print {
 	.no-print{display: none;}
@@ -52,6 +111,7 @@ body {
 	}
 }
 
+<<<<<<< HEAD
 /* Clear */
 .clear {
 	clear: both;
@@ -110,3 +170,22 @@ body {
 	-moz-box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
 	box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
 }
+=======
+	/* content of Tac Vu lolololol*/
+	.inner-content{
+    	margin:15px;
+    	padding:10px;
+    	background-color: white;
+    	 
+	}
+
+	/* content of navigation bar*/
+	.inner-nav-content{
+		height: 100px;
+		background-color: #99FA7E;
+		border-bottom: 2px solid grey;
+	}
+	
+	
+	
+>>>>>>> 92b9a33943adfbaca1f79ae5e9a2957890b1c06b
