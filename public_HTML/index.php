@@ -6,7 +6,7 @@ include($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php');
 <html>
 
 <?php require_once(VIEW_PATH . "head.php");?>
-<body style = "background-color : #FFBF86;">
+<body style = "background-color : #FFE6CF;">
 		<script type="text/javascript">
 		// on document ready load default task
 		// might need cookie or chace in the near future
