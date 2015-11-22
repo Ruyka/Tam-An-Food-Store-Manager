@@ -3,11 +3,12 @@
 <?php require_once(FUNCTION_PATH. "receipt_function.php"); ?>
 <!-- Receipt task view -->
 <div class="receipt-view">
-	<form id="receipt-form" method="post" role="form">
+	<form id="receipt-form" action="<?php echo CONFIG_PATH('function').'process_submit.php'; ?>" method="post" role="form">
 		<div class="form-group">
 			<input type="button" value="Print" id="print" class="btn btn-primary pull-right bigBtn" tabindex="-1">
 			<input type="button" value="Preview" id="preview" class="btn btn-primary pull-right bigBtn" tabindex="-1">
 			<input type="button" value="Cancel" id="cancel" class="btn btn-primary pull-right bigBtn" tabindex="-1">
+			<input type="hidden" name="submit_type" value="" id="submit_type">
 			<p class="clear"></p>		
 		</div>
 		<!-- select2  -->
@@ -50,4 +51,6 @@
 		</div>
 	</div>
 
+	<!-- make a toast here -->
+	<div id="toast" style="display:none">Toast event</div>
 </div>
