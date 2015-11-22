@@ -1,81 +1,66 @@
-	
-	body {
-		margin:0;
-	}
-	/* the div contain logo*/
-	#logodiv {
-		float: left;
-		
-	}
-	/* logo Tam An*/
-	#logo {
-		width: 140px;
-		height: 70px;
-	}
-	/* sign in area in nav */
-	#sign-in {
-		font-weight: bold;
-		float: right;
-		font-size: 1.1em;
-		width:auto;
-		height: 30px;
-	}
-	
-	/* Clear */
-	.break {
-		clear:both;
-	}
 
-	/* Organic food*/
-	#header {
-		margin:2px;
-		font-size:3em;
-		position: absolute;
-		top:15px;
-		left: 200px;
+body {
+	margin:0;
+}
+#logodiv {
+	float: left;
 
-	}
+}
+#logo {
+	width: 140px;
+	height: 70px;
 
-	/* Viet nam text  */
-	#VN {
-		font-size: 0.7em;
-		padding-left: 10px;
-	}
-	
-	/* print section hide print block in mormal use and hide the other when print */
+}
+.fixedwidth {
+	margin:0 auto;
+}
+#sign-in {
+	font-weight: bold;
+	float: right;
+	font-size: 1.1em;
+	width:auto;
+	height: 30px;
+}
+#sign-in img {
+	padding-left: 10px;
+	padding-right: 20px;
+}
+.break {
+	clear:both;
+}
+#header {
+	margin:2px;
+	font-size:3em;
+	position: absolute;
+	top:15px;
+	left: 200px;
 
-	.print-blocks{display:none;}
+}
+#VN {
+	font-size: 0.7em;
+	padding-left: 10px;
+}
 
-	@media print {
-		.no-print{display: none;}
-		.print-blocks {
-			display: block;
-		}
-	}
+/* print section hide print block in mormal use and hide the other when print */
 
-	/* Clear */
-	.clear {
-		clear: both;
-	}
-	/* button margin (Cancel Print Preview) */
-	.bigBtn{
-		width:80px;
-		margin: 5px;
-	}
+.print-blocks{display:none;}
 
-	/* child div must be smaller than parent div */
-	/* add red border for visibility */
-	.load {
-		margin: 2px;	
+@media print {
+	.no-print{display: none;}
+	.print-blocks {
+		display: block;
 	}
+}
 
-	/* content of Tac Vu lolololol*/
-	.inner-content{
-    	margin:15px;
-    	padding:10px;
-    	background-color: white;
-    	 
-	}
+/* Clear */
+.clear {
+	clear: both;
+}
+
+.bigBtn{
+	width:80px;
+	margin: 5px;
+}
 
 	/* content of navigation bar*/
 	.inner-nav-content{
@@ -88,3 +73,53 @@
 	.black-icon-bar{
 		background-color: black;
 	}
+
+/* child div must be smaller than parent div */
+/* add red border for visibility */
+.load {
+	margin: 2px;	
+}
+
+/* add border for visibility */
+.inner-content{
+	margin:15px;
+	padding:10px;
+	background-color: white;
+
+}
+.inner-nav-content{
+	height: 100px;
+	background-color: #99FA7E;
+	border-bottom: 2px solid grey;
+}
+.inner-collapse{
+	width: 100%;
+}
+#tb1 {
+	margin-top: 50px;
+}
+.khung{
+	background-color: rgba(188,184,184,0.6);
+}
+
+/* make toast like on android */
+#toast {
+	width:200px;
+	height:20px;
+	height:auto;
+	position:absolute;
+	left:50%;
+	margin-left:-100px;
+	bottom:10px;
+	background-color: #383838;
+	color: #F0F0F0;
+	font-family: Calibri;
+	font-size: 20px;
+	padding:10px;
+	text-align:center;
+	border-radius: 2px;
+	-webkit-box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
+	-moz-box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
+	box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
+}
+
