@@ -29,8 +29,6 @@ function get_receipt_data_from_server(){
 }
 
 $data = get_receipt_data_from_server();
-
-print_r($data);
 ?>
 
 <!-- Javascript function here -->
@@ -51,19 +49,19 @@ $(document).ready(function(){
     $(".product-list").select2();
     $("#product_price").html(product_price[0]);
     observe_change('');
-    $("#receipt-form").submit(function(e) {
-        e.preventDefault();
-    });
+    // $("#receipt-form").submit(function(e) {
+    //     e.preventDefault();
+    // });
 });
 
 function add_more(id){
     // generate new row
     var product = '<td><select id="product'+next+'" name="product'+next+'" onchange="observe_change('+next+')" id="select2-product'+next+'-list" class="product-list">'+option_list+'</select></td>';
-    var price  = '<td><p id="product'+next+'_price" class="product-price form-control">Product Price</p></td>';
     var quantity = '<td><input id="product'+next+'_quantity" class="form-control" name="product'+next+'_quantity" onchange="observe_change('+next+')" type="number" min="0" placeholder="Số lượng"></td>';
+    var price  = '<td><p id="product'+next+'_price" class="product-price form-control">Product Price</p></td>';
     var total = '<td><p id="product'+next+'_total" class="total-price  form-control">Total price</p></td>';
     var button = '<td><p id="add'+next+'"></p></td>';
-    var row = '<tr id="receipt-row'+(next + 1)+'" class="receipt-row">' + product + price + quantity + total + button + '</tr>';
+    var row = '<tr id="receipt-row'+(next + 1)+'" class="receipt-row">' + product + quantity + price + total + button + '</tr>';
     $(wrapper).append(row);
     // change current button to remove button
     $("#add"+id).replaceWith('<button class="btn btn-danger btn-add form-control" type="button" onclick="row_delete('+next+')" tabindex="-1"><span class="glyphicon glyphicon-minus"></span></button>');
