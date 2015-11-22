@@ -12,6 +12,7 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo CONFIG_PATH('lib')."bootstrap/css/bootstrap.min.css"; ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo CONFIG_PATH('lib')."bootstrap/css/bootstrap-theme.min.css"; ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo CONFIG_PATH('lib')."select2/select2.css"; ?>">
+	<link rel="stylesheet" type="text/css" href="<?php echo CONFIG_PATH('lib')."select2/select2-bootstrap.css"; ?>">
 	<!-- library javascript -->
 	<script type="text/javascript" src="<?php echo CONFIG_PATH('lib')."jquery.min.js"; ?>" ></script>
 	<script type="text/javascript" src="<?php echo CONFIG_PATH('lib')."bootstrap/js/bootstrap.min.js"; ?>"></script>
