@@ -6,8 +6,8 @@ include($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php');
 <html>
 
 <?php require_once(VIEW_PATH . "head.php");?>
-<body>
-	<script type="text/javascript">
+<body style = "background-color : #FFBF86;">
+		<script type="text/javascript">
 		// on document ready load default task
 		// might need cookie or chace in the near future
 		$(document).ready(function(){
@@ -24,26 +24,33 @@ include($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php');
 				$("#"+task_id).parent().find("div.load").load('<?php echo CONFIG_PATH("view")."blank.php"; ?>');
 		}
 		</script>
-		<div class="khung no-print"> 
+		
+		<div class="khung no-print "> 
 			<?php require_once(VIEW_PATH."header.php");?>
-			<div id="TacVu1" class="TacVu col-md-6">
-				<select id="task1" tabindex="-1" class="form-control" onchange="switch_task('task1')" style="margin:10px;">
-					<option value="receipt">In hóa đơn</option>
-					<option value="2">Quản lý nhập</option>
-					<option value="3">Quản lý dư</option>
-				</select>	
+			
+				<div class="col-md-6">
+					<div class="inner-content">
+						<select id="task1" tabindex="-1" class="form-control" onchange="switch_task('task1')">
+							<option value="receipt">In hóa đơn</option>
+							<option value="2">Quản lý nhập</option>
+							<option value="3">Quản lý dư</option>
+						</select>	
 
-				<div class="load">IF YOU SEE THIS THEN SWITCH TASK FUNCTION IS NOT WORKING</div>		
-			</div>
+						<div class="load">IF YOU SEE THIS THEN SWITCH TASK FUNCTION IS NOT WORKING</div>		
+					</div>
+				</div>
 
-			<div id="TacVu1" class="TacVu col-md-6">
-				<select id="task2" tabindex="-1" class="form-control" style="margin:10px;">
-					<option value="receipt">In hóa đơn</option>
-					<option value="2">Quản lý nhập</option>
-					<option value="3">Quản lý dư</option>
-				</select>
-				<div class="load">THIS FUNCTION HAS NOT BEEN IMPLEMENTED</div>	
-			</div>
+				<div class="col-md-6">
+					<div class="inner-content">
+						<select id="task2" tabindex="-1" class="form-control">
+							<option value="receipt">In hóa đơn</option>
+							<option value="2">Quản lý nhập</option>
+							<option value="3">Quản lý dư</option>
+						</select>
+						<div class="load">THIS FUNCTION HAS NOT BEEN IMPLEMENTED</div>	
+					</div>
+				</div>
+			
 		</div>
 		<!-- Only the latest submit print is accepted  -->
 		<div id="print_here" class="print-blocks">IF YOU SEE THIS THEN PRINT FUNCTION IS NOT WORKING</div>
