@@ -17,7 +17,7 @@ include($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php');
 		function switch_task(task_id) {
 			var task = document.getElementById(task_id);
 			var val = task.value;
-
+				
 			if(val == "receipt")
 				$("#"+task_id).parent().find("div.load").load('<?php echo CONFIG_PATH("view")."receipt_task_view.php"; ?>');
 			else 
@@ -25,8 +25,8 @@ include($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php');
 		}
 		</script>
 		
-		<div class="khung no-print "> 
-			<?php require_once(VIEW_PATH."header.php");?>
+		<div class="no-print"> 
+				<?php require_once(VIEW_PATH."header.php");?>
 			
 				<div class="col-md-6">
 					<div class="inner-content">
