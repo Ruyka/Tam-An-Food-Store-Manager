@@ -9,23 +9,29 @@
                 </div>            
             </div>
             
-            <button type = "button" class = "navbar-toggle" data-toggle = "collapse" 
-                                                        data-target=".navbar-collapse">
-                <span class ="sr-only"> Toggle navigation </span>
-                <span class = "icon-bar"></span>
-                <span class = "icon-bar"></span>
-                <span class = "icon-bar"></span>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" 
+                                                        data-target="navbar-collapse">
+                <span class="icon-bar black-icon-bar"></span>
+                <span class="icon-bar black-icon-bar"></span>
+                <span class="icon-bar black-icon-bar"></span>
             </button>
 
         </div>
         
         <div class = "collapse navbar-collapse">
+            
             <div class="inner-collapse">
                 <div id ="header"><p> ORGANICFOOD <span id="VN"> VIỆT NAM </span> </p></div>
-    
-                <div id="sign-in">
-                    Just a Team <br \><a tabindex="-1" >Log Out</a>
-                </div>
+                
+                <ul id="sign-in" class="nav navbar-nav">
+ 
+                    <li>
+                        <div >
+                            Just a Team <br \><a tabindex="-1" >Log Out</a>
+                        </div>
+                    </li>                 
+                </ul>
+                
             </div>
         </div>
     </div>
