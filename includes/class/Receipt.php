@@ -142,8 +142,7 @@
 		public function get_data_from_array($data){
 			// a right Basic info array must have 5 properties
 			// name, total_number, unit, trademark, dated
-			if ( isset($data['name']) && isset($data['total_number']) && isset($data['unit']) 
-					&& isset($data['trademark']) && isset($data['dated']) ){
+			if (isset($data['receipt_id'])){
 				
 				$this->get_data($data);
 			}
@@ -151,6 +150,7 @@
 
 		// get data from array
 		private function get_data($data){
+			
 			// get id
 			$this->receipt_id = $data['receipt_id'];
 			

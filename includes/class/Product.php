@@ -110,9 +110,7 @@ class Product{
 	//get data from an array data 
 	public function get_data_from_array($data){
 		// a right Basic info array must have 5 properties naeme, total_number, unit, trademark, dated
-		if ( isset($data['name']) && isset($data['total_number']) && isset($data['unit']) 
-				&& isset($data['trademark']) && isset($data['dated']) ){
-			
+		if ( isset($data['name']) && isset($data['total_number']) && isset($data['unit']) ){
 			$this->get_data($data);
 		}
 	}
