@@ -2,18 +2,17 @@
 	body {
 		margin:0;
 	}
+	/* the div contain logo*/
 	#logodiv {
 		float: left;
 		
 	}
+	/* logo Tam An*/
 	#logo {
 		width: 140px;
 		height: 70px;
-		
 	}
-	.fixedwidth {
-		margin:0 auto;
-	}
+	/* sign in area in nav */
 	#sign-in {
 		font-weight: bold;
 		float: right;
@@ -21,13 +20,13 @@
 		width:auto;
 		height: 30px;
 	}
-	#sign-in img {
-		padding-left: 10px;
-		padding-right: 20px;
-	}
+	
+	/* Clear */
 	.break {
 		clear:both;
 	}
+
+	/* Organic food*/
 	#header {
 		margin:2px;
 		font-size:3em;
@@ -36,6 +35,8 @@
 		left: 200px;
 
 	}
+
+	/* Viet nam text  */
 	#VN {
 		font-size: 0.7em;
 		padding-left: 10px;
@@ -56,7 +57,7 @@
 	.clear {
 		clear: both;
 	}
-
+	/* button margin (Cancel Print Preview) */
 	.bigBtn{
 		width:80px;
 		margin: 5px;
@@ -68,24 +69,20 @@
 		margin: 2px;	
 	}
 
-	/* add border for visibility */
+	/* content of Tac Vu lolololol*/
 	.inner-content{
     	margin:15px;
     	padding:10px;
     	background-color: white;
     	 
 	}
+
+	/* content of navigation bar*/
 	.inner-nav-content{
 		height: 100px;
 		background-color: #99FA7E;
 		border-bottom: 2px solid grey;
 	}
-	.inner-collapse{
-		width: 100%;
-	}
-	#tb1 {
-		margin-top: 50px;
-	}
-	.khung{
-		background-color: rgba(188,184,184,0.6);
-	}
+	
+	
+	
