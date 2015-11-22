@@ -2,18 +2,16 @@
 body {
 	margin:0;
 }
+/* logo Tam An div*/
 #logodiv {
 	float: left;
-
 }
 #logo {
 	width: 140px;
 	height: 70px;
+}
 
-}
-.fixedwidth {
-	margin:0 auto;
-}
+/* sign in div*/
 #sign-in {
 	font-weight: bold;
 	float: right;
@@ -21,13 +19,11 @@ body {
 	width:auto;
 	height: 30px;
 }
-#sign-in img {
-	padding-left: 10px;
-	padding-right: 20px;
-}
+
 .break {
 	clear:both;
 }
+/* Organic food*/
 #header {
 	margin:2px;
 	font-size:3em;
@@ -36,6 +32,7 @@ body {
 	left: 200px;
 
 }
+/* viet nam*/
 #VN {
 	font-size: 0.7em;
 	padding-left: 10px;
@@ -56,23 +53,22 @@ body {
 .clear {
 	clear: both;
 }
-
+/* margin button ( Print Preview Cancel )*/
 .bigBtn{
 	width:80px;
 	margin: 5px;
 }
+/* content of navigation bar*/
+.inner-nav-content{
+	height: 100px;
+	background-color: #99FA7E;
+	border-bottom: 2px solid grey;
+}
 
-	/* content of navigation bar*/
-	.inner-nav-content{
-		height: 100px;
-		background-color: #99FA7E;
-		border-bottom: 2px solid grey;
-	}
-	
-	
-	.black-icon-bar{
-		background-color: black;
-	}
+
+.black-icon-bar{
+	background-color: black;
+}
 
 /* child div must be smaller than parent div */
 /* add red border for visibility */
@@ -80,27 +76,20 @@ body {
 	margin: 2px;	
 }
 
-/* add border for visibility */
+/* content of Tac vu */
 .inner-content{
 	margin:15px;
 	padding:10px;
 	background-color: white;
 
 }
+/* content of navigation bar */
 .inner-nav-content{
 	height: 100px;
 	background-color: #99FA7E;
 	border-bottom: 2px solid grey;
 }
-.inner-collapse{
-	width: 100%;
-}
-#tb1 {
-	margin-top: 50px;
-}
-.khung{
-	background-color: rgba(188,184,184,0.6);
-}
+
 
 /* make toast like on android */
 #toast {
