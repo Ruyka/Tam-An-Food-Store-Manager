@@ -7,23 +7,6 @@ include($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php');
 
 <?php require_once(VIEW_PATH . "head.php");?>
 <body style = "background-color : #FFE6CF;">
-		<script type="text/javascript">
-		// on document ready load default task
-		// might need cookie or chace in the near future
-		$(document).ready(function(){
-			$("#task1").parent().find("div.load").load('<?php echo CONFIG_PATH("view")."receipt_task_view.php"; ?>');
-		});
-		// Switch task upon selected task
-		function switch_task(task_id) {
-			var task = document.getElementById(task_id);
-			var val = task.value;
-				
-			if(val == "receipt")
-				$("#"+task_id).parent().find("div.load").load('<?php echo CONFIG_PATH("view")."receipt_task_view.php"; ?>');
-			else 
-				$("#"+task_id).parent().find("div.load").load('<?php echo CONFIG_PATH("view")."blank.php"; ?>');
-		}
-		</script>
 		
 		<div class="no-print"> 
 				<?php require_once(VIEW_PATH."header.php");?>
@@ -54,5 +37,31 @@ include($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php');
 		</div>
 		<!-- Only the latest submit print is accepted  -->
 		<div id="print_here" class="print-blocks">IF YOU SEE THIS THEN PRINT FUNCTION IS NOT WORKING</div>
+		
+
+
+		<!-- Java Script-->
+		
+		<script type="text/javascript">
+			// on document ready load default task
+			// might need cookie or chace in the near future
+			$(document).ready(function(){
+				$("#task1").parent().find("div.load").load('<?php echo CONFIG_PATH("view")."receipt_task_view.php"; ?>');
+			});
+			// Switch task upon selected task
+			function switch_task(task_id) {
+				var task = document.getElementById(task_id);
+				var val = task.value;
+
+				if(val == "receipt")
+					$("#"+task_id).parent().find("div.load").load('<?php echo CONFIG_PATH("view")."receipt_task_view.php"; ?>');
+				else 
+					$("#"+task_id).parent().find("div.load").load('<?php echo CONFIG_PATH("view")."blank.php"; ?>');
+			}
+		</script>
+	
+
 	</body>
 </html>
+
+
