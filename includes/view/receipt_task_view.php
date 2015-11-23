@@ -5,10 +5,11 @@
 <div class="receipt-view">
 	<form id="receipt-form" action="<?php echo CONFIG_PATH('function').'process_submit.php'; ?>" method="post" role="form">
 		<div class="form-group">
-			<input type="button" value="Print" id="print" class="btn btn-primary pull-right bigBtn" tabindex="-1">
-			<input type="button" value="Preview" id="preview" class="btn btn-primary pull-right bigBtn" tabindex="-1">
+			<input type="button" value="Print" onclick="print_button()" id="print" class="btn btn-primary pull-right bigBtn" tabindex="-1">
+			<input type="button" value="Preview" onclick="preview_button()" id="preview" class="btn btn-primary pull-right bigBtn" tabindex="-1">
 			<input type="button" value="Cancel" id="cancel" class="btn btn-primary pull-right bigBtn" tabindex="-1">
 			<input type="hidden" name="submit_type" value="" id="submit_type">
+			<input type="hidden" name="current_id" value="" id="current_id">
 			<p class="clear"></p>		
 		</div>
 		<!-- select2  -->

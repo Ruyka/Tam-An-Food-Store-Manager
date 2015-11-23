@@ -1,4 +1,5 @@
 <?php 
+session_start();
 require_once($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php'); 
 require_once(CLASS_PATH."AllClass.php");
 require_once(CLASS_PATH."Management.php");
@@ -12,8 +13,27 @@ require_once(CLASS_PATH."Management.php");
 <!-- ************************ -->
 <?php 
 // $_get value to know which type
-if(isset($_GET)){
+function get_posted_product(){
+    if(isset($_SESSION['encrypted'])){    
+        $KEY=md5("dob1depatodop7lipdaig7bebeaion9d");
+        $IV=md5("asdkjhfalkwjehfklsndvfakjsgasdkj");
+        $arr = $_SESSION['encrypted'];
+        return decrypt_get_url($arr, $IV, $KEY);
+    }
+    return "";
+}
 
+function decrypt_get_url($arr, $IV, $KEY){
+    $arr=str_replace(array('-','_','.'),array('+','/','='),$arr);
+    $ENCRYPTEDDATA=base64_decode($arr);
+    $M=mcrypt_module_open('rijndael-256','','cbc','');
+    mcrypt_generic_init($M,$KEY,$IV);
+    $SERIAL=mdecrypt_generic($M,$ENCRYPTEDDATA);
+    mcrypt_generic_deinit($M);
+    mcrypt_module_close($M);
+    $ARRAY=unserialize($SERIAL);
+
+    return $ARRAY;
 }
 
 // get data from server
@@ -26,6 +46,8 @@ function get_receipt_data_from_server(){
 }
 // global data
 $data = get_receipt_data_from_server();
+
+$posted = get_posted_product();
 ?>
 
 <!-- ************************ -->
@@ -43,6 +65,7 @@ option_list = make_optionlist(list_product);
 // throw out console debug
 console.log(list_product);
 
+make_print_section();
 // Add new input field for the receipt
 // current id
 next = 1;
@@ -56,6 +79,10 @@ $(document).ready(function(){
     $("#product").select2();
     // attract observer
     observe_change('');
+    // cancel button
+    $("#cancel").click(function(){
+        window.location.reload();
+    });
 });
 
 // disable enter button in textarea
@@ -66,24 +93,21 @@ $(window).keydown(function(event){
   }
 });
 
-// print  button
-$("#print").click(function(){
-    $("#submit_type").val("print");
-    $("#receipt-form").submit();
-});
+    // print  button
+    function print_button(){
+        $("#submit_type").val("print");
+        $("#current_id").val(next-1);
+        $("#receipt-form").submit();
+    }
 
-// preview button
-$("#preview").click(function(){
-    $("#submit_type").val("preview");
-    $("#receipt-form").submit();
-});
+    // preview button
+    function preview_button(){
+        $("#submit_type").val("preview");
+        $("#current_id").val(next-1);
+        $("#receipt-form").submit();    
+    }
 
-// cancel button
-$("#cancel").click(function(){
-    window.location.reload();
-});
-
-function add_more(id){
+    function add_more(id){
     // generate new row
     // perform by manually add html codes in variable and piece it together
     // make input select
@@ -167,6 +191,40 @@ function make_optionlist(product_list){
 // validate form
 function form_validation(){
     return false;
+}
+
+// make printable receipt
+function make_print_section(product_list){
+    // get receipt list
+    var receipt_list = <?php echo json_encode($GLOBALS['posted']); ?>;
+    // return on empty
+    if (receipt_list == "")
+        return;
+    // logo
+    var logo = '<div id="logodiv"><img id="logo" src="<?php echo CONFIG_PATH("image")."logo.jpg"?>" /></div><br />';
+    // date
+    var currentdate = new Date();
+    var date_out = "<table><tr><th>"+ currentdate.getDate() + "/"
+                + (currentdate.getMonth()+1)  + "/" 
+                + currentdate.getFullYear() +"</th><th>|"
+                + currentdate.getHours() + ":"  
+                + currentdate.getMinutes() + ":" 
+                + currentdate.getSeconds()+"</th></tr></table>";
+    // product list
+    var receipt_product = "<table><tr><th>product</th><th>quantity</th><th>price</th></tr>"
+    // make printable div
+    var len = receipt_list.length;
+    var row = "";    
+    var total = 0;
+    for(var i = 0; i < len; i++){
+        var quantity = receipt_list[i]['quantity'];
+        var pval = quantity * list_product[receipt_list[i]['id']]['unit']['price'];
+        total = total + pval;
+        row = row + "<tr><td>"+list_product[receipt_list[i]['id']]['name']+"</th><td>"+quantity+"</td><td>"+pval+"</td></tr>";
+    }
+    receipt_product = receipt_product + row + "<tr><td></td><td>Total:</td><td>"+total+"</td></tr></table>";
+    var receipt_section = logo + date_out + receipt_product;
+    $("#print_here").html(receipt_section);
 }
 
 // function to make a toast like in android
