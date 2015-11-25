@@ -1,11 +1,11 @@
 <?php 
+header('Content-Type: text/html');
 session_start();
 require_once($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php'); 
 ?>
 
 <!-- PHP code start here -->
 <?php 
-
 // know which button is press
 $type = $_POST['submit_type'];
 // know current maximum id
@@ -18,10 +18,14 @@ unset($_POST['product'.$current_id]);
 unset($_POST['product'.$current_id.'_quantity']);
 
 // array to return
-$ARRAY[0] = array('id'=>$_POST['product'], 'quantity'=>$_POST['product_quantity']);
-for($cur = 1; $cur < $current_id; $cur++)	
-	$ARRAY[$cur] = array('id'=>$_POST['product'.$cur], 'quantity'=>$_POST['product'.$cur.'_quantity']);
-
+$ARRAY = array();
+$cur = 0;
+if(isset($_POST['product_quantity']) && $_POST['product_quantity'] > 0)
+	$ARRAY[$cur++] = array('id'=>$_POST['product'], 'quantity'=>floatval($_POST['product_quantity']));
+for($i = 1; $i < $current_id; $i++)	{
+	if(isset($_POST['product'.$i.'_quantity']) && floatval($_POST['product'.$i.'_quantity']) > 0)
+		$ARRAY[$cur++] = array('id'=>$_POST['product'.$i], 'quantity'=> floatval($_POST['product'.$i.'_quantity']));
+}
 // key for encrypt/decrypt
 $KEY=md5("dob1depatodop7lipdaig7bebeaion9d");
 $IV=md5("asdkjhfalkwjehfklsndvfakjsgasdkj");

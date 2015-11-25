@@ -14,18 +14,21 @@
 		</div>
 		<!-- select2  -->
 		<table id="receipt-product-list" class="table table-striped table-bordered">
-			<tr class="success"><th>Product</th><th>Quantity</th><th>Price per product</th><th>Total</th><th></th></tr>
-			<tr id="receipt-row1" class="receipt-row">
+			<tr class="success"><th>Sản phẩm</th><th>Số lượng</th><th>VND / sản phẩm</th><th>Tổng cộng</th><th></th></tr>
+			<tr id="receipt-row">
 				<!-- product list -->
 				<td><select id="product"  class="product-list form-control" name="product" onchange="observe_change('')"></select></td>
 				<!-- quantity -->
-				<td><input id="product_quantity" class="form-control" name="product_quantity" onchange="observe_change('')" type="number" min="0" placeholder="Số lượng"></td>
+				<td><input id="product_quantity" class="form-control" name="product_quantity" onfocus="observe_change('')" onchange="observe_change('')" type="number" min="0" value="0" placeholder="Số lượng"></td>
 				<!-- price each -->
 				<td><p id="product_price" class="product-price form-control">Product Price</p></td>
 				<!-- total price -->
 				<td><p id="product_total" class="total-price form-control">Total price</p></td>
 				<!-- add/remove button -->
-				<td><p id="add"></p></td>
+				<td><button id="add" class="btn btn-default btn-add form-control" tabindex="-1" style="opacity:0"<span class="glyphicon glyphicon-plus"></span></button></td>
+			</tr>
+			<tr>
+				<td></td><td></td><td><p>Thành tiền</p></td><td><p id="Total_all" class="total-price form-control"></p></td><td></td>
 			</tr>
 		</table>
 	</form>

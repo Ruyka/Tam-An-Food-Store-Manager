@@ -64,13 +64,13 @@ list_product = data['list_product'];
 option_list = make_optionlist(list_product);
 // throw out console debug
 console.log(list_product);
+// Total price of receipt
+Total_all = 0;
 
 make_print_section();
 // Add new input field for the receipt
 // current id
 next = 1;
-// form wraper
-wrapper = $("#receipt-product-list");
 // function execute on form ready
 $(document).ready(function(){
     // add options
@@ -97,7 +97,10 @@ $(window).keydown(function(event){
     function print_button(){
         $("#submit_type").val("print");
         $("#current_id").val(next-1);
-        $("#receipt-form").submit();
+        $.ajax({
+            type:'POST',
+            url: <?php echo CONFIG_PATH['function'].'process_submit.php'; ?>;
+        });
     }
 
     // preview button
@@ -108,24 +111,26 @@ $(window).keydown(function(event){
     }
 
     function add_more(id){
+    // form wraper
+    var wrapper = $("#receipt-product-list");
     // generate new row
     // perform by manually add html codes in variable and piece it together
     // make input select
     var product = '<td><select id="product'+next+'" class="product-list form-control" name="product'+next+'" onchange="observe_change('+next+')"></select></td>';
     // make input quantity
-    var quantity = '<td><input id="product'+next+'_quantity" class="form-control" name="product'+next+'_quantity" onchange="observe_change('+next+')" type="number" min="0" placeholder="Số lượng"></td>';
+    var quantity = '<td><input id="product'+next+'_quantity" class="form-control" name="product'+next+'_quantity" onfocus="observe_change('+next+')" onchange="observe_change('+next+')" type="number" min="0" value="0" placeholder="Số lượng"></td>';
     // price of product
     var price  = '<td><p id="product'+next+'_price" class="product-price form-control">Product Price</p></td>';
     // total price
     var total = '<td><p id="product'+next+'_total" class="total-price  form-control">Total price</p></td>';
     // add button (guess it's not need now) lol :v
-    var button = '<td><p id="add'+next+'"></p></td>';
+    var button = '<td><p id="add'+next+'" class="btn btn-default btn-add form-control" tabindex="-1" style="opacity:0"><span class="glyphicon glyphicon-plus"></span></button></td>';
     // piece every thing together
-    var row = '<tr id="receipt-row'+(next + 1)+'" class="receipt-row">' + product + quantity + price + total + button + '</tr>';
+    var row = '<tr id="receipt-row'+next+'">' + product + quantity + price + total + button + '</tr>';
     // append to wraper
-    $(wrapper).append(row);
+    $("#receipt-row"+id).after(row);
     // change current button to remove button
-    $("#add"+id).replaceWith('<button class="btn btn-danger btn-add form-control" type="button" onclick="row_delete('+next+')" tabindex="-1"><span class="glyphicon glyphicon-minus"></span></button>'); 
+    $("#add"+id).replaceWith('<button class="btn btn-danger btn-add form-control" type="button" onclick="row_delete(\''+id+'\')" tabindex="-1"><span class="glyphicon glyphicon-minus"></span></button>'); 
     // add product options
     $("#product"+next).append(option_list);
     // attrach select2
@@ -137,8 +142,10 @@ $(window).keydown(function(event){
 }
 
 // delete row
-function row_delete(row_id){
-    $("#receipt-row"+row_id).remove();
+function row_delete(id){
+    var price = $("#product"+id+"_total").html();
+    Oberser_total_price(-price);
+    $("#receipt-row"+id).remove();
 }
 
 // observe changes from select list and quantity
@@ -170,7 +177,15 @@ function observe_change(id){
     // calculate total value
     var total = pval*ppval;
     // set "Total" to the calculated value
-    $("#product"+id+"_total").html(total.toString());
+    $("#product"+id+"_total").html(total);
+    // calculated total receipt price
+    Oberser_total_price(total);
+}
+
+// Observer for total receipt price 
+function Oberser_total_price(price){
+    Total_all = Total_all + price;
+    $("#Total_all").html(Total_all);
 }
 
 // make option list for select
@@ -181,10 +196,10 @@ function make_optionlist(product_list){
     if(len < 1)
         return "";
     // make the first in list to be the default option
-    var html_option = "<option value='"+0+"' selected='selected'>" + product_list[0]['name']+"</option>";
+    var html_option = "<option value='"+0+"' selected='selected'>" + product_list[0]['name']+" ("+product_list[0]['unit']['unit_name']+")</option>";
     // make options
     for(var i = 1; i < len; i++ )
-        html_option = html_option + "<option value='"+i+"'>" + product_list[i]['name']+"</option>";
+        html_option = html_option + "<option value='"+i+"'>" + product_list[i]['name']+" ("+product_list[i]['unit']['unit_name']+")</option>";
     return html_option;
 }
 
@@ -205,11 +220,11 @@ function make_print_section(product_list){
     // date
     var currentdate = new Date();
     var date_out = "<table><tr><th>"+ currentdate.getDate() + "/"
-                + (currentdate.getMonth()+1)  + "/" 
-                + currentdate.getFullYear() +"</th><th>|"
-                + currentdate.getHours() + ":"  
-                + currentdate.getMinutes() + ":" 
-                + currentdate.getSeconds()+"</th></tr></table>";
+    + (currentdate.getMonth()+1)  + "/" 
+    + currentdate.getFullYear() +"</th><th>|"
+    + currentdate.getHours() + ":"  
+    + currentdate.getMinutes() + ":" 
+    + currentdate.getSeconds()+"</th></tr></table>";
     // product list
     var receipt_product = "<table><tr><th>product</th><th>quantity</th><th>price</th></tr>"
     // make printable div
