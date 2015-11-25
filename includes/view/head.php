@@ -22,4 +22,5 @@
 	<script type="text/javascript" src="<?php echo CONFIG_PATH('lib')."jquery.min.js"; ?>" ></script>
 	<script type="text/javascript" src="<?php echo CONFIG_PATH('lib')."bootstrap/js/bootstrap.min.js"; ?>"></script>
 	<script type="text/javascript" src="<?php echo CONFIG_PATH('lib')."select2/select2.min.js"; ?>"></script>
+	<script type="text/javascript" src="<?php echo CONFIG_PATH('js')."html_helper.js"; ?>"></script>
 </head>
