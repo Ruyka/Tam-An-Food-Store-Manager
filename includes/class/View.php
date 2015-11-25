@@ -29,7 +29,7 @@
 				//new Product
 				$product = new Product();
 				// add attribute to it
-				$product->add_attribute($value['Name'],$value['Remain'],new Unit($value['UnitName'],$value['Price']));
+				$product->add_attribute($value['Name'],$value['Remain'],new Unit($value['UnitName'],$value['Price']),$value['Id']);
 				//add the product to the receipt
 				$receipt->add($product);
 			}	
