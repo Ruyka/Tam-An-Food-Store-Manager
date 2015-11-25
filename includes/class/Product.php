@@ -6,6 +6,8 @@
 class Product{
 
 	//Properties:
+	//id of the product
+	private $product_id;
 	// name of the product
 	private $name ;
 	// total number of the product in storage
@@ -22,6 +24,7 @@ class Product{
 
 	//Constructor
 	public function __construct(){
+		$this->product_id = "";
 		$this->name = "";
 		$this->total_number = 0;
 		$this->unit = new Unit();
@@ -30,10 +33,13 @@ class Product{
 		$this->object_type = "Product";
 	}
 	//this function add the attribute for the product
-    public function add_attribute( $name, $total_number, $unit, $trademark = NULL, $dated = NULL) {
+    public function add_attribute( $name, $total_number, $unit, 
+    								$product_id = "", $trademark = NULL, $dated = NULL) {
+    	
     	$this->name = $name;
 		$this->total_number = $total_number;
 		$this->unit = $unit;
+		$this->product_id = $product_id;
 		$this->trademark = $trademark;
 		$this->dated = $dated;
     }
@@ -72,6 +78,7 @@ class Product{
 		$json = array();
 
 		$json = array(
+			'product_id' => $this->product_id,
 	        'name' => $this->name,
 	        'total_number' => $this->total_number,
 	        // json_encode parameter = false, return object not encode with json
@@ -109,15 +116,16 @@ class Product{
 
 	//get data from an array data 
 	public function get_data_from_array($data){
-		// a right Basic info array must have 5 properties naeme, total_number, unit, trademark, dated
-		if ( isset($data['name']) && isset($data['total_number']) && isset($data['unit']) ){
+		// a right Basic info array must have 6 properties id, naeme, total_number, unit, trademark, dated
+		if ( isset($data['product_id']) && isset($data['name']) 
+				&& isset($data['total_number']) && isset($data['unit']) ){
 			$this->get_data($data);
 		}
 	}
 
 	// get data from array
 	private function get_data($data){
-
+		$this->product_id = $data['product_id'];
 		// get name
 		$this->name = $data['name'];
 		//get total numbet off product that remains
@@ -129,9 +137,17 @@ class Product{
 		//get dated
 		$this->dated = $data['dated'];
 		
-	} 
-}
+	}
 
-    
+}
+	//test code
+	 // $tmp = new Product();
+  //    $tmp->add_attribute("Sữa",100,new Unit("hộp",10000), "RH1922",
+  //    		new Trademark("1131ASAs",
+  //    			new BasicInfo("Hồ Hữu Phát","hhphat@apcs.vn","0906332121","4 ABCD")
+  //    			,"Việt Nam","google.com.vn"
+  //    		)
+  //    		,"17/11/2015");
+  //   TEST($tmp->json_encode(false));
     
 ?>

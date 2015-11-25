@@ -65,6 +65,9 @@
 			return !is_null($this->db);
 		}
 
+		public function add_receipt($receipt_data){
+			TEST($receipt_data);
+		}
 		public function get_list_of_product_info(){
             
             $sql = mysqli_query($this->db,"SELECT * FROM Product");

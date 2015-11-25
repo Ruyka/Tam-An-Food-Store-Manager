@@ -15,7 +15,7 @@
 
 		}
 		public function add_receipt( $receipt){
-
+			$this->get_response_from_message("add receipt", false, $receipt->json_encode(true));
 		}
 
 		//send the message to server to get the list of product info
@@ -65,6 +65,23 @@
 
 	}
 	//test code
-	 // $tmp = new Management();
-	 // TEST($tmp->get_list_of_product_info());
+	// $m = new Management();
+	// $tmp = new SoldProduct(113);
+ //     $tmp->add_attribute("Sữa",100,new Unit("hộp",10000), 
+ //     		new Trademark(
+ //     			new BasicInfo("Hồ Hữu Phát","hhphat@apcs.vn","0906332121","4 ABCD")
+ //     			,"Việt Nam","google.com.vn"
+ //     		)
+ //     		,"17/11/2015");
+
+ //     $BasicInfo = new BasicInfo("Kim Nhật Thành","knthanh@apcs.vn","0923232121","4 ABCD");
+
+ //     $receipt = new Receipt(1,1,new Employee($BasicInfo,10000,1,"1313131"), new Customer($BasicInfo));
+	
+ //     $receipt->add($tmp);
+ //     $receipt->add($tmp);
+	
+ //     $m->add_receipt($receipt);
+     
+	 
 ?>

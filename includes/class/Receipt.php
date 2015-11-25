@@ -182,8 +182,8 @@
 	//SAMPLE CODE TO TEST, READ FOR FUN lol :V
 
      // $tmp = new SoldProduct(113);
-     // $tmp->add_attribute("Sữa",100,new Unit("hộp",10000), 
-     // 		new Trademark(
+     // $tmp->add_attribute("Sữa",100,new Unit("hộp",10000), "SUA1111"
+     // 		new Trademark("RH11221",
      // 			new BasicInfo("Hồ Hữu Phát","hhphat@apcs.vn","0906332121","4 ABCD")
      // 			,"Việt Nam","google.com.vn"
      // 		)
@@ -191,7 +191,8 @@
 
      // $BasicInfo = new BasicInfo("Kim Nhật Thành","knthanh@apcs.vn","0923232121","4 ABCD");
 
-     // $receipt = new Receipt(1,1,new Employee($BasicInfo,10000,1,"1313131"), new Customer($BasicInfo));
+     // $receipt = new Receipt(1,1,new Employee("EM011",$BasicInfo,10000,1,"1313131")
+     // 					, new Customer($BasicInfo));
     
      // $receipt->add($tmp);
      // $receipt->add($tmp);
