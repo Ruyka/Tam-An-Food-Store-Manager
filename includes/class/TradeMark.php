@@ -6,6 +6,7 @@
 	class TradeMark{
 
 		//Properties:
+		private $trademark_id;
 		//basic infomation of the trademark
 		private $basic_info;
 		// nation of the trademark
@@ -19,12 +20,13 @@
 		//default values: basic_info = NULL
 		//				  nation and website =""
 
-		public function __construct($basic_info = NULL, $nation = "", $website = ""){
+		public function __construct($trademark_id = "",$basic_info = NULL, $nation = "", $website = ""){
 			// if basic info not created yet, new it
  			if (is_null($basic_info))
  				$this->basic_info = new BasicInfo();
 			else
 				$this->basic_info = $basic_info;
+			$this->trademark_id = $trademark_id;
 			$this->nation = $nation;
 			$this->website = $website;
 		}
@@ -49,6 +51,7 @@
 			
 			//properties of TradeMark instance
 			$json = array(
+				'trademark_id' => $this->trademark_id,
 				//basic_info is an Object BasicInfo, so we must encode it to an array 
 	        	'basic_info' => $this->basic_info->json_encode(false),
 	        	'nation' => $this->nation,
@@ -82,6 +85,7 @@
 		} 
 
 		private function get_data($data){
+			$this->trademark_id = $data['trademark_id'];
 			//get basic info by calling its method
 			$this->basic_info->get_data_from_array($data['basic_info']);
 			//get nation

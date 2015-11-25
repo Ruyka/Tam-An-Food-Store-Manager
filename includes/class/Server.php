@@ -33,7 +33,8 @@
 		public function process(){
 			
 			//if has a request from submit button, then capture it
-					
+			$client_data = NULL;
+
 			if (isset($_REQUEST['request']))
 				$input = $_REQUEST['request'];
 			else{
@@ -43,6 +44,10 @@
 				$data = json_decode($json_data, true);
 				// get request
 				$input = $data['request'];
+				// get data of clients if available
+				if (isset($data['data']))
+					$client_data = $data['data']; 
+
 			}
 				
 			//change value in $input into lower case
@@ -52,14 +57,19 @@
 			
 			//if the method exist, call it
 			if((int)method_exists($this,$func) > 0)
-				$this->$func();
+				$this->$func($client_data);
 			else
 				$this->response('',404);				
 				// If the method not exist with in this class, response would be "Page not found".
 		}
+		//add receipt to database
+		public function add_receipt($client_data = NULL){
+			if (!is_null($client_data))
+				$this->db->add_receipt($client_data->json_encode(false));
+		}
 
 		//get the list of product info (name, unit)
-		private function get_list_of_product_info(){
+		private function get_list_of_product_info($client_data = NULL){
 			//access to database db, call function to query list of product info
 			$list_product_info = $this->db->get_list_of_product_info();
 			
@@ -72,7 +82,7 @@
 		}
 
 		//get list of user name
-		public function get_list_of_user_name(){
+		private function get_list_of_user_name($client_data = NULL){
 			//access to database db, call function to query list of product info
 			$list_of_user_name = $this->db->get_list_of_user_name();
 
@@ -97,5 +107,19 @@
 
 	$server = new Server();
 	$server->process();
+	 // $tmp = new SoldProduct(113);
+  //    $tmp->add_attribute("Sữa",100,new Unit("hộp",10000), "SUA1111",
+  //    		new Trademark("RH11221",
+  //    			new BasicInfo("Hồ Hữu Phát","hhphat@apcs.vn","0906332121","4 ABCD")
+  //    			,"Việt Nam","google.com.vn"
+  //    		)
+  //    		,"17/11/2015");
 
+  //    $BasicInfo = new BasicInfo("Kim Nhật Thành","knthanh@apcs.vn","0923232121","4 ABCD");
+
+  //    $receipt = new Receipt(1,1,new Employee("31313",$BasicInfo,10000,1,"1313131"), new Customer($BasicInfo));
+	
+  //    $receipt->add($tmp);
+  //    $receipt->add($tmp);
+  //    $server->add_receipt($receipt);
 ?>	
