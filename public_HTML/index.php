@@ -6,7 +6,7 @@
 <html>
 
 <?php require_once(VIEW_PATH . "head.php");?>
-<body style = "background-color : #FFE6CF;">
+<body style = "background-color : #C6E2FF;">
 		<script type="text/javascript">
 		// on document ready load default task
 		// might need cookie or chace in the near future
@@ -55,4 +55,5 @@
 		<!-- Only the latest submit print is accepted  -->
 		<div id="print_here" class="print-blocks">IF YOU SEE THIS THEN PRINT FUNCTION IS NOT WORKING</div>
 	</body>
+
 </html>
