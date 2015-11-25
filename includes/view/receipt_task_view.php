@@ -6,10 +6,8 @@
 	<form id="receipt-form" action="<?php echo CONFIG_PATH('function').'process_submit.php'; ?>" method="post" role="form">
 		<div class="form-group">
 			<input type="button" value="Print" onclick="print_button()" id="print" class="btn btn-primary pull-right bigBtn" tabindex="-1">
-			<input type="button" value="Preview" onclick="preview_button()" id="preview" class="btn btn-primary pull-right bigBtn" tabindex="-1">
+			<input type="button" value="Preview" onclick="preview_button()" id="preview" class="btn btn-primary pull-right bigBtn" data-toggle="modal" data-target="#preview_modal" tabindex="-1">
 			<input type="button" value="Cancel" id="cancel" class="btn btn-primary pull-right bigBtn" tabindex="-1">
-			<input type="hidden" name="submit_type" value="" id="submit_type">
-			<input type="hidden" name="current_id" value="" id="current_id">
 			<p class="clear"></p>		
 		</div>
 		<!-- select2  -->
@@ -34,7 +32,7 @@
 	</form>
 
 	<!-- Modal -->
-	<div class="modal fade" id="preview" role="dialog">
+	<div class="modal fade" id="preview_modal" role="dialog">
 		<div class="modal-dialog">
 
 			<!-- Modal content-->
@@ -43,13 +41,15 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title">Preview</h4>
 				</div>
-				<form class="form-horizontal" role="form" method="post" action="">
-					<div class="modal-body">				
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					</div>
-				</form>
+				
+				<div class="modal-body">
+					<div id="preview_section"></div>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal" onclick="print_button()">Print</button>
+				</div>
 			</div>
 
 		</div>

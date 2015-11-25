@@ -11,3 +11,7 @@
     var button = '<td><p id="add%ID%" class="btn btn-default btn-add form-control" tabindex="-1" style="opacity:0"><span class="glyphicon glyphicon-plus"></span></button></td>';
     // piece every thing together
     var row = '<tr id="receipt-row%ID%">' + product + quantity + price + total + button + '</tr>';
+    // select option
+    var html_option = "<option value=\'%VALUE%\'> %NAME% (%UNITNAME%)</option>";
+    // print receipt row
+    var receipt_row = "<tr><td>%QUANTITY%</td><td>%PRODUCT%</td><td>%PRICE%</td></tr>";
