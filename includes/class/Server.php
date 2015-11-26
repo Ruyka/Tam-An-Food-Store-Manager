@@ -34,7 +34,7 @@
 			
 			//if has a request from submit button, then capture it
 			$client_data = NULL;
-
+			//TEST($json_data);
 			if (isset($_REQUEST['request']))
 				$input = $_REQUEST['request'];
 			else{
@@ -42,6 +42,7 @@
 				$json_data = file_get_contents('php://input');
 				//decode data into array
 				$data = json_decode($json_data, true);
+				
 				// get request
 				$input = $data['request'];
 				// get data of clients if available
@@ -62,12 +63,33 @@
 				$this->response('',404);				
 				// If the method not exist with in this class, response would be "Page not found".
 		}
-		//add receipt to database
+		//add receipt to database.
 		public function add_receipt($client_data = NULL){
 			if (!is_null($client_data))
-				$this->db->add_receipt($client_data->json_encode(false));
+				$this->db->add_receipt(json_decode($client_data,true));
 		}
-
+		//add account to database
+		public function sign_up($client_data = NULL){
+			if (!is_null($client_data)){
+				// return a message
+				$data = $this->db->sign_up(json_decode($client_data,true));
+				$json_data = json_encode($data);
+				$this->response($json_data, 200);
+			}
+		}
+		//check user login info
+		//client data must be array with this function
+		private function check_user_login($client_data = NULL){
+			
+			if (!is_null($client_data)){
+				// if exist users, return client data
+				$user_data = $this->db->check_user_login(json_decode($client_data,true));		
+				//encode to json
+				$json_data = json_encode($user_data);
+				//respone
+				$this->response($json_data, 200);
+			}
+		}
 		//get the list of product info (name, unit)
 		private function get_list_of_product_info($client_data = NULL){
 			//access to database db, call function to query list of product info
@@ -107,6 +129,8 @@
 
 	$server = new Server();
 	$server->process();
+	// 
+
 	 // $tmp = new SoldProduct(113);
   //    $tmp->add_attribute("Sữa",100,new Unit("hộp",10000), "SUA1111",
   //    		new Trademark("RH11221",
