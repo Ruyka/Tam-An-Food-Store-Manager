@@ -14,8 +14,20 @@
 		public function edit ( $old_product, $new_product){
 
 		}
+
+		public function sign_up($data){
+			return $this->get_response_from_message("sign up",true, json_encode($data));
+		}
 		public function add_receipt( $receipt){
 			$this->get_response_from_message("add receipt", false, $receipt->json_encode(true));
+		}
+
+		//check user login info with server
+		public function check_user_login($username, $password){
+			$user_info = array();
+			$user_info['username'] = $username;
+			$user_info['password'] = $password;
+			return $this->get_response_from_message("check user login",true, json_encode($user_info));
 		}
 
 		//send the message to server to get the list of product info
@@ -41,7 +53,7 @@
 			//if there is the data that need to be push in server, push it in
 			if (!is_null($json_data)) 
 				$data['data'] = $json_data;
-			
+
 			$options = array(
 			  'http' => array(
 			    'method'  => 'POST',
@@ -65,7 +77,14 @@
 
 	}
 	//test code
+	
+	//test user
 	// $m = new Management();
+	// TEST($m->check_user_login('dekal','12345'));
+	
+
+	//test product receipt...
+	
 	// $tmp = new SoldProduct(113);
  //     $tmp->add_attribute("Sữa",100,new Unit("hộp",10000), 
  //     		new Trademark(
