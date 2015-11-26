@@ -48,7 +48,7 @@
 
 				<div class="modal-footer">
 					<button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-info" data-dismiss="modal" onclick="print_button()">Print</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal" onclick="preview_print()">Print</button>
 				</div>
 			</div>
 

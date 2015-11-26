@@ -1,5 +1,7 @@
 // config url location
-config_url = "http://localhost/Tam-An-Food-Store-Manager/includes/function/general_function.php";
+var url = window.location.href;
+url = url.split("/");
+config_url = "http://"+url[2]+"/Tam-An-Food-Store-Manager/includes/function/general_function.php";
 
 
 
@@ -79,7 +81,7 @@ $(document).ready(function(){
             async: false,
             url: receipt_path+"?"+$('#receipt-form').serialize(),
             type: "post",
-            data: {action:'get_data_from_submit', max:next, isPrint:true},
+            data: {action:'get_data_from_submit', max:next, isPrint:1},
             success: function (data) {
               receipt_list = JSON.parse(data);
           }  
@@ -97,16 +99,35 @@ $(document).ready(function(){
             async: false,
             url: receipt_path+"?"+$('#receipt-form').serialize(),
             type: "post",
-            data: {action:'get_data_from_submit', max:next, isPrint:false},
+            data: {action:'get_data_from_submit', max:next, isPrint:0},
             success: function (data) {
               receipt_list = JSON.parse(data);
-              console.log(receipt_list);
           }  
       });
         make_print_section(receipt_list);
         $("#preview_section").html($("#print_here").html());
     }
 
+
+
+    // preview print
+    function preview_print(){
+        isError = false;
+        $.ajax({
+            async: false,
+            url: receipt_path,
+            type: "post",
+            data: {action:'send_data_to_server'},
+            error: function (data) {  
+            isError = true;              
+              console.log(data);
+          }  
+      });    
+        if(!isError)
+            window.print();  
+        else
+            make_toast("There has been a error",3000);
+    }
 
     // add new input
     function add_more(id){
@@ -283,7 +304,7 @@ function make_print_section(receipt_list){
         receipt_rows = receipt_rows + new_row;
     }
     var receipt_total = receipt_dashed_row.replace(re_object1, "");
-    receipt_total = receipt_total.replace(re_object2, "Total");
+    receipt_total = receipt_total.replace(re_object2, "Tổng cộng");
     receipt_total = receipt_total.replace(re_object3, total);
 
     receipt_rows = receipt_rows + receipt_total;

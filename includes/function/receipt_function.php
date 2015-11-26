@@ -15,9 +15,22 @@ if(isset($_POST['action']) && !empty($_POST['action'])) {
         echo get_receipt_data_from_server()->json_encode();
         break;
         case 'get_data_from_submit': 
-        $arr = get_data_from_submit();
-        send_data_to_server($arr[1]);
-        echo json_encode($arr[0]);
+            $arr = get_data_from_submit();
+            if(isset($_POST['isPrint']) && $_POST['isPrint'] == 1)
+                send_data_to_server($arr[1]);
+            else
+                $_SESSION['PREVIEW_SERVER_DATA'] = $arr[1];
+            echo json_encode($arr[0]);
+        break;
+        case 'send_data_to_server':
+        if(isset($_SESSION['PREVIEW_SERVER_DATA'])){
+            send_data_to_server($_SESSION['PREVIEW_SERVER_DATA']);
+            unset($_SESSION['PREVIEW_SERVER_DATA']);
+        }else{
+            header('HTTP/1.1 400 Bad Request');
+            header('Content-Type: application/json; charset=UTF-8');
+            echo json_encode(array('message' => 'session data missing', 'code' => 1000));
+        }
         break;
     }
 }
