@@ -1,41 +1,41 @@
 
 body {
-	margin:0;
+  margin:0;
 }
 /* logo Tam An div*/
 #logodiv {
-	float: left;
+  float: left;
 }
 #logo {
-	width: 140px;
-	height: 70px;
+  width: 140px;
+  height: 70px;
 }
 
 /* sign in div*/
 #sign-in {
-	font-weight: bold;
-	float: right;
-	font-size: 1.1em;
-	width:auto;
-	height: 30px;
+  font-weight: bold;
+  float: right;
+  font-size: 1.1em;
+  width:auto;
+  height: 30px;
 }
 
 .break {
-	clear:both;
+  clear:both;
 }
 /* Organic food*/
 #header {
-	margin:2px;
-	font-size:3em;
-	position: absolute;
-	top:15px;
-	left: 200px;
+  margin:2px;
+  font-size:3em;
+  position: absolute;
+  top:15px;
+  left: 200px;
 
 }
 /* viet nam*/
 #VN {
-	font-size: 0.7em;
-	padding-left: 10px;
+  font-size: 0.7em;
+  padding-left: 10px;
 }
 
 /* print section hide print block in mormal use and hide the other when print */
@@ -43,68 +43,84 @@ body {
 .print-blocks{display:none;}
 
 @media print {
-	.no-print{display: none;}
-	.print-blocks {
-		display: block;
-	}
+  .no-print{display: none;}
+  .print-blocks {
+    display: block;
+  }
 }
 
 /* Clear */
 .clear {
-	clear: both;
+  clear: both;
 }
 /* margin button ( Print Preview Cancel )*/
 .bigBtn{
-	width:80px;
-	margin: 5px;
+  width:80px;
+  margin: 5px;
 }
 /* content of navigation bar*/
 .inner-nav-content{
-	height: 100px;
-	background-color: white;
-	border-bottom: 2px solid grey;
+  height: 100px;
+  background-color: #99FA7E;
+  border-bottom: 2px solid grey;
 }
 
 
 .black-icon-bar{
-	background-color: black;
+  background-color: black;
 }
 
 /* child div must be smaller than parent div */
 /* add red border for visibility */
 .load {
-	margin: 2px;	
+  margin: 2px;  
 }
 
 /* content of Tac vu */
 .inner-content{
-	margin:15px;
-	padding:10px;
-	background-color: white;
+  margin:15px;
+  padding:10px;
+  background-color: white;
 
 }
+/* content of navigation bar */
+.inner-nav-content{
+  height: 100px;
+  background-color: #8CDD81;
+  border-bottom: 2px solid grey;
+}
+
 
 /* make toast like on android */
 #toast {
-	width:200px;
-	height:20px;
-	height:auto;
-	position:absolute;
-	left:50%;
-	margin-left:-100px;
-	bottom:10px;
-	background-color: #383838;
-	color: #F0F0F0;
-	font-family: Calibri;
-	font-size: 20px;
-	padding:10px;
-	text-align:center;
-	border-radius: 2px;
-	-webkit-box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
-	-moz-box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
-	box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
+  width:200px;
+  height:20px;
+  height:auto;
+  position:absolute;
+  left:50%;
+  margin-left:-100px;
+  bottom:10px;
+  background-color: #383838;
+  color: #F0F0F0;
+  font-family: Calibri;
+  font-size: 20px;
+  padding:10px;
+  text-align:center;
+  border-radius: 2px;
+  -webkit-box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
+  -moz-box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
+  box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
 }
-
+/* Hide stuff */
 .hide{
-	visibility: hidden;
+  visibility: hidden;
+}
+/* tri image id */
+#tri_img {
+  width: auto;
+  height: auto;
+}
+/* tri dashed line */
+.tri_dashed_line{
+  border-top: dashed;
 }
