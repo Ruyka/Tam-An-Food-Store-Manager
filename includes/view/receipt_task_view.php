@@ -7,7 +7,7 @@
 		<div class="form-group">
 			<input type="button" value="Print" onclick="print_button()" id="print" class="btn btn-primary pull-right bigBtn" tabindex="-1">
 			<input type="button" value="Preview" onclick="preview_button()" id="preview" class="btn btn-primary pull-right bigBtn" data-toggle="modal" data-target="#preview_modal" tabindex="-1">
-			<input type="button" value="Cancel" id="cancel" class="btn btn-primary pull-right bigBtn" tabindex="-1">
+			<input type="button" value="Clear" id="cancel" class="btn btn-primary pull-right bigBtn" tabindex="-1">
 			<p class="clear"></p>		
 		</div>
 		<!-- select2  -->
