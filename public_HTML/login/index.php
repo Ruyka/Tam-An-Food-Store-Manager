@@ -27,25 +27,24 @@
                   <div id="wrapper">
                       <div id="login" class="animate form">
                           <form  action="<?php echo CONFIG_PATH('public_HTML');?>" autocomplete="on" method = "POST"> 
-                              <h1>Log in</h1> 
+                              <h1>Xin Chào</h1> 
                               <p> 
-                                  <label for="username" class="uname" data-icon="u" > Your email or username </label>
-                                  <input id="username" name="username" required="required" type="text" placeholder="myusername or mymail@mail.com"/>
+                                  <label for="username" class="uname" data-icon="u" > Tên đăng nhập </label>
+                                  <input id="username" name="username" required="required" type="text" placeholder="Tên đăng nhập"/>
                               </p>
                               <p> 
-                                  <label for="password" class="youpasswd" data-icon="p"> Your password </label>
-                                  <input id="password" name="password" required="required" type="password" placeholder="eg. X8df!90EO" /> 
+                                  <label for="password" class="youpasswd" data-icon="p"> Mật khẩu </label>
+                                  <input id="password" name="password" required="required" type="password" placeholder="Mật khẩu" /> 
                               </p>
                               <p class="keeplogin"> 
                                   <input type="checkbox" name="loginkeeping" id="loginkeeping" value="loginkeeping" /> 
                                   <label for="loginkeeping">Keep me logged in</label>
                               </p>
                               <p class="login button"> 
-                                  <input type="submit" value="Login" /> 
+                                  <input type="submit" value="Đăng Nhập" /> 
                               </p>
                               <p class="change_link">
-                                  Not a member yet ?
-                                  <a href="<?php echo CONFIG_PATH('public_HTML')."sign-up";?>" class="to_register">Join us</a>
+                                  
                               </p>
                           </form>
                       </div>

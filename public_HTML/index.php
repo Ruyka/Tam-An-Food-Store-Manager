@@ -1,5 +1,7 @@
 <?php 
 	include($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php');
+	//first when going to home page
+	//we check if user is login or not. if not go to login page
 	require_once(FUNCTION_PATH."check_sign_in.php");
 ?>
 

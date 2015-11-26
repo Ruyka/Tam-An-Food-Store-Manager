@@ -63,13 +63,24 @@
 				$this->response('',404);				
 				// If the method not exist with in this class, response would be "Page not found".
 		}
+
 		//add receipt to database.
 		public function add_receipt($client_data = NULL){
 			if (!is_null($client_data))
 				$this->db->add_receipt(json_decode($client_data,true));
 		}
+
+		//check if the function are existed or not
+		private function check_username_existed($client_data = NULL){
+			if (!is_null($client_data)){
+				// return a message
+				$data = $this->db->check_username_existed(json_decode($client_data,true));
+				$json_data = json_encode($data);
+				$this->response($json_data, 200);
+			}
+		}
 		//add account to database
-		public function sign_up($client_data = NULL){
+		private function sign_up($client_data = NULL){
 			if (!is_null($client_data)){
 				// return a message
 				$data = $this->db->sign_up(json_decode($client_data,true));
@@ -77,6 +88,8 @@
 				$this->response($json_data, 200);
 			}
 		}
+		
+
 		//check user login info
 		//client data must be array with this function
 		private function check_user_login($client_data = NULL){
@@ -90,6 +103,8 @@
 				$this->response($json_data, 200);
 			}
 		}
+		
+
 		//get the list of product info (name, unit)
 		private function get_list_of_product_info($client_data = NULL){
 			//access to database db, call function to query list of product info
@@ -127,8 +142,14 @@
 		}
 	}
 
+	//Server will work indepently. These code is to start the server
 	$server = new Server();
 	$server->process();
+	
+
+
+	// $user_info = array('username' => 'thtrieu');
+	// TEST($server->check_username_existed(json_encode($user_info)));
 	// 
 
 	 // $tmp = new SoldProduct(113);
