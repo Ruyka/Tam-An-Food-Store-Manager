@@ -27,7 +27,13 @@
  
                     <li>
                         <div >
-                            Just a Team <br \><a tabindex="-1" >Log Out</a>
+                            <?php 
+                                $logouturl = CONFIG_PATH('public_HTML'). 'log-out/';
+                                if (isset($USER_NAME))
+                                    echo $USER_NAME."<br \>"
+                                    .'<a tabindex="-1" style = "float:right" href="'.$logouturl.'">Log Out</a>';
+                            ?>
+                            
                         </div>
                     </li>                 
                 </ul>

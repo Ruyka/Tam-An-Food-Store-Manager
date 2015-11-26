@@ -64,9 +64,49 @@
 		public function is_connect(){
 			return !is_null($this->db);
 		}
+		public function check_user_login($user_data){
+			$username = $user_data['username'];
+			$password = $user_data['password'];
 
+			$sql = mysqli_query($this->db,"SELECT Id, Name FROM employee WHERE Username = '$username' 
+											AND Password = '".md5($password)."'");
+					
+            if($sql && mysqli_num_rows($sql)!=0){
+                $result = mysqli_fetch_array($sql,MYSQL_ASSOC);
+                return $result;
+			}
+		}
 		public function add_receipt($receipt_data){
 			TEST($receipt_data);
+		}
+		public function sign_up($user_data){
+
+			$name = $user_data['name'];
+			$username = $user_data['username'];
+			$password = $user_data['password'];
+
+			//check if the account exist or not
+			$sql = mysqli_query($this->db,"SELECT Id FROM employee WHERE username = '$username'");
+    					
+            if($sql && mysqli_num_rows($sql)!=0){
+             	//if account exist             
+                $result = mysqli_fetch_array($sql,MYSQL_ASSOC);
+				
+	            $result = array('message' => "existed");			
+               
+			}
+            else{
+            	
+                //account not exist, ready to add into the database
+                $sql = mysqli_query($this->db,"INSERT INTO employee (Name, Username, Password) 
+                					VALUES ('$name', '$username', '".md5($password)."')");
+				
+                if($sql != false){
+                    $result = array('message' => 'Success');
+                    
+				}
+			}
+			return $result;
 		}
 		public function get_list_of_product_info(){
             
