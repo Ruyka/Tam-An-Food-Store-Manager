@@ -58,12 +58,6 @@ body {
   width:80px;
   margin: 5px;
 }
-/* content of navigation bar*/
-.inner-nav-content{
-  height: 100px;
-  background-color: #99FA7E;
-  border-bottom: 2px solid grey;
-}
 
 
 .black-icon-bar{
@@ -86,7 +80,7 @@ body {
 /* content of navigation bar */
 .inner-nav-content{
   height: 100px;
-  background-color: #8CDD81;
+  background-color: white;
   border-bottom: 2px solid grey;
 }
 
