@@ -1,5 +1,7 @@
 // config url location
-config_url = "http://localhost/Tam-An-Food-Store-Manager/includes/function/general_function.php";
+var url = window.location.href;
+url = url.split("/");
+config_url = "http://"+url[2]+"/Tam-An-Food-Store-Manager/includes/function/general_function.php";
 
 
 
@@ -36,6 +38,7 @@ function get_data(){
 
 // pass data to variable
 product_data = get_data();
+console.log(product_data);
 // get product list from data
 list_product = product_data['list_product'];
 // make option list for select
@@ -78,10 +81,9 @@ $(document).ready(function(){
             async: false,
             url: receipt_path+"?"+$('#receipt-form').serialize(),
             type: "post",
-            data: {action:'get_data_from_submit', max:next},
+            data: {action:'get_data_from_submit', max:next, isPrint:1},
             success: function (data) {
               receipt_list = JSON.parse(data);
-              console.log(receipt_list);
           }  
       });
         make_print_section(receipt_list);
@@ -97,16 +99,35 @@ $(document).ready(function(){
             async: false,
             url: receipt_path+"?"+$('#receipt-form').serialize(),
             type: "post",
-            data: {action:'get_data_from_submit', max:next},
+            data: {action:'get_data_from_submit', max:next, isPrint:0},
             success: function (data) {
               receipt_list = JSON.parse(data);
-              console.log(receipt_list);
           }  
       });
         make_print_section(receipt_list);
         $("#preview_section").html($("#print_here").html());
     }
 
+
+
+    // preview print
+    function preview_print(){
+        isError = false;
+        $.ajax({
+            async: false,
+            url: receipt_path,
+            type: "post",
+            data: {action:'send_data_to_server'},
+            error: function (data) {  
+            isError = true;              
+              console.log(data);
+          }  
+      });    
+        if(!isError)
+            window.print();  
+        else
+            make_toast("There has been a error",3000);
+    }
 
     // add new input
     function add_more(id){
@@ -226,29 +247,72 @@ function make_print_section(receipt_list){
         return;
     }
     // make string to find into regular expressions
-    var re_product = new RegExp('%PRODUCT%', 'g');
-    var re_quantity = new RegExp('%QUANTITY%', 'g');
-    var re_price = new RegExp('%PRICE%', 'g');
+    var re_object1 = new RegExp('%OBJECT1%', 'g');
+    var re_object2 = new RegExp('%OBJECT2%', 'g');
+    var re_object3 = new RegExp('%OBJECT3%', 'g');
+
+    // info
+    var re_address = new RegExp('%ADDRESS%', 'g');
+    var re_tel = new RegExp('%TEL%', 'g');
+    var re_receiptid = new RegExp('%RECEIPTID%', 'g');
+    var re_date = new RegExp('%DATE%', 'g');
+    var re_time = new RegExp('%TIME%', 'g');
+    var re_cashier = new RegExp('%CASHIER%', 'g');
+
+    // get date & time
+    var date = new Date();
+    var receipt_date = date.getDate()+"/"+date.getMonth()+"/"+date.getFullYear();
+    var receipt_time = date.getHours()+":"+date.getMinutes();
+    // start making receipt
+    var receipt_logo = scaled_logo;
+    var receipt_info = receipt_info_table;
+    var receipt_quote = receipt_thanks;
+
+    // make infomation section
+    receipt_info = receipt_info.replace(re_address, "Tam An");
+    receipt_info = receipt_info.replace(re_tel, "");
+    receipt_info = receipt_info.replace(re_receiptid, "-1");
+    receipt_info = receipt_info.replace(re_date, receipt_date);
+    receipt_info = receipt_info.replace(re_time, receipt_time);
+    receipt_info = receipt_info.replace(re_cashier, "Tam An");
 
     // make printable div
     var len = receipt_list.length;
     var total = 0;
 
+    // first line of table has to have dashed line
+    var key = receipt_list[0][0]['key'];
+    var quantity = receipt_list[0][1];
+    var price = parseFloat(list_product[key]['unit']['price'] * quantity);
+    total = total + price;
     var receipt_rows = "";
-    for(var i = 0; i < len; i++){
-        var key = receipt_list[i][0]['key'];
-        var quantity = receipt_list[i][1];
-        var price = parseFloat(list_product[key]['unit']['price'] * quantity);
+
+    var new_row = receipt_dashed_row.replace(re_object2, list_product[key]['name'] + "("+list_product[key]['unit']['unit_name']+")");
+    new_row = new_row.replace(re_object1, quantity);
+    new_row = new_row.replace(re_object3, price);
+    receipt_rows = receipt_rows + new_row;
+    for(var i = 1; i < len; i++){
+        key = receipt_list[i][0]['key'];
+        quantity = receipt_list[i][1];
+        price = parseFloat(list_product[key]['unit']['price'] * quantity);
         total = total + price;
 
-        var new_row = receipt_row.replace(re_product, list_product[key]['name'] + " ("+list_product[key]['unit']['unit_name']+")");
-        new_row = new_row.replace(re_quantity, quantity);
-        new_row = new_row.replace(re_price, price);
+        new_row = receipt_row.replace(re_object2, list_product[key]['name'] + "("+list_product[key]['unit']['unit_name']+")");
+        new_row = new_row.replace(re_object1, quantity);
+        new_row = new_row.replace(re_object3, price);
 
         receipt_rows = receipt_rows + new_row;
     }
-    var receipt_final = "<table>" + receipt_rows + "<tr><td></td><td>Total:</td><td>"+total+"</td></tr></table>";
-    $("#print_here").html(receipt_final);
+    var receipt_total = receipt_dashed_row.replace(re_object1, "");
+    receipt_total = receipt_total.replace(re_object2, "Tổng cộng");
+    receipt_total = receipt_total.replace(re_object3, total);
+
+    receipt_rows = receipt_rows + receipt_total;
+
+    var receipt_list_table = "<table class='tri-receipt-table'>" + receipt_rows + "</table>";
+
+    var full_receipt = receipt_logo + receipt_info + receipt_list_table + receipt_quote;
+    $("#print_here").html(full_receipt);
 }
 
 // function to make a toast like in android

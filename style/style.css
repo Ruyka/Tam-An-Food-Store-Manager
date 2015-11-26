@@ -117,3 +117,8 @@ body {
 .tri_dashed_line{
   border-top: dashed;
 }
+
+table.tri-receipt-table td {
+  margin: 10px;
+  padding: 10px;
+}
