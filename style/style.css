@@ -61,7 +61,7 @@ body {
 /* content of navigation bar*/
 .inner-nav-content{
   height: 100px;
-  background-color: #99FA7E;
+  background-color: white;
   border-bottom: 2px solid grey;
 }
 
@@ -83,13 +83,6 @@ body {
   background-color: white;
 
 }
-/* content of navigation bar */
-.inner-nav-content{
-  height: 100px;
-  background-color: #8CDD81;
-  border-bottom: 2px solid grey;
-}
-
 
 /* make toast like on android */
 #toast {
