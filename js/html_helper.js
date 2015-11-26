@@ -18,7 +18,7 @@
     // receipt row
     var receipt_row = "<tr><td>%OBJECT1%</td><td>%OBJECT2%</td><td>%OBJECT3%</td></tr>";
     // receipt information table
-    var receipt_info_table = "<table class='tri-receipt-table'><tr><td><b>Address: </b></td><td>%ADDRESS%</td></tr><tr><td><b>Tel: </b></td><td>%TEL%</td></tr><tr><td><b>Receipt No: </b></td><td>%RECEIPTID%</td></tr><tr><td><b>Date & time: </b></td><td>%DATE% %TIME%</td></tr><tr><td><b>Cashier: </b></td><td>%CASHIER%</td></tr></table>";
+    var receipt_info_table = "<table><tr><td><b>Address: </b></td><td>%ADDRESS%</td></tr><tr><td><b>Tel: </b></td><td>%TEL%</td></tr><tr><td><b>Receipt No: </b></td><td>%RECEIPTID%</td></tr><tr><td><b>Date & time: </b></td><td>%DATE% %TIME%</td></tr><tr><td><b>Cashier: </b></td><td>%CASHIER%</td></tr></table>";
     // thank you quote
     var receipt_thanks = "<br /><p><b> Thank you. Have a wonderful day! </b></p>";
     // scaled logo

@@ -282,7 +282,7 @@ function make_print_section(receipt_list){
 
         receipt_rows = receipt_rows + new_row;
     }
-    var receipt_total = receipt_dashed_row.replace(re_object1, receipt_time);
+    var receipt_total = receipt_dashed_row.replace(re_object1, "");
     receipt_total = receipt_total.replace(re_object2, "Total");
     receipt_total = receipt_total.replace(re_object3, total);
 
