@@ -10,13 +10,12 @@ if(isset($_POST['action']) && !empty($_POST['action'])) {
     $action = $_POST['action'];
     switch ($action) {
         case 'get_receipt_data_from_server':
-            echo get_receipt_data_from_server()->json_encode();        
+        echo get_receipt_data_from_server()->json_encode();
+        break;
+        case 'get_data_from_submit':       
+        echo json_encode(get_data_from_submit());
+        break;
     }
-}
-
-// get path
-function JS_CONFIG_PATH($directory, $file){
-    echo CONFIG_PATH($directory).$file;
 }
 
 // get data from server
@@ -28,31 +27,53 @@ function get_receipt_data_from_server(){
     return $receipt;
 }
 
-// encrypt to use get on url (copied code ! dont ask)
-function encrypt_get_url($arr, $IV, $KEY){
-    $SERIAL=serialize($arr);
-    $M=mcrypt_module_open('rijndael-256','','cbc','');
-    mcrypt_generic_init($M,$KEY,$IV);
-    $ENCRYPTEDDATA=mcrypt_generic($M,$SERIAL);
-    mcrypt_generic_deinit($M);
-    mcrypt_module_close($M);
-    $q=base64_encode($ENCRYPTEDDATA);
-    $q=str_replace(array('+','/','='),array('-','_','.'),$q);
+// get data from submit
+function get_data_from_submit(){
+    $flag = true;
+    $arr = $_GET;
+    $maxID = $_POST['max'];
+    $cur = 0;
+    $ID_list = null;
+    if(isset($arr['product']))
+        $ID_list[$cur++] = '';
+    for($i = 0; $i < $maxID; $i++){
+        if(isset($arr['product'.$i]))
+            $ID_list[$cur++] = $i;
+    }
+    for($i = 0; $i < $cur; $i++){
+        for($j = $i + 1; $j < $cur; $j++){
+            if(isset($ID_list[$i]) && isset($ID_list[$j]) && $arr['product'.$ID_list[$i]] == $arr['product'.$ID_list[$j]]){
+                $arr['product'.$ID_list[$i].'_quantity'] = intval($arr['product'.$ID_list[$i].'_quantity']) + intval($arr['product'.$ID_list[$j].'_quantity']);
+                unset($arr['product'.$ID_list[$j]]);
+                unset($arr['product'.$ID_list[$j].'_quantity']);
+                unset($ID_list[$j]);
+            }
+        }
+    } 
+    for($i = 0; $i < $cur; $i++){
+        if(isset($ID_list[$i]) && $arr['product'.$ID_list[$i].'_quantity'] == 0){
+            unset($arr['product'.$ID_list[$i]]);
+            unset($arr['product'.$ID_list[$i].'_quantity']);
+            unset($ID_list[$i]);
+        }
+    }
+    if (count($arr) == 0)
+        return "";
 
-    return $q;
-}
+    $cur = 0;
+    $ID_list = null;
+    if(isset($arr['product']))
+        $ID_list[$cur++] = '';
+    for($i = 0; $i < $maxID; $i++){
+        if(isset($arr['product'.$i]))
+            $ID_list[$cur++] = $i;
+    }
 
-// decrypt to use get on url (copied code ! dont ask)
-function decrypt_get_url($arr, $IV, $KEY){
-    $arr=str_replace(array('-','_','.'),array('+','/','='),$arr);
-    $ENCRYPTEDDATA=base64_decode($arr);
-    $M=mcrypt_module_open('rijndael-256','','cbc','');
-    mcrypt_generic_init($M,$KEY,$IV);
-    $SERIAL=mdecrypt_generic($M,$ENCRYPTEDDATA);
-    mcrypt_generic_deinit($M);
-    mcrypt_module_close($M);
-    $ARRAY=unserialize($SERIAL);
-
-    return $ARRAY;
+    $cur = 0;
+    $reArr = null;
+    foreach ($ID_list as $key => $value) {
+        $reArr[$cur++] = array(json_decode($arr['product'.$value]), $arr['product'.$value.'_quantity']);
+    }
+    return $reArr;
 }
 ?>
