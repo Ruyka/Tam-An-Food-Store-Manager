@@ -15,9 +15,16 @@
 
 		}
 
+		public function check_username_existed($data){
+			$user_info = array('username' => $data);
+			return $this->get_response_from_message("check username existed", true, json_encode($user_info));
+		}
+
+		// signup an account push data to database
 		public function sign_up($data){
 			return $this->get_response_from_message("sign up",true, json_encode($data));
 		}
+
 		public function add_receipt( $receipt){
 			$this->get_response_from_message("add receipt", false, $receipt->json_encode(true));
 		}
@@ -41,6 +48,8 @@
 		public function get_list_of_user_name(){
 			return $this->get_response_from_message("get list of user name");
 		}
+
+
 		//send message to server and get response
 		private function get_response_from_message($message, $is_get_response = true, $json_data = NULL){
 			//set the url of the server we need to request
@@ -78,11 +87,6 @@
 	}
 	//test code
 	
-	//test user
-	// $m = new Management();
-	// TEST($m->check_user_login('dekal','12345'));
-	
-
 	//test product receipt...
 	
 	// $tmp = new SoldProduct(113);

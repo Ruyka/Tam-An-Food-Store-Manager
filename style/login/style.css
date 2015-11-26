@@ -56,10 +56,10 @@ a.hiddenanchor{
 }
 
 #wrapper h1{
-	font-size: 48px;
+	font-size: 40px;
 	color: rgb(6, 106, 117);
 	padding: 2px 0 10px 0;
-	font-family: 'FranchiseRegular','Arial Narrow',Arial,sans-serif;
+	font-family: Arial,sans-serif;
 	font-weight: bold;
 	text-align: center;
 	padding-bottom: 30px;
@@ -162,9 +162,9 @@ input {
 	cursor: pointer;	
 	background: rgb(61, 157, 179);
 	padding: 8px 5px;
-	font-family: 'BebasNeueRegular','Arial Narrow',Arial,sans-serif;
+	font-family: Arial,sans-serif;
 	color: #fff;
-	font-size: 24px;	
+	font-size: 20px;	
 	border: 1px solid rgb(28, 108, 122);	
 	margin-bottom: 10px;	
 	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);

@@ -12,7 +12,6 @@
     $data['email'] = $_POST['email'];
     $data['password'] = $_POST['password'];
     $data['password_confirm'] = $_POST['password_confirm'];
-    TEST(json_encode($data));
     $manage = new Management();
     print_r($manage->sign_up($data));
     redirect_to(CONFIG_PATH("public_HTML")."login/");

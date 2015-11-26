@@ -64,6 +64,24 @@
 		public function is_connect(){
 			return !is_null($this->db);
 		}
+		
+		public function check_username_existed($user_data){
+			$username = $user_data['username'];
+			$sql = mysqli_query($this->db,"SELECT Id FROM employee WHERE username = '$username'");
+    					
+            if($sql && mysqli_num_rows($sql)!=0){
+             	//if account exist             
+                $result = mysqli_fetch_array($sql,MYSQL_ASSOC);
+				
+	            $result = array('message' => "existed");			
+               
+			}
+			else
+				$result = array('message' => "not existed"); 
+
+			return $result;
+		}
+		//check if user login are validated
 		public function check_user_login($user_data){
 			$username = $user_data['username'];
 			$password = $user_data['password'];
@@ -76,9 +94,16 @@
                 return $result;
 			}
 		}
+		
+
+
+		//add receipt to database
 		public function add_receipt($receipt_data){
 			TEST($receipt_data);
 		}
+
+
+		//sign up
 		public function sign_up($user_data){
 
 			$name = $user_data['name'];
