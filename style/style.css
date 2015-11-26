@@ -112,4 +112,6 @@ body {
 	box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
 }
 
-
+.hide{
+	visibility: hidden;
+}
