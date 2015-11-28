@@ -20,6 +20,6 @@
     // receipt information table
     var receipt_info_table = "<table><tr><td><b>Địa Chỉ: </b></td><td>%ADDRESS%</td></tr><tr><td><b>Điện thoại: </b></td><td>%TEL%</td></tr><tr><td><b>Hóa đơn số: </b></td><td>%RECEIPTID%</td></tr><tr><td><b>Ngày: </b></td><td>%DATE%  %TIME%</td></tr><tr><td><b>Thu ngân: </b></td><td>%CASHIER%</td></tr></table>";
     // thank you quote
-    var receipt_thanks = "<br /><p><b> Thank you. Have a wonderful day! </b></p>";
+    var receipt_thanks = "<br /><p><b> Cám ơn và hẹn gặp lại! </b></p>";
     // scaled logo
     var scaled_logo = "<img src='scaled_logo.jpg' id='tri_img' />";
