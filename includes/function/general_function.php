@@ -1,11 +1,21 @@
-<?php require_once($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php');  ?>
+<?php 
+session_start();
+require_once($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php');  
+?>
 
 <?php 
 if(isset($_POST['action']) && !empty($_POST['action'])) {
     $action = $_POST['action'];
     switch ($action) {
         case 'JS_CONFIG_PATH':
-            echo JS_CONFIG_PATH($_POST['directory'],$_POST['file']);        
+            echo JS_CONFIG_PATH($_POST['directory'],$_POST['file']);  
+            break;
+        case 'get_username':
+            if(isset($_SESSION['username']))
+                echo   $_SESSION['username'];
+            else
+                echo "Tâm An";
+            break;
     }
 }
 // get path

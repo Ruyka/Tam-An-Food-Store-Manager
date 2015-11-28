@@ -3,7 +3,17 @@ var url = window.location.href;
 url = url.split("/");
 config_url = "http://"+url[2]+"/Tam-An-Food-Store-Manager/includes/function/general_function.php";
 
-
+// get user name
+user_name = "Tâm An";
+$.ajax({
+    async: false,
+    url: config_url,
+    type: "post",
+    data: {action:'get_username'},
+    success: function (data) {
+      user_name = data;
+  }  
+});
 
 // get receipt_function.php path
 receipt_path = null;
@@ -197,7 +207,7 @@ function observe_change(id){
     // get corresponding price in list_product
     var pval = list_product[key]['unit']['price'];
     // change field "Price per product" to corresponding price
-    $("#product"+id+"_price").html(pval);
+    $("#product"+id+"_price").html(numberWithCommas(pval));
     // get element of product quantity with "id"
     var ppid = document.getElementById("product"+id+"_quantity");
     // get quantity
@@ -219,7 +229,7 @@ function observe_change(id){
     // calculate total value
     var total = pval*ppval;
     // set "Total" to the calculated value
-    $("#product"+id+"_total").html(total);
+    $("#product"+id+"_total").html(numberWithCommas(total));
     // calculated total receipt price
     Oberser_total_price(total);
 }
@@ -229,7 +239,7 @@ function observe_change(id){
 // Observer for total receipt price 
 function Oberser_total_price(price){
     Total_all = Total_all + price;
-    $("#Total_all").html(Total_all);
+    $("#Total_all").html(numberWithCommas(Total_all));
 }
 
 
@@ -260,9 +270,11 @@ function make_optionlist(product_list){
     return option_list;
 }
 
-// validate form
-function form_validation(){
-    return false;
+// add comma to money
+function numberWithCommas(x) {
+    var parts = x.toString().split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return parts.join(".");
 }
 
 // make printable receipt
@@ -297,10 +309,10 @@ function make_print_section(receipt_list){
     // make infomation section
     receipt_info = receipt_info.replace(re_address, "Tam An");
     receipt_info = receipt_info.replace(re_tel, "");
-    receipt_info = receipt_info.replace(re_receiptid, "-1");
+    // receipt_info = receipt_info.replace(re_receiptid, "-1");
     receipt_info = receipt_info.replace(re_date, receipt_date);
     receipt_info = receipt_info.replace(re_time, receipt_time);
-    receipt_info = receipt_info.replace(re_cashier, "Tam An");
+    receipt_info = receipt_info.replace(re_cashier, user_name);
 
     // make printable div
     var len = receipt_list.length;
@@ -315,7 +327,7 @@ function make_print_section(receipt_list){
 
     var new_row = receipt_dashed_row.replace(re_object2, list_product[key]['name'] + "("+list_product[key]['unit']['unit_name']+")");
     new_row = new_row.replace(re_object1, quantity);
-    new_row = new_row.replace(re_object3, price);
+    new_row = new_row.replace(re_object3, numberWithCommas(price));
     receipt_rows = receipt_rows + new_row;
     for(var i = 1; i < len; i++){
         key = receipt_list[i][0]['key'];
@@ -325,13 +337,13 @@ function make_print_section(receipt_list){
 
         new_row = receipt_row.replace(re_object2, list_product[key]['name'] + "("+list_product[key]['unit']['unit_name']+")");
         new_row = new_row.replace(re_object1, quantity);
-        new_row = new_row.replace(re_object3, price);
+        new_row = new_row.replace(re_object3, numberWithCommas(price));
 
         receipt_rows = receipt_rows + new_row;
     }
     var receipt_total = receipt_dashed_row.replace(re_object1, "");
     receipt_total = receipt_total.replace(re_object2, "Tổng cộng");
-    receipt_total = receipt_total.replace(re_object3, total);
+    receipt_total = receipt_total.replace(re_object3, numberWithCommas(total));
 
     receipt_rows = receipt_rows + receipt_total;
 
