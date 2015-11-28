@@ -86,8 +86,7 @@
 			$username = $user_data['username'];
 			$password = $user_data['password'];
 
-			$sql = mysqli_query($this->db,"SELECT Id, Name FROM employee WHERE Username = '$username' 
-											AND Password = '".md5($password)."'");
+			$sql = mysqli_query($this->db,"CALL check_user_login('$username', '".md5($password)."');");
 					
             if($sql && mysqli_num_rows($sql)!=0){
                 $result = mysqli_fetch_array($sql,MYSQL_ASSOC);
@@ -135,7 +134,7 @@
 		}
 		public function get_list_of_product_info(){
             
-            $sql = mysqli_query($this->db,"SELECT * FROM Product");
+            $sql = mysqli_query($this->db,"CALL get_list_of_product_info();");
     					
             if($sql && mysqli_num_rows($sql)!=0){    
                 $result = array();

@@ -19,8 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `tam_an_fix_bug`
 --
-CREATE DATABASE IF NOT EXISTS `tam_an` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `tam_an`;
+CREATE DATABASE IF NOT EXISTS `Tam_An` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `Tam_An`;
 
 -- --------------------------------------------------------
 
@@ -200,6 +200,7 @@ INSERT INTO `output product receipt` (`CustomerID`, `ReceiptID`) VALUES
 DROP TABLE IF EXISTS `product`;
 CREATE TABLE IF NOT EXISTS `product` (
   `ID` int NOT NULL AUTO_INCREMENT,
+  `Product_ID` nvarchar(10) DEFAULT NULL,
   `Name` varchar(250) DEFAULT NULL,
   `Unit` varchar(50) DEFAULT NULL,
   `Product_TypeID` int DEFAULT NULL,
@@ -793,3 +794,22 @@ ALTER TABLE `user`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS get_list_of_product_info$$
+
+CREATE PROCEDURE get_list_of_product_info()
+BEGIN
+  SELECT Name, Unit AS 'UnitName', Price, ID AS 'Id', Product_ID AS 'ProductId' FROM tam_an.product;
+END $$
+
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS check_user_login$$
+
+CREATE PROCEDURE check_user_login( uname varchar(50), pass  varchar(100))
+BEGIN
+  SELECT ID AS 'Id', Name FROM tam_an.user WHERE Username LIKE uname AND Password LIKE pass;
+END $$
+
+
