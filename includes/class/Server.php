@@ -106,13 +106,13 @@
 		
 
 		//get the list of product info (name, unit)
-		private function get_list_of_product_info($client_data = NULL){
+		public function get_list_of_product_info($client_data = NULL){
 			//access to database db, call function to query list of product info
 			$list_product_info = $this->db->get_list_of_product_info();
 			
 			//call method convert list product into json
 			$json_data = $this->view->list_product_to_json_data($list_product_info);
-	
+		
 			//response with the data encode with json, status 200 = OK
 			$this->response($json_data, 200);
 			
@@ -145,7 +145,6 @@
 	//Server will work indepently. These code is to start the server
 	$server = new Server();
 	$server->process();
-	
 
 
 	// $user_info = array('username' => 'thtrieu');

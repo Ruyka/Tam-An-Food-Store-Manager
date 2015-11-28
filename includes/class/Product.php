@@ -6,8 +6,10 @@
 class Product{
 
 	//Properties:
-	//id of the product
+	//id of the product in database
 	private $product_id;
+	//id of the product in company
+	private $product_code;
 	// name of the product
 	private $name ;
 	// total number of the product in storage
@@ -25,6 +27,7 @@ class Product{
 	//Constructor
 	public function __construct(){
 		$this->product_id = "";
+		$this->product_code="";
 		$this->name = "";
 		$this->total_number = 0;
 		$this->unit = new Unit();
@@ -34,12 +37,14 @@ class Product{
 	}
 	//this function add the attribute for the product
     public function add_attribute( $name, $total_number, $unit, 
-    								$product_id = "", $trademark = NULL, $dated = NULL) {
+    								$product_id = "", $product_code=""
+    								, $trademark = NULL, $dated = NULL) {
     	
     	$this->name = $name;
 		$this->total_number = $total_number;
 		$this->unit = $unit;
 		$this->product_id = $product_id;
+		$this->product_code = $product_code;
 		$this->trademark = $trademark;
 		$this->dated = $dated;
     }
@@ -79,6 +84,7 @@ class Product{
 
 		$json = array(
 			'product_id' => $this->product_id,
+			'product_code' => $this->product_code,
 	        'name' => $this->name,
 	        'total_number' => $this->total_number,
 	        // json_encode parameter = false, return object not encode with json
@@ -125,7 +131,10 @@ class Product{
 
 	// get data from array
 	private function get_data($data){
+		//product id of database
 		$this->product_id = $data['product_id'];
+		//product Id of the company
+		$this->product_code = $data['product_code'];
 		// get name
 		$this->name = $data['name'];
 		//get total numbet off product that remains
