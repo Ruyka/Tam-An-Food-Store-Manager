@@ -38,13 +38,16 @@ function get_data(){
 
 // pass data to variable
 product_data = get_data();
-console.log(product_data);
 // get product list from data
-list_product = product_data['list_product'];
+if (typeof product_data['list_product'] !== 'undefined') {
+    // the variable is defined
+    list_product = product_data['list_product'];
+}
+else{
+    list_product = "";
+}
 // make option list for select
 option_list = make_optionlist(list_product);
-// throw out console debug
-console.log(list_product);
 // Total price of receipt
 Total_all = 0;
 
@@ -76,7 +79,7 @@ $(document).ready(function(){
 
     // print  button
     function print_button(){
-        var receipt_list = null;
+        var receipt_list = "";
         $.ajax({
             async: false,
             url: receipt_path+"?"+$('#receipt-form').serialize(),
@@ -94,7 +97,8 @@ $(document).ready(function(){
 
     // preview button
     function preview_button(){
-        var receipt_list = null;
+        var receipt_list = "";
+        var isError = false;
         $.ajax({
             async: false,
             url: receipt_path+"?"+$('#receipt-form').serialize(),
@@ -102,10 +106,21 @@ $(document).ready(function(){
             data: {action:'get_data_from_submit', max:next, isPrint:0},
             success: function (data) {
               receipt_list = JSON.parse(data);
-          }  
-      });
-        make_print_section(receipt_list);
-        $("#preview_section").html($("#print_here").html());
+          },          
+          error: function (data) {  
+            isError = true;              
+            console.log(data);
+        }  
+    });        
+        if(isError){
+            make_print_section("");
+            $("#preview_section").html($("#print_here").html());
+            make_toast("There has been a error",3000);
+        }
+        else{
+            make_print_section(receipt_list);
+            $("#preview_section").html($("#print_here").html());
+        }
     }
 
 
@@ -119,10 +134,10 @@ $(document).ready(function(){
             type: "post",
             data: {action:'send_data_to_server'},
             error: function (data) {  
-            isError = true;              
-              console.log(data);
-          }  
-      });    
+                isError = true;              
+                console.log(data);
+            }  
+        });    
         if(!isError)
             window.print();  
         else
@@ -210,11 +225,11 @@ function Oberser_total_price(price){
 
 // make option list for select
 function make_optionlist(product_list){
+    // return if product list is empty
+    if(product_list == "")
+        return "";    
     // get product list length
     var len = product_list.length;
-    // return if product list is empty
-    if(len < 1)
-        return "";    
     // make string to find into regular expressions
     var re_value = new RegExp('%VALUE%', 'g');
     var re_name = new RegExp('%NAME%', 'g');
@@ -242,7 +257,7 @@ function form_validation(){
 // make printable receipt
 function make_print_section(receipt_list){
     // return on empty
-    if (receipt_list.length == 0){
+    if (receipt_list == ""){
         $("#print_here").html("Error: Receipt is empty.");
         return;
     }
