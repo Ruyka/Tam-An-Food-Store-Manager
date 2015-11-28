@@ -15,7 +15,6 @@
 	<!-- library css -->
 	<link rel="stylesheet" type="text/css" href="<?php echo CONFIG_PATH('style')."style.css"; ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo CONFIG_PATH('lib')."bootstrap/css/bootstrap.min.css"; ?>">
-	<link rel="stylesheet" type="text/css" href="<?php echo CONFIG_PATH('lib')."bootstrap/css/bootstrap-theme.min.css"; ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo CONFIG_PATH('lib')."select2/select2.css"; ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo CONFIG_PATH('lib')."select2/select2-bootstrap.css"; ?>">
 	<!-- library javascript -->
