@@ -50,7 +50,7 @@ else{
 option_list = make_optionlist(list_product);
 // Total price of receipt
 Total_all = 0;
-
+console.log(list_product);
 // make_print_section();
 // Add new input field for the receipt
 // current id
@@ -80,6 +80,7 @@ $(document).ready(function(){
     // print  button
     function print_button(){
         var receipt_list = "";
+        var isError = false;
         $.ajax({
             async: false,
             url: receipt_path+"?"+$('#receipt-form').serialize(),
@@ -87,10 +88,20 @@ $(document).ready(function(){
             data: {action:'get_data_from_submit', max:next, isPrint:1},
             success: function (data) {
               receipt_list = JSON.parse(data);
-          }  
-      });
-        make_print_section(receipt_list);
-        window.print();
+          },          
+          error: function (data) {  
+            isError = true;              
+            console.log(data);
+        }  
+    });
+        if(isError){
+            make_print_section("");
+            make_toast("There has been a error",2000);
+        }
+        else{
+            make_print_section(receipt_list);
+            window.print();
+        }
     }
 
 
@@ -115,7 +126,7 @@ $(document).ready(function(){
         if(isError){
             make_print_section("");
             $("#preview_section").html($("#print_here").html());
-            make_toast("There has been a error",3000);
+            make_toast("There has been a error",2000);
         }
         else{
             make_print_section(receipt_list);
@@ -200,11 +211,11 @@ function observe_change(id){
         add_more(id);
     }
     // check if it does not exceed max quantity
-    if(ppval > parseInt(list_product[key]['total_number'])){
-        // print error msg if it realy exceed
-        $("#product"+id+"_total").html("Không đủ sản phẩm (Còn lại:"+list_product[key]['total_number']+")");
-        return;
-    }
+    // if(ppval > parseInt(list_product[key]['total_number'])){
+    //     // print error msg if it realy exceed
+    //     $("#product"+id+"_total").html("Không đủ sản phẩm (Còn lại:"+list_product[key]['total_number']+")");
+    //     return;
+    // }
     // calculate total value
     var total = pval*ppval;
     // set "Total" to the calculated value
