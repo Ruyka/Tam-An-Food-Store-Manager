@@ -1,4 +1,7 @@
-<?php require_once($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php');  ?>
+<?php 
+session_start();
+require_once($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php');  
+?>
 
 <?php 
 if(isset($_POST['action']) && !empty($_POST['action'])) {
