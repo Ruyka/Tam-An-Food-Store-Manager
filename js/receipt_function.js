@@ -192,7 +192,18 @@ $(document).ready(function(){
 // delete row
 function row_delete(id){
     var price = $("#product"+id+"_total").html();
-    Oberser_total_price(-price);
+    // get element of #product with "id"
+    var pid = document.getElementById("product"+id);
+    // get key
+    var key = JSON.parse(pid.value)['key'];
+    // get corresponding price in list_product
+    var pval = list_product[key]['unit']['price'];
+    // get element of product quantity with "id"
+    var ppid = document.getElementById("product"+id+"_quantity");
+    // get quantity
+    var ppval = $(ppid).val();
+    // observer total price
+    Oberser_total_price(-parseFloat(pval*ppval));
     $("#receipt-row"+id).remove();
 }
 
@@ -256,11 +267,12 @@ function make_optionlist(product_list){
     var re_name = new RegExp('%NAME%', 'g');
     var re_unitname = new RegExp('%UNITNAME%', 'g');
     // replace value with id
-    var option_list = html_option.replace(re_value, "{\"id\":\""+product_list[0]['product_id']+"\",\"key\":0}");
-    option_list = option_list.replace(re_name, product_list[0]['name']);
-    option_list = option_list.replace(re_unitname, product_list[0]['unit']['unit_name']);
+    // var option_list = html_option.replace(re_value, "{\"id\":\""+product_list[0]['product_id']+"\",\"key\":0}");
+    // option_list = option_list.replace(re_name, product_list[0]['name']);
+    // option_list = option_list.replace(re_unitname, product_list[0]['unit']['unit_name']);
+    var option_list = "";
     // make options
-    for(var i = 1; i < len; i++ ){
+    for(var i = 0; i < len; i++ ){
         // replace value with id
         var new_option = html_option.replace(re_value, "{\"id\":\""+product_list[i]['product_id']+"\",\"key\":"+i+"}");
         new_option = new_option.replace(re_name, product_list[i]['name']);
