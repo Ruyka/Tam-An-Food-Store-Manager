@@ -3,7 +3,17 @@ var url = window.location.href;
 url = url.split("/");
 config_url = "http://"+url[2]+"/Tam-An-Food-Store-Manager/includes/function/general_function.php";
 
-
+// get user name
+user_name = "Tâm An";
+$.ajax({
+    async: false,
+    url: config_url,
+    type: "post",
+    data: {action:'get_username'},
+    success: function (data) {
+      user_name = data;
+  }  
+});
 
 // get receipt_function.php path
 receipt_path = null;
@@ -299,10 +309,10 @@ function make_print_section(receipt_list){
     // make infomation section
     receipt_info = receipt_info.replace(re_address, "Tam An");
     receipt_info = receipt_info.replace(re_tel, "");
-    receipt_info = receipt_info.replace(re_receiptid, "-1");
+    // receipt_info = receipt_info.replace(re_receiptid, "-1");
     receipt_info = receipt_info.replace(re_date, receipt_date);
     receipt_info = receipt_info.replace(re_time, receipt_time);
-    receipt_info = receipt_info.replace(re_cashier, "Tam An");
+    receipt_info = receipt_info.replace(re_cashier, user_name);
 
     // make printable div
     var len = receipt_list.length;
