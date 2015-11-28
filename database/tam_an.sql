@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `employee` (
 --
 
 INSERT INTO `employee` (`Id`, `Name`, `Username`, `Password`) VALUES
-(1, 'admin', 'Tâm An', '827ccb0eea8a706c4c34a16891f84e7b'),
+(1, 'Tâm An', 'admin', '827ccb0eea8a706c4c34a16891f84e7b'),
 (2, 'Hồ Hữu Phát', 'dekal', '827ccb0eea8a706c4c34a16891f84e7b'),
 (3, 'Kim Nhật Thành', 'knthanh', '827ccb0eea8a706c4c34a16891f84e7b'),
 (4, 'Trịnh Hoàng Triều', 'thtrieu', '25d55ad283aa400af464c76d713c07ad');
