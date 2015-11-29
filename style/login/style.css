@@ -3,12 +3,13 @@
 	 text-align: left;
 	 padding: 0;
 	 margin: auto 0;
+	 margin-top: 50px;
 	 font-family: "Trebuchet MS","Myriad Pro",Arial,sans-serif;
 }
 .vertical-center {
-  min-height: 90%;  /* Fallback for browsers do NOT support vh unit */
-  min-height: 90vh; /* These two lines are counted as one :-)       */
-
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+  margin: auto 0;
   display: flex;
   align-items: center;
 }
@@ -40,11 +41,11 @@ a.hiddenanchor{
 }
 /** The wrapper that will contain our two forms **/
 #wrapper{
-	width: 60%;
+	width: 100%;
 	right: 0px;
 	min-height: 560px;	
 	margin: 0px auto;	
-	width: 500px;
+	width: 400px;
 	position: relative;	
 }
 /**** Styling the form elements **/
@@ -272,8 +273,8 @@ p.change_link{
 #login{
 	position: absolute;
 	top: 0px;
-	width: 88%;	
-	padding: 18px 6% 60px 6%;
+	width: 100%;	
+	padding: 40px 6% 18px 6%;
 	margin: 0 0 35px 0;
 	background: rgb(247, 247, 247);
 	border: 1px solid rgba(147, 184, 189,0.8);
