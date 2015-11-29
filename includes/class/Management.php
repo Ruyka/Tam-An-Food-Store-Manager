@@ -53,7 +53,7 @@
 		//send message to server and get response
 		private function get_response_from_message($message, $is_get_response = true, $json_data = NULL){
 			//set the url of the server we need to request
-			$url = 'http://localhost/Tam-An-Food-Store-Manager/includes/class/Server.php';
+			$url = CONFIG_PATH('class'). 'Server.php';
 			
 			//put request into data
 			$data = array();
