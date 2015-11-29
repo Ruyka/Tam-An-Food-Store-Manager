@@ -10,11 +10,17 @@
             </div>
             
             <button type="button" class="navbar-toggle" data-toggle="collapse" 
-                                                        data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar black-icon-bar"></span>
-                <span class="icon-bar black-icon-bar"></span>
-                <span class="icon-bar black-icon-bar"></span>
+                                                        data-target=".navbar-collapse" style="margin-top:0px;padding-top:0px">
+                <div id="sign-in" >
+                    <?php 
+                        $logouturl = CONFIG_PATH('public_HTML'). 'log-out/';
+                        if (isset($USER_NAME))
+                            echo $USER_NAME."<br \>"
+                            .'<a tabindex="-1" style = "float:right" href="'.$logouturl.'">Log Out</a>';
+                    ?>
+                    
+                </div>
+                
             </button>
 
         </div>
@@ -42,7 +48,7 @@
             </div>
         </div>
     </div>
-    <div class="break" > </div>
+   
 
    
 </div>

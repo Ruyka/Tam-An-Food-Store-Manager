@@ -4,11 +4,22 @@
 <!-- Receipt task view -->
 <div class="receipt-view">
 	<form id="receipt-form" action="<?php echo CONFIG_PATH('function').'process_submit.php'; ?>" method="post" role="form">
-		<div class="form-group">
+		<!-- if in small device, the small button will take place -->
+		<button type="button" class="navbar-toggle" data-toggle="collapse" 
+                                                        data-target=".navbar2" >
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar black-icon-bar"></span>
+                <span class="icon-bar black-icon-bar"></span>
+                <span class="icon-bar black-icon-bar"></span>   
+
+        </button>
+		<!-- if in normal state or toogle the button, this will show -->
+		<div class="form-group collapse navbar-collapse navbar2" style ="padding:0;">
+
 			<input type="button" value="Print" onclick="print_button()" id="print" class="btn btn-primary pull-right bigBtn" tabindex="-1">
 			<input type="button" value="Preview" onclick="preview_button()" id="preview" class="btn btn-primary pull-right bigBtn" data-toggle="modal" data-target="#preview_modal" tabindex="-1">
 			<input type="button" value="Clear" id="cancel" class="btn btn-primary pull-right bigBtn" tabindex="-1">
-			<p class="clear"></p>		
+					
 		</div>
 		<!-- select2  -->
 		<div class="table-responsive"> 
