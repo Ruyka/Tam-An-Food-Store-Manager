@@ -1,5 +1,6 @@
 <?php
   require_once($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php');
+  require_once(FUNCTION_PATH."check_sign_in.php");
   require_once(VIEW_PATH. "head.php");
   require_once(VIEW_PATH. "header.php");
 ?>
