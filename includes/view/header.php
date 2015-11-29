@@ -10,7 +10,8 @@
             </div>
             
             <button type="button" class="navbar-toggle" data-toggle="collapse" 
-                                                        data-target="navbar-collapse">
+                                                        data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar black-icon-bar"></span>
                 <span class="icon-bar black-icon-bar"></span>
                 <span class="icon-bar black-icon-bar"></span>
@@ -19,8 +20,8 @@
         </div>
         
         <div class = "collapse navbar-collapse">
-            
-            <div class="inner-collapse">
+           
+           <div class="inner-collapse">
                 <div id ="header"><p> ORGANICFOOD <span id="VN"> VIỆT NAM </span> </p></div>
                 
                 <ul id="sign-in" class="nav navbar-nav">

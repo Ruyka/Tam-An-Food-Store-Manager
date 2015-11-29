@@ -86,7 +86,6 @@ $(document).ready(function(){
 });
 
 
-
     // print  button
     function print_button(){
         var receipt_list = "";
@@ -223,9 +222,11 @@ function observe_change(id){
     var ppid = document.getElementById("product"+id+"_quantity");
     // get quantity
     var ppval = $(ppid).val();
+
     // check if quantity is a number
     if(isNaN(ppval)){
-        ppval = 0;
+        ppval = 0;  
+        $(ppid).val(0);
     }
     // add new if it's the bottom row
     else if(id == (next - 1)){
