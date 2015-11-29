@@ -11,8 +11,6 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
         
-        <link rel="shortcut icon" href="../favicon.ico"> 
-        
         <link rel="stylesheet" type="text/css" 
                             href="<?php echo CONFIG_PATH('style')."login/demo.css" ?>"/>
         <link rel="stylesheet" type="text/css" 
@@ -24,10 +22,10 @@
         <div class="container">
             <section>  
                   
-              <div id="container_demo" class = "vertical-center" >
+              <div id="container_demo">
                   <div id="wrapper">
                       <div id="login" class="animate form">
-                          <form  action="<?php echo CONFIG_PATH('public_HTML');?>" autocomplete="on" method = "POST"> 
+                          <form  action="<?php echo CONFIG_PATH('public_HTML');?>" autocomplete="on" method = "POST" class="form-group"> 
                               <h1>Xin Chào</h1> 
                               <p> 
                                   <label for="username" class="uname" data-icon="u" > Tên đăng nhập </label>
