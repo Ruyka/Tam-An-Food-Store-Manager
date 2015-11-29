@@ -60,7 +60,6 @@ else{
 option_list = make_optionlist(list_product);
 // Total price of receipt
 Total_all = 0;
-console.log(list_product);
 // make_print_section();
 // Add new input field for the receipt
 // current id
@@ -190,19 +189,10 @@ $(document).ready(function(){
 
 // delete row
 function row_delete(id){
-    var price = $("#product"+id+"_total").html();
-    // get element of #product with "id"
-    var pid = document.getElementById("product"+id);
-    // get key
-    var key = JSON.parse(pid.value)['key'];
-    // get corresponding price in list_product
-    var pval = list_product[key]['unit']['price'];
-    // get element of product quantity with "id"
-    var ppid = document.getElementById("product"+id+"_quantity");
-    // get quantity
-    var ppval = $(ppid).val();
+    // get current price
+    var oldTotal = parseFloat(numberWithoutCommas($("#product"+id+"_total").html()));
     // observer total price
-    Oberser_total_price(-parseFloat(pval*ppval));
+    Oberser_total_price(-oldTotal);
     $("#receipt-row"+id).remove();
 }
 
@@ -239,11 +229,15 @@ function observe_change(id){
     //     return;
     // }
     // calculate total value
+    var oldTotal = 0;
+    if($("#product"+id+"_total").html() != "Total price"){
+        oldTotal = parseFloat(numberWithoutCommas($("#product"+id+"_total").html()));
+    }
     var total = pval*ppval;
     // set "Total" to the calculated value
     $("#product"+id+"_total").html(numberWithCommas(total));
     // calculated total receipt price
-    Oberser_total_price(total);
+    Oberser_total_price(total - oldTotal);
 }
 
 
@@ -288,6 +282,11 @@ function numberWithCommas(x) {
     var parts = x.toString().split(".");
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return parts.join(".");
+}
+
+// remove comma from money
+function numberWithoutCommas(x) {
+    return x.replace(/\,/g,"");
 }
 
 // make printable receipt
