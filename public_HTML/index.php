@@ -40,7 +40,7 @@
 		<div class="no-print"> 
 				<?php require_once(VIEW_PATH."header.php");?>
 			
-				<div class="col-md-6">
+				<div>
 					<div class="inner-content">
 						<select id="task1" tabindex="-1" class="form-control " onchange="switch_task('task1')">
 							<option value="receipt">In hóa đơn</option>
@@ -52,7 +52,7 @@
 					</div>
 				</div>
 
-				<div class="col-md-6">
+				<div class="col-md-6 hide ">
 					<div class="inner-content">
 						<select id="task2" tabindex="-1" class="form-control">
 							<option value="receipt">In hóa đơn</option>
