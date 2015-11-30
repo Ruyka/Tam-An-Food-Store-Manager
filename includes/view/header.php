@@ -28,7 +28,7 @@
         <div class = "collapse navbar-collapse">
            
            <div class="inner-collapse">
-                <div id ="header"><p> ORGANICFOOD <span id="VN"> VIỆT NAM </span> </p></div>
+                <div id ="header"><p> Thực Phẩm Sạch <span id="VN"> VIỆT NAM </span> </p></div>
                 
                 <ul id="sign-in" class="nav navbar-nav">
  
