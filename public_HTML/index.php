@@ -1,8 +1,17 @@
 <?php 
 	include($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php');
+	require_once(FUNCTION_PATH. "general_function.php");
 	//first when going to home page
 	//we check if user is login or not. if not go to login page
-	require_once(FUNCTION_PATH."check_sign_in.php");
+	// if a login of user has sucess or the user is not log out in the previous time
+	// get the User Info to GLOBal variable
+	if (isset($_SESSION['is_login'])){
+		$USER_NAME = $_SESSION['username'];
+		$ID = $_SESSION['user_id'];
+	}
+	else {
+		redirect_to(CONFIG_PATH('public_HTML')."login/");
+	}
 ?>
 
 <!doctype html>
@@ -31,19 +40,19 @@
 		<div class="no-print"> 
 				<?php require_once(VIEW_PATH."header.php");?>
 			
-				<div class="col-md-6">
+				<div>
 					<div class="inner-content">
-						<select id="task1" tabindex="-1" class="form-control" onchange="switch_task('task1')">
+						<select id="task1" tabindex="-1" class="form-control " onchange="switch_task('task1')">
 							<option value="receipt">In hóa đơn</option>
-							<option value="2" class="hide">Quản lý nhập</option>
-							<option value="3" class="hide">Quản lý dư</option>
+							<option value="2">Quản lý nhập</option>
+							<option value="3">Quản lý dư</option>
 						</select>	
 
 						<div class="load">IF YOU SEE THIS THEN SWITCH TASK FUNCTION IS NOT WORKING</div>		
 					</div>
 				</div>
 
-				<div class="col-md-6 hide">
+				<div class="col-md-6 hide ">
 					<div class="inner-content">
 						<select id="task2" tabindex="-1" class="form-control">
 							<option value="receipt">In hóa đơn</option>

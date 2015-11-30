@@ -48,12 +48,14 @@ else
    defined("PROJECT")
    or define("PROJECT",'');
 }
+defined("PORT")
+or define("PORT",":8081");
     //root path F:\\...
 defined("ROOT_PATH")
-or define("ROOT_PATH", $_SERVER["DOCUMENT_ROOT"] . PROJECT .'/');
+or define("ROOT_PATH", $_SERVER["DOCUMENT_ROOT"] ."/" . PROJECT .'/');
      ///root with server name http://...
 defined("ROOT_SERVER")
-or define("ROOT_SERVER", "http://".$_SERVER['HTTP_HOST']."/".PROJECT."/");
+or define("ROOT_SERVER", "http://".$_SERVER['HTTP_HOST'] ."/".PROJECT."/");
 
     //database infomation
         //we use the localhost to build our project 

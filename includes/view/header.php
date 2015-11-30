@@ -10,18 +10,25 @@
             </div>
             
             <button type="button" class="navbar-toggle" data-toggle="collapse" 
-                                                        data-target="navbar-collapse">
-                <span class="icon-bar black-icon-bar"></span>
-                <span class="icon-bar black-icon-bar"></span>
-                <span class="icon-bar black-icon-bar"></span>
+                                                        data-target=".navbar-collapse" style="margin-top:0px;padding-top:0px">
+                <div id="sign-in" >
+                    <?php 
+                        $logouturl = CONFIG_PATH('public_HTML'). 'log-out/';
+                        if (isset($USER_NAME))
+                            echo $USER_NAME."<br \>"
+                            .'<a tabindex="-1" style = "float:right" href="'.$logouturl.'">Log Out</a>';
+                    ?>
+                    
+                </div>
+                
             </button>
 
         </div>
         
         <div class = "collapse navbar-collapse">
-            
-            <div class="inner-collapse">
-                <div id ="header"><p> ORGANICFOOD <span id="VN"> VIỆT NAM </span> </p></div>
+           
+           <div class="inner-collapse">
+                <div id ="header"><p> Thực Phẩm Sạch <span id="VN"> VIỆT NAM </span> </p></div>
                 
                 <ul id="sign-in" class="nav navbar-nav">
  
@@ -41,7 +48,7 @@
             </div>
         </div>
     </div>
-    <div class="break" > </div>
+   
 
    
 </div>

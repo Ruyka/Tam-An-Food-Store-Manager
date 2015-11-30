@@ -22,10 +22,11 @@
             //if can connect to SQL, connect to Database 
 			if($this->db){
 				$isConnect = mysqli_select_db($this->db, self::DB_NAME);
-				if (!$isConnect){
-					$this->create_default_database();
-					mysqli_select_db($this->db, self::DB_NAME);
-				}
+				// if (!$isConnect){
+				// 	$this->create_default_database();
+				// 	mysqli_select_db($this->db, self::DB_NAME);
+				// }
+				if ($isConnect)
 				//set Vietnamese
 				mysqli_query($this->db, "SET character_set_results = 'utf8', character_set_client = 'utf8', 
 	    		character_set_connection = 'utf8', character_set_database = 'utf8', character_set_server = 'utf8'");
@@ -35,28 +36,13 @@
 
 		private function create_default_database(){
 			$filename = DATABASE_PATH . "tam_an.sql";
-			// Temporary variable, used to store current query
-			$templine = '';
-			// Read in entire file
-			$lines = file($filename);
-			// Loop through each line
-			foreach ($lines as $line)
-			{
-				// Skip it if it's a comment
-				if (substr($line, 0, 2) == '--' || $line == '')
-					continue;
+			$host =self::DB_SERVER;
+			$db = new PDO("mysql:host=$host;", self::DB_USER, self::DB_PASSWORD);
 
-				// Add this line to the current segment
-				$templine .= $line;
-				// If it has a semicolon at the end, it's the end of the query
-				if (substr(trim($line), -1, 1) == ';')
-				{
-    				// Perform the query
-					mysqli_query($this->db,$templine) or print('Error performing query \'<strong>' . $templine . '\': ' . mysql_error() . '<br /><br />');
-    				// Reset temp variable to empty
-					$templine = '';
-				}
-			}
+			$sql = file_get_contents($filename);
+
+			$qr = $db->exec($sql);
+			
 		}
 
 
@@ -86,8 +72,7 @@
 			$username = $user_data['username'];
 			$password = $user_data['password'];
 
-			$sql = mysqli_query($this->db,"SELECT Id, Name FROM employee WHERE Username = '$username' 
-											AND Password = '".md5($password)."'");
+			$sql = mysqli_query($this->db,"CALL check_user_login('$username', '".md5($password)."');");
 					
             if($sql && mysqli_num_rows($sql)!=0){
                 $result = mysqli_fetch_array($sql,MYSQL_ASSOC);
@@ -135,8 +120,8 @@
 		}
 		public function get_list_of_product_info(){
             
-            $sql = mysqli_query($this->db,"SELECT * FROM Product");
-    					
+            $sql = mysqli_query($this->db,"CALL get_list_of_product_info();");
+    		
             if($sql && mysqli_num_rows($sql)!=0){    
                 $result = array();
 				while($rlt = mysqli_fetch_array($sql,MYSQL_ASSOC)){
