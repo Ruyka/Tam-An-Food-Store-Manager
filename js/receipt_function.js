@@ -87,16 +87,21 @@ $(document).ready(function(){
 
     // print  button
     function print_button(){
+        // default value of receipt_list
         var receipt_list = "";
+        // check if server return error
         var isError = false;
+        // send receipt list to server
         $.ajax({
             async: false,
             url: receipt_path+"?"+$('#receipt-form').serialize(),
             type: "post",
             data: {action:'get_data_from_submit', max:next, isPrint:1},
+            // if server is not return error, get data from server
             success: function (data) {
               receipt_list = JSON.parse(data);
           },          
+          // if there has been an error, log it into console and set isError to true
           error: function (data) {  
             isError = true;              
             console.log(data);
@@ -196,14 +201,22 @@ function row_delete(id){
     $("#receipt-row"+id).remove();
 }
 
-
-
 // observe changes from select list and quantity
 function observe_change(id){
     // get element of #product with "id"
     var pid = document.getElementById("product"+id);
     // get key
     var key = JSON.parse(pid.value)['key'];
+    if(key == -1){
+        var oldTotal = 0;
+        if($("#product"+id+"_total").html() != "Total price"){
+            oldTotal = parseFloat(numberWithoutCommas($("#product"+id+"_total").html()));
+        }
+        $("#product"+id+"_price").html(0);
+        $("#product"+id+"_total").html(0);
+        Oberser_total_price(-oldTotal);
+        return;
+    }
     // get corresponding price in list_product
     var pval = list_product[key]['unit']['price'];
     // change field "Price per product" to corresponding price
@@ -262,16 +275,18 @@ function make_optionlist(product_list){
     var re_name = new RegExp('%NAME%', 'g');
     var re_unitname = new RegExp('%UNITNAME%', 'g');
     // replace value with id
-    // var option_list = html_option.replace(re_value, "{\"id\":\""+product_list[0]['product_id']+"\",\"key\":0}");
-    // option_list = option_list.replace(re_name, product_list[0]['name']);
-    // option_list = option_list.replace(re_unitname, product_list[0]['unit']['unit_name']);
-    var option_list = "";
+    var option_list = html_option.replace(re_value, "{\"id\":\"-1\",\"key\":-1}");
+    option_list = option_list.replace(re_name, "");
+    option_list = option_list.replace(re_unitname, "");
     // make options
     for(var i = 0; i < len; i++ ){
         // replace value with id
         var new_option = html_option.replace(re_value, "{\"id\":\""+product_list[i]['product_id']+"\",\"key\":"+i+"}");
         new_option = new_option.replace(re_name, product_list[i]['name']);
-        new_option = new_option.replace(re_unitname, product_list[i]['unit']['unit_name']);    
+        if(product_list[i]['unit']['unit_name'] != "")
+            new_option = new_option.replace(re_unitname, "("+product_list[i]['unit']['unit_name']+")");    
+        else
+            new_option = new_option.replace(re_unitname, "");     
         option_list = option_list + new_option;
     }
     return option_list;

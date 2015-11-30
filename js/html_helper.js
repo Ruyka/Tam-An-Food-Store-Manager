@@ -12,7 +12,7 @@
     // piece every thing together
     var row = '<tr id="receipt-row%ID%">' + product + quantity + price + total + button + '</tr>';
     // select option
-    var html_option = "<option value=\'%VALUE%\'> %NAME% (%UNITNAME%)</option>";    
+    var html_option = "<option value=\'%VALUE%\'> %NAME% %UNITNAME%</option>";    
     // receipt first row
     var receipt_dashed_row = "<tr><td class='tri_dashed_line'>%OBJECT1%</td><td class='tri_dashed_line'>%OBJECT2%</td><td class='tri_dashed_line'>%OBJECT3%</td></tr>";
     // receipt row
