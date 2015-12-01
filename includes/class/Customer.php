@@ -3,30 +3,22 @@
 	require_once(CLASS_PATH . "Person.php");
 	//this class conatin information about customer
 	class Customer extends Person{
-		private $customer_id;
 		//Constructor
 		// constructor receive basic info object
 		/// dafault value of basic_info will be NULL
-		public function __construct($basic_info = NULL, $customer_id=""){
- 			parent::__construct($basic_info);
- 			$this->customer_id = $customer_id;
+		public function __construct($customer_id="", $basic_info = NULL ){
+ 			parent::__construct($customer_id, $basic_info);
  			$this->object_type = "Customer";
 		}
 		
 
 		//Method:
-		//convert to HTML for publication
-		public function convert_to_HTML(){
-			//dummy code for testing
-			return $this->basic_info->convert_to_HTML();
-		}
 
 		// convert object to json format
 		// code = true, return json encode, else just return object data encode as an array
 		public function json_encode($code = true){
 			//call parent to encode the basic info part
 			$json = parent::json_encode(false);
-			$json['customer_id'] = $this->customer_id;
 	        $json['object_type'] = $this->object_type;
 
     		// code = true, return json encode, else just return object data encode as an array
@@ -57,7 +49,6 @@
 		} 
 		private function get_data($data){
 			parent::get_data_from_array($data);
-			$this->customer_id = $data['customer_id'];
 		}
 		
 	}

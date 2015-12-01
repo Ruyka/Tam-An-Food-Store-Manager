@@ -1,7 +1,7 @@
 
 <?php
 	require_once($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php');
-	 
+	require_once(CLASS_PATH."Receipt.php");
 	class Database{
 		// this infomation can be found in config file
 		//Properties
@@ -84,7 +84,16 @@
 
 		//add receipt to database
 		public function add_receipt($receipt_data){
-			TEST($receipt_data);
+			//new receipt
+			$receipt = new Receipt();
+			// get data
+			$receipt->get_data_from_array($receipt_data);
+			TEST($receipt->json_encode(false));
+			//compute the sequence of sql to add this receipt to db
+			$comma_seperated_list = $receipt->get_comma_seperated_list();
+			TEST($comma_seperated_list);
+			//mysqli_query($this->db, "CALL test('$comma_seperated_list');");
+			
 		}
 
 
@@ -147,5 +156,19 @@
 		}
 		
 	}
+	// $db = new Database();
+	// $db->connect();
 	
+	// $tmp = new SoldProduct(113);
+ //     $tmp->add_attribute("Sữa",100, NULL, "100", "SUA1111",
+ //     		NULL,"17/11/2015");
+
+ //     $BasicInfo = new BasicInfo("Kim Nhật Thành","knthanh@apcs.vn","0923232121","4 ABCD");
+
+ //     $receipt = new Receipt(1,1,new Employee("EM011",$BasicInfo,10000,1,"1313131"));
+    
+ //     $receipt->add($tmp);
+ //     $receipt->add($tmp);
+     
+	//  $db->add_receipt($receipt->json_encode(false));	
 ?>

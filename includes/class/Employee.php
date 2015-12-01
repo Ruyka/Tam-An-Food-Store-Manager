@@ -5,8 +5,6 @@
 	class Employee extends Person{
 
 		//Properties:
-		//employee id
-		private $employee_id;
 		// role id indicates the role of employee in the company
 		private $role_id;
 		// the unique number of each person in VietNam country
@@ -17,17 +15,12 @@
 		//Constructor
 		public function __construct($employee_id="",$basic_info = NULL, $salary = 0, $role_id = 1, $CMND = ""){
 			//call parent to construct
-			parent::__construct($basic_info);
+			parent::__construct($employee_id, $basic_info);
 			$this->salary = $salary;
 			$this->role_id = $role_id;
 			$this->CMND = $CMND;
-			$this->employee_id = $employee_id;
 			$this->object_type = "Employee";
 		}
-		public function convert_to_HTML(){
-            
-		}
-
 
 		//Method:
 		// convert object to json format
@@ -38,7 +31,6 @@
 			$json = parent::json_encode(false);
 			
 			//add properties to json
-	        $json['employee_id'] = $this->employee_id;
 	        $json['role_id'] = $this->role_id;
 	        $json['CMND'] = $this->CMND;
 	        $json['salary'] = $this->salary;
@@ -50,6 +42,7 @@
     			return $json;
 		
 		}
+		
 		//get data from json_data 
 		public function get_data_from_json($json_data){
 			// decode input using json decode
@@ -72,7 +65,6 @@
 		private function get_data($data){
 			//get baisc info to Employee
 			parent::get_data_from_array($data);
-			$this->employee_id = $data['employee_id'];
 			$this->role_id = $data['role_id'];
 			$this->salary = $data['salary'];
 			$this->CMND = $data['CMND'];

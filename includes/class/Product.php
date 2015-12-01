@@ -30,13 +30,13 @@ class Product{
 		$this->product_code="";
 		$this->name = "";
 		$this->total_number = 0;
-		$this->unit = new Unit();
-		$this->trademark = new Trademark();
+		$this->unit = NULL;
+		$this->trademark = NULL;
 		$this->dated = "";
 		$this->object_type = "Product";
 	}
 	//this function add the attribute for the product
-    public function add_attribute( $name, $total_number, $unit, 
+    public function add_attribute( $name, $total_number, $unit = NULL, 
     								$product_id = "", $product_code=""
     								, $trademark = NULL, $dated = NULL) {
     	
@@ -66,15 +66,34 @@ class Product{
 		return $this->unit->get_price();
 	}
 
-	//convert the product to format HTML to display for user
-	public function convert_to_HTML(){
-        //dummy code, for testing
-        if (!is_null($this->trademark))
-            return "Product " . $this->name . $this->total_number . $this->dated . $this->unit->get_name() . $this->trademark->convert_to_HTML();
-        else
-        return "Product " . $this->name . $this->total_number . $this->dated . $this->unit->get_name() ;
+	//encode code to put in sql
+	public function get_comma_seperated_list(){
+		//product Id
+		$str = '%product%'.','. $this->product_id;
+		//product code
+		if (strcmp($this->product_code, "")!=0)
+			$str = $str . ',' . $this->product_code;
+		//name
+		$str = $str . ',' . $this->name;
+
+		//number
+		$str = $str . ',' . $this->total_number;
+
+		//unit
+		if (!is_null($this->unit))
+			$str = $str . ',' . $this->unit->get_comma_seperated_list();
+
+		//trademark
+		if (!is_null($this->trademark))
+			$str = $str . ',' . $this->trademark->get_comma_seperated_list();
+		
+		//dated
+		if (!is_null($this->dated))
+			$str = $str . ',' . $this->dated;
+		
+		return $str;
 	}
-	
+
 
 	// convert object to json format
 	// code = true, return json encode, else just return object data encode as an array
@@ -87,11 +106,13 @@ class Product{
 			'product_code' => $this->product_code,
 	        'name' => $this->name,
 	        'total_number' => $this->total_number,
-	        // json_encode parameter = false, return object not encode with json
-	        'unit' => $this->unit->json_encode(false),	
 	        'object_type' => $this->object_type,
     	);
-    	
+
+    	if (!is_null($this->unit))
+    		$json['unit'] = $this->unit->json_encode(false);
+    	else
+    		$json['unit'] = $this->unit;
     	// json_encode parameter = false, return object not encode with json
     	//trademark is an Object so we must check its existence
     	// if it equal NULL, we still has it present in JSON encode
@@ -124,13 +145,15 @@ class Product{
 	public function get_data_from_array($data){
 		// a right Basic info array must have 6 properties id, naeme, total_number, unit, trademark, dated
 		if ( isset($data['product_id']) && isset($data['name']) 
-				&& isset($data['total_number']) && isset($data['unit']) ){
+				&& isset($data['total_number'])  ){
+			
 			$this->get_data($data);
 		}
 	}
 
 	// get data from array
 	private function get_data($data){
+
 		//product id of database
 		$this->product_id = $data['product_id'];
 		//product Id of the company
@@ -140,9 +163,15 @@ class Product{
 		//get total numbet off product that remains
 		$this->total_number = $data['total_number'];
 		// get unit data
-		$this->unit->get_data_from_array($data['unit']);
+		if (!is_null($data['unit'])){
+			$this->unit = new Unit();
+			$this->unit->get_data_from_array($data['unit']);
+		}
 		//get Trademark data
-		$this->trademark->get_data_from_array($data['trademark']);
+		if (!is_null($data['trademark'])){
+			$this->trademark = new Trademark();
+			$this->trademark->get_data_from_array($data['trademark']);
+		}
 		//get dated
 		$this->dated = $data['dated'];
 		
