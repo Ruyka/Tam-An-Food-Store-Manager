@@ -120,7 +120,7 @@ INSERT INTO `user` (`Id`, `Name`, `Username`, `Password`, `Employee_ID`) VALUES
 
 DROP TABLE IF EXISTS `input product`;
 CREATE TABLE IF NOT EXISTS `input product` (
-  `Number` int DEFAULT NULL,
+  `Number` float DEFAULT NULL,
   `Price` double DEFAULT NULL,
   `Tax` double DEFAULT NULL,
   `ProductID` int NOT NULL,
@@ -152,22 +152,13 @@ CREATE TABLE IF NOT EXISTS `input product receipt` (
 DROP TABLE IF EXISTS `output product`;
 CREATE TABLE IF NOT EXISTS `output product` (
   `ProductID` int NOT NULL,
-  `Number` int DEFAULT NULL,
+  `Number` float DEFAULT NULL,
   `Tax` double DEFAULT NULL,
   `ReceiptID` int NOT NULL,
   `Price` decimal(19,4) DEFAULT NULL,
   PRIMARY KEY (`ProductID`,`ReceiptID`),
   KEY `FK_Output Product_Output Product Receipt` (`ReceiptID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `output product`
---
-
-INSERT INTO `output product` (`ProductID`, `Number`, `Tax`, `ReceiptID`, `Price`) VALUES
-('0000001', 10, 10, '0000001', '1000001.0000'),
-('0000002', 10, 10, '0000001', '10000002.0000'),
-('0000002', 10, 10, '0000002', '10000002.0000');
 
 -- --------------------------------------------------------
 
@@ -182,14 +173,6 @@ CREATE TABLE IF NOT EXISTS `output product receipt` (
   PRIMARY KEY (`ReceiptID`),
   KEY `FK_Output Product Receipt_Customer` (`CustomerID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `output product receipt`
---
-
-INSERT INTO `output product receipt` (`CustomerID`, `ReceiptID`) VALUES
-('0000001', '0000001'),
-('0000001', '0000002');
 
 -- --------------------------------------------------------
 
@@ -669,14 +652,6 @@ CREATE TABLE IF NOT EXISTS `receipt` (
   KEY `FK_Receipt_Employee` (`EmployeeID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `receipt`
---
-
-INSERT INTO `receipt` (`ID`, `Time`, `Price_Sum`, `Receipt_Type`, `Tax`, `EmployeeID`) VALUES
-('0000001', '2015-11-28 00:00:00.000000', 1000001, 1, 10, '0000001'),
-('0000002', '2015-11-28 10:00:00.000000', 1000001, 1, 10, '0000002');
-
 -- --------------------------------------------------------
 
 --
@@ -806,6 +781,14 @@ DROP PROCEDURE IF EXISTS check_user_login$$
 CREATE PROCEDURE check_user_login( uname varchar(50), pass  varchar(100))
 BEGIN
   SELECT ID AS 'Id', Name FROM tam_an.user WHERE Username LIKE uname AND Password LIKE pass;
+END $$
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS insert_receipt_to_database$$
+
+CREATE PROCEDURE insert_receipt_to_database( id int, quantity  float)
+BEGIN
+  -- TODO
 END $$
 
 DELIMITER ;
