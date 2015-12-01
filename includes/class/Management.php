@@ -1,6 +1,6 @@
 <?php
 	require_once($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php');
-	
+		
 	//use this class to control data frrom server
 	class Management{
 		
@@ -25,7 +25,8 @@
 			return $this->get_response_from_message("sign up",true, json_encode($data));
 		}
 
-		public function add_receipt( $receipt){
+		public function add_receipt($receipt){
+
 			$this->get_response_from_message("add receipt", false, $receipt->json_encode(true));
 		}
 
@@ -86,7 +87,12 @@
 
 	}
 	//test code
-	
+	// require_once(CLASS_PATH."Receipt.php");	
+	// $manager = new Management();
+ //    $data = $manager->get_list_of_product_info();
+ //    $receipt = new Receipt();
+ //    $receipt->get_data_from_array($data);
+ //    TEST($receipt->json_encode(false));
 	//test product receipt...
 	
 	// $tmp = new SoldProduct(113);
