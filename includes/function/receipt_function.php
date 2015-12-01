@@ -98,6 +98,8 @@ function get_data_from_submit(){
     $seArr = null;
     foreach ($ID_list as $key => $value) {
         $tmp = json_decode($arr['product'.$value], true);
+        if ($tmp['id'] == '-1')
+            continue;
         $tmp1 = intval($arr['product'.$value.'_quantity']);
         $reArr[$cur] = array($tmp, $tmp1);
         $seArr[$cur++] = array('id' => $tmp['id'] , 'quantity' => $tmp1);

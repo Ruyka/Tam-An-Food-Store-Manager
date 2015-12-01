@@ -203,6 +203,10 @@ function row_delete(id){
 
 // observe changes from select list and quantity
 function observe_change(id){
+    // add new if it's the bottom row
+    if(id == (next - 1)){
+        add_more(id);
+    }
     // get element of #product with "id"
     var pid = document.getElementById("product"+id);
     // get key
@@ -230,10 +234,6 @@ function observe_change(id){
     if(isNaN(ppval)){
         ppval = 0;  
         $(ppid).val(0);
-    }
-    // add new if it's the bottom row
-    else if(id == (next - 1)){
-        add_more(id);
     }
     // check if it does not exceed max quantity
     // if(ppval > parseInt(list_product[key]['total_number'])){
@@ -326,7 +326,7 @@ function make_print_section(receipt_list){
 
     // get date & time
     var date = new Date();
-    var receipt_date = date.getDate()+"/"+date.getMonth()+"/"+date.getFullYear();
+    var receipt_date = date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
     var receipt_time = date.getHours()+":"+date.getMinutes();
     // start making receipt
     var receipt_logo = scaled_logo;
