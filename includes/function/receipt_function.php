@@ -67,7 +67,7 @@ function get_data_from_submit(){
     for($i = 0; $i < $cur; $i++){
         for($j = $i + 1; $j < $cur; $j++){
             if(isset($ID_list[$i]) && isset($ID_list[$j]) && $arr['product'.$ID_list[$i]] == $arr['product'.$ID_list[$j]]){
-                $arr['product'.$ID_list[$i].'_quantity'] = intval($arr['product'.$ID_list[$i].'_quantity']) + intval($arr['product'.$ID_list[$j].'_quantity']);
+                $arr['product'.$ID_list[$i].'_quantity'] = floatval($arr['product'.$ID_list[$i].'_quantity']) + floatval($arr['product'.$ID_list[$j].'_quantity']);
                 unset($arr['product'.$ID_list[$j]]);
                 unset($arr['product'.$ID_list[$j].'_quantity']);
                 unset($ID_list[$j]);
@@ -98,7 +98,9 @@ function get_data_from_submit(){
     $seArr = null;
     foreach ($ID_list as $key => $value) {
         $tmp = json_decode($arr['product'.$value], true);
-        $tmp1 = intval($arr['product'.$value.'_quantity']);
+        if ($tmp['id'] == '-1')
+            continue;
+        $tmp1 = floatval($arr['product'.$value.'_quantity']);
         $reArr[$cur] = array($tmp, $tmp1);
         $seArr[$cur++] = array('id' => $tmp['id'] , 'quantity' => $tmp1);
     }

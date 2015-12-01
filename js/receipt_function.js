@@ -1,33 +1,8 @@
-// config url location
-var url = window.location.href;
-url = url.split("/");
-config_url = "http://"+url[2]+"/Tam-An-Food-Store-Manager/includes/function/general_function.php";
-
 // get user name
-user_name = "Tâm An";
-$.ajax({
-    async: false,
-    url: config_url,
-    type: "post",
-    data: {action:'get_username'},
-    success: function (data) {
-      user_name = data;
-  }  
-});
+user_name = get_username();
 
 // get receipt_function.php path
-receipt_path = null;
-$.ajax({
-    async: false,
-    url: config_url,
-    type: "post",
-    data: {action:'JS_CONFIG_PATH', directory:'function', file:'receipt_function.php'},
-    success: function (data) {
-      receipt_path = data;
-  }  
-});
-
-
+receipt_path = get_path('function', 'receipt_function.php');
 
 // get data from database
 function get_data(){
@@ -203,6 +178,10 @@ function row_delete(id){
 
 // observe changes from select list and quantity
 function observe_change(id){
+    // add new if it's the bottom row
+    if(id == (next - 1)){
+        add_more(id);
+    }
     // get element of #product with "id"
     var pid = document.getElementById("product"+id);
     // get key
@@ -231,10 +210,6 @@ function observe_change(id){
         ppval = 0;  
         $(ppid).val(0);
     }
-    // add new if it's the bottom row
-    else if(id == (next - 1)){
-        add_more(id);
-    }
     // check if it does not exceed max quantity
     // if(ppval > parseInt(list_product[key]['total_number'])){
     //     // print error msg if it realy exceed
@@ -246,7 +221,7 @@ function observe_change(id){
     if($("#product"+id+"_total").html() != "Total price"){
         oldTotal = parseFloat(numberWithoutCommas($("#product"+id+"_total").html()));
     }
-    var total = pval*ppval;
+    var total = Math.round(pval*ppval);
     // set "Total" to the calculated value
     $("#product"+id+"_total").html(numberWithCommas(total));
     // calculated total receipt price
@@ -326,7 +301,7 @@ function make_print_section(receipt_list){
 
     // get date & time
     var date = new Date();
-    var receipt_date = date.getDate()+"/"+date.getMonth()+"/"+date.getFullYear();
+    var receipt_date = date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
     var receipt_time = date.getHours()+":"+date.getMinutes();
     // start making receipt
     var receipt_logo = scaled_logo;
