@@ -6,22 +6,8 @@ $(document).ready(function(){
   });
 });
 
-// config url location
-var url = window.location.href;
-url = url.split("/");
-config_url = "http://"+url[2]+"/Tam-An-Food-Store-Manager/includes/function/general_function.php";
-
 // get check_sign_in.php path
-login_path = null;
-$.ajax({
-    async: false,
-    url: config_url,
-    type: "post",
-    data: {action:'JS_CONFIG_PATH', directory:'function', file:'check_sign_in.php'},
-    success: function (data) {
-      login_path = data;
-  }  
-});
+login_path = get_path('function', 'check_sign_in.php');
 
 
 //check the sign in of user

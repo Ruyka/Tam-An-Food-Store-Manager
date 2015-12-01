@@ -24,7 +24,7 @@
 		<!-- select2  -->
 		<div class="table-responsive"> 
 			<table id="receipt-product-list" class="table table-striped table-bordered">
-				<tr class="success"><th>Sản phẩm</th><th>Số lượng</th><th>VND / sản phẩm</th><th>Tổng cộng</th><th></th></tr>
+				<thead><tr class="success"><th>Sản phẩm</th><th>Số lượng</th><th>VND / sản phẩm</th><th>Tổng cộng</th><th></th></tr></thead> 
 				<tr id="receipt-row">
 					<!-- product list -->
 					<td><select id="product"  class="product-list form-control" name="product" onchange="observe_change('')"></select></td>
