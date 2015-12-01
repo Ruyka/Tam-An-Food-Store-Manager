@@ -808,23 +808,6 @@ BEGIN
   SELECT ID AS 'Id', Name FROM tam_an.user WHERE Username LIKE uname AND Password LIKE pass;
 END $$
 
-DELIMITER $$
-DROP PROCEDURE IF EXISTS test$$
-
-CREATE PROCEDURE test( _passedArray varchar(1000))
-BEGIN
-  SET @separator = ',';
-  SET @separatorLength = CHAR_LENGTH(@separator);
- 
-  WHILE _passedArray != '' > 0 DO
-      SET @currentValue = SUBSTRING_INDEX(_passedArray, @separator, 1);
- 
-    -- DO WORK
- 
-      SET _passedArray = SUBSTRING(_passedArray, CHAR_LENGTH(@currentValue) + @separatorLength + 1);
-  END WHILE;
-END $$
-
 DELIMITER ;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
