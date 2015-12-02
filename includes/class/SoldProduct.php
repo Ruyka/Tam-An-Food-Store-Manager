@@ -20,10 +20,14 @@
             $this->number = $number;
             $this->object_type = "SoldProduct";
         }
-        //convert to HTML to display 
-        public function convert_to_HTML(){
-            
-        }
+        
+        public function get_seperated_list(){
+			//product Id
+			$str = '%product_number%'. $this->number .'%product_number%';
+			$str = $str . parent::get_seperated_list();
+			
+			return $str;
+		}
 
         // convert object to json format
 		// code = true, return json encode, else just return object data encode as an array
