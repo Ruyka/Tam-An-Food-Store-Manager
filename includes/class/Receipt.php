@@ -63,18 +63,18 @@
 		}
 
 		//get data back in comma format
-		public function get_comma_seperated_list(){
+		public function get_seperated_list(){
 			//time
-			$str = $this->time;
+			$str = '%time%' . $this->time . '%time%';
 			//receiver_id
 			if (!is_null($this->receiver)) 
-				$str = $str . ',' . $this->receiver->get_id();
+				$str = $str . '%receive_id%' . $this->receiver->get_id() . '%receiver_id%';
 			//client_id
 			if (!is_null($this->clients))
-				$str = $str . ',' . $this->clients->get_id();
+				$str = $str . '%client_id%' . $this->clients->get_id() . '%client_id%';
 			//list of product
 			foreach ($this->list_product as $product) {
-				$str = $str . ',' . $product->get_comma_seperated_list();
+				$str = $str . '%product%' . $product->get_seperated_list() . '%product%';
 			}
 			return $str;
 

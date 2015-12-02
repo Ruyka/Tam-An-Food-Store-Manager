@@ -90,7 +90,7 @@
 			$receipt->get_data_from_array($receipt_data);
 			TEST($receipt->json_encode(false));
 			//compute the sequence of sql to add this receipt to db
-			$comma_seperated_list = $receipt->get_comma_seperated_list();
+			$comma_seperated_list = $receipt->get_seperated_list();
 			TEST($comma_seperated_list);
 			//mysqli_query($this->db, "CALL test('$comma_seperated_list');");
 			

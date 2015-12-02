@@ -67,29 +67,26 @@ class Product{
 	}
 
 	//encode code to put in sql
-	public function get_comma_seperated_list(){
+	public function get_seperated_list(){
 		//product Id
-		$str = '%product%'.','. $this->product_id;
+		$str = '%product_id%'. $this->product_id .'%product_id%';
 		//product code
 		if (strcmp($this->product_code, "")!=0)
-			$str = $str . ',' . $this->product_code;
+			$str = $str . '%product_code%' . $this->product_code . '%product_code%';
 		//name
-		$str = $str . ',' . $this->name;
-
-		//number
-		$str = $str . ',' . $this->total_number;
+		$str = $str . '%product_name%' . $this->name . '%product_name%';
 
 		//unit
 		if (!is_null($this->unit))
-			$str = $str . ',' . $this->unit->get_comma_seperated_list();
+			$str = $str . '%unit%' . $this->unit->get_comma_seperated_list() . '%unit%';
 
 		//trademark
 		if (!is_null($this->trademark))
-			$str = $str . ',' . $this->trademark->get_comma_seperated_list();
+			$str = $str . '%trademark%' . $this->trademark->get_comma_seperated_list() . '%trademark%';
 		
 		//dated
 		if (!is_null($this->dated))
-			$str = $str . ',' . $this->dated;
+			$str = $str . '%dated%' . $this->dated . '%dated%';
 		
 		return $str;
 	}
