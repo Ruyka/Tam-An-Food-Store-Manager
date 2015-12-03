@@ -31,7 +31,7 @@
 			var val = task.value;
 				
 			if(val.localeCompare("receipt")==0)
-				$("#"+task_id).parent().find("div.load").load('<?php echo CONFIG_PATH("view")."receipt_task_view.php"; ?>');
+				$("#"+task_id).parent().find("div.load").load('<?php echo CONFIG_PATH("view")."blank.php"; ?>');
 			else if (val.localeCompare("alter-product")==0)
 				$("#"+task_id).parent().find("div.load").load('<?php echo CONFIG_PATH("view")."alter_product_task_view.php"; ?>');
 			else
