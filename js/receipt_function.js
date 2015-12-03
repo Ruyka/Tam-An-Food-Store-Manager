@@ -206,7 +206,7 @@ function observe_change(id){
     var ppid = document.getElementById("product"+id+"_quantity");
     // get quantity
     var ppval = $(ppid).val();
-
+    $("#td"+id+"_quantity").attr("sorttable_customkey",ppval);
     // check if quantity is a number
     if(isNaN(ppval)){
         ppval = 0;  

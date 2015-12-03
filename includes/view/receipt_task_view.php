@@ -25,13 +25,13 @@
 		<!-- select2  -->
 		<div id = "table_id" class="table-responsive"> 
 			<table id="receipt-product-list" class="sortable table table-striped table-bordered">
-				<thead><tr class="success"><th>Sản phẩm</th><th>Số lượng</th><th>VND / sản phẩm</th><th>Tổng cộng</th><th></th></tr></thead> 
+				<thead><tr class="success"><th>Sản phẩm</th><th class="sorttable_numeric">Số lượng</th><th>VND / sản phẩm</th><th>Tổng cộng</th><th></th></tr></thead> 
 				<tbody>
 					<tr id="receipt-row">
 						<!-- product list -->
 						<td><select id="product" class="product-list form-control" name="product" onchange="observe_change('')"></select></td>
 						<!-- quantity -->
-						<td><input id="product_quantity" class="form-control" name="product_quantity" onfocus="observe_change('')" onchange="observe_change('')" type="number" min="0" value="0" placeholder="Số lượng" style="width: 80px"></td>
+						<td id="td_quantity"><input id="product_quantity" class="form-control" name="product_quantity" onfocus="observe_change('')" onchange="observe_change('')" type="number" min="0" value="0" placeholder="Số lượng" style="width: 80px"></td>
 						<!-- price each -->
 						<td><p id="product_price" class="product-price form-control">Product Price</p></td>
 						<!-- total price -->
