@@ -200,6 +200,8 @@ function observe_change(id){
     var pval = list_product[key]['unit']['price'];
     // change field "Price per product" to corresponding price
     $("#product"+id+"_price").html(numberWithCommas(pval));
+
+    //document.getElementById("td"+id+"_price").setAttribute("sorttable_customkey", numberWithCommas(pval) );
     // get element of product quantity with "id"
     var ppid = document.getElementById("product"+id+"_quantity");
     // get quantity
