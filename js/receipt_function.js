@@ -52,7 +52,7 @@ $(document).ready(function(){
     observe_change('');
     // cancel button
     $("#cancel").click(function(){
-        window.location.reload();
+        reload_task('receipt');
     });
     $("#receipt-form").submit(function(event){
       event.preventDefault();
@@ -145,8 +145,6 @@ $(document).ready(function(){
 
     // add new input
     function add_more(id){
-    // form wraper
-    var wrapper = $("#receipt-product-list");
     // set %ID% as regular expression
     var re = new RegExp('%ID%', 'g');
     // find and replace all appearence of %ID% to next

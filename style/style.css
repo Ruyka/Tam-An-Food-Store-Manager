@@ -131,7 +131,7 @@ table.tri-receipt-table td {
   background-color: #FFE13C;
 }
 
-table#receipt-product-list{  
+table.receipt-product-list{  
   border-collapse: collapse;
   border-spacing: 0px;
 }

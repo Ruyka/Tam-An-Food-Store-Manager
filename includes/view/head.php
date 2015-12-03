@@ -12,15 +12,18 @@
 	<meta http-equiv="pragma" content="no-cache" />
 	<meta http-equiv="Content-type" content="text/html; charset=utf-16" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<!-- library css -->
-	<link rel="stylesheet" type="text/css" href="<?php echo CONFIG_PATH('style')."style.css"; ?>">
+	<!-- css library -->
 	<link rel="stylesheet" type="text/css" href="<?php echo CONFIG_PATH('lib')."bootstrap/css/bootstrap.min.css"; ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo CONFIG_PATH('lib')."select2/select2.css"; ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo CONFIG_PATH('lib')."select2/select2-bootstrap.css"; ?>">
-	<!-- library javascript -->
+	<!-- project css library -->
+	<link rel="stylesheet" type="text/css" href="<?php echo CONFIG_PATH('style')."style.css"; ?>">
+	<!-- javascript library -->
 	<script type="text/javascript" src="<?php echo CONFIG_PATH('lib')."jquery.min.js"; ?>" ></script>
 	<script type="text/javascript" src="<?php echo CONFIG_PATH('lib')."bootstrap/js/bootstrap.min.js"; ?>"></script>
 	<script type="text/javascript" src="<?php echo CONFIG_PATH('lib')."select2/select2.min.js"; ?>"></script>
+	<!-- project javascript library -->
 	<script type="text/javascript" src="<?php echo CONFIG_PATH('js')."html_helper.js"; ?>"></script>
 	<script type="text/javascript" src="<?php echo CONFIG_PATH('js')."general.js"; ?>"></script>
+	<script type="text/javascript" src="<?php echo CONFIG_PATH('js')."task_manager.js"; ?>"></script>
 </head>
