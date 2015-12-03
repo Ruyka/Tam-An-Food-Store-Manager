@@ -23,7 +23,7 @@
 					
 		</div>
 		<!-- select2  -->
-		<div id = "table_id" class="table-responsive"> 
+		<div class="table-responsive"> 
 			<table id="receipt-product-list" class="sortable table table-striped table-bordered">
 				<thead><tr class="success"><th>Sản phẩm</th><th class="sorttable_numeric">Số lượng</th><th>VND / sản phẩm</th><th>Tổng cộng</th><th></th></tr></thead> 
 				<tbody>
