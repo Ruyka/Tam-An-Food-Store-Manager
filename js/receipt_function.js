@@ -145,8 +145,6 @@ $(document).ready(function(){
 
     // add new input
     function add_more(id){
-    // form wraper
-    var wrapper = $("#receipt-product-list");
     // set %ID% as regular expression
     var re = new RegExp('%ID%', 'g');
     // find and replace all appearence of %ID% to next
