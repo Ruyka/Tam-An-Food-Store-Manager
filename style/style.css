@@ -136,3 +136,13 @@ table#receipt-product-list{
   border-spacing: 0px;
 }
 
+.cell-title{
+  text-align: left;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.STT-product{
+  text-align: center;
+  font-size: 15px; 
+}

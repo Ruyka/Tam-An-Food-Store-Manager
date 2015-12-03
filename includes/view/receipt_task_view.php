@@ -5,7 +5,7 @@ require_once($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.p
 ?>
 
 <script type="text/javascript" src="<?php echo CONFIG_PATH('js')."receipt_function.js"; ?>"></script>
-<script type="text/javascript" src="<?php echo CONFIG_PATH('lib')."sorttable.js"; ?>"></script>
+<script type="text/javascript" src="<?php echo CONFIG_PATH('lib')."sorttable_custom.js"; ?>"></script>
 <!-- Receipt task view -->
 <div class="receipt-view">
 	<form id="receipt-form" action="<?php echo CONFIG_PATH('function').'process_submit.php'; ?>" method="post" role="form">
@@ -29,7 +29,7 @@ require_once($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.p
 		<!-- select2  -->
 		<div class="table-responsive"> 
 			<table id="receipt-product-list" class="sortable table table-striped table-bordered">
-				<thead><tr class="success"><th>Sản phẩm</th><th class="sorttable_numeric">Số lượng</th><th>VND / sản phẩm</th><th>Tổng cộng</th><th></th></tr></thead> 
+				<thead><tr><th>Sản phẩm</th><th class="sorttable_numeric">Số lượng</th><th>VND / sản phẩm</th><th>Tổng cộng</th><th></th></tr></thead> 
 				<tbody>
 					<tr id="receipt-row">
 						<!-- product list -->
