@@ -19,31 +19,10 @@
 
 <?php require_once(VIEW_PATH . "head.php");?>
 <body style = "background-color : #C6E2FF;">
-		<script type="text/javascript">
-		// on document ready load default task
-		// might need cookie or chace in the near future
-		$(document).ready(function(){
-			$("#task1").parent().find("div.load").load('<?php echo CONFIG_PATH("view")."receipt_task_view.php"; ?>');
-		});
-		// Switch task upon selected task
-		function switch_task(task_id) {
-			var task = document.getElementById(task_id);
-			var val = task.value;
-				
-			if(val.localeCompare("receipt")==0)
-				$("#"+task_id).parent().find("div.load").load('<?php echo CONFIG_PATH("view")."blank.php"; ?>');
-			else if (val.localeCompare("alter-product")==0)
-				$("#"+task_id).parent().find("div.load").load('<?php echo CONFIG_PATH("view")."alter_product_task_view.php"; ?>');
-			else
-				$("#"+task_id).parent().find("div.load").load('<?php echo CONFIG_PATH("view")."blank.php"; ?>');
-		}
-		</script>
 		
 		
 		<div class="no-print"> 
 				<?php require_once(VIEW_PATH."header.php");?>
-
-				<div id="required-lib"></div>
 
 				<div class="col-md-6">
 					<div class="inner-content">
