@@ -29,7 +29,7 @@ require_once($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.p
 		<!-- select2  -->
 		<div class="table-responsive"> 
 			<table id="receipt-product-list" class="sortable table table-striped table-bordered">
-				<thead><tr><th>Sản phẩm</th><th class="sorttable_numeric">Số lượng</th><th>VND / sản phẩm</th><th>Tổng cộng</th><th></th></tr></thead> 
+				<thead><tr class="success"><th>Sản phẩm</th><th class="sorttable_numeric">Số lượng</th><th>VND / sản phẩm</th><th>Tổng cộng</th><th></th></tr></thead> 
 				<tbody>
 					<tr id="receipt-row">
 						<!-- product list -->
