@@ -1,4 +1,3 @@
-
 //prevent the login form to reload 
 $(document).ready(function(){
     $("#login-form").submit(function(event){

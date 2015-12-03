@@ -8,8 +8,9 @@ require_once(CLASS_PATH."Management.php");
 <?php 
 // function switcher for ajax call
 // check which "action" ajax call
-if(isset($_POST['action']) && !empty($_POST['action'])) {
-    $action = $_POST['action'];
+if(isset($_GET['q']) && !empty($_GET['q'])) {
+    $get = json_decode($_GET['q'], true);
+    $action = $get['action'];
     switch ($action) {
         case 'get_receipt_data_from_server':
         echo get_receipt_data_from_server()->json_encode();
@@ -17,7 +18,7 @@ if(isset($_POST['action']) && !empty($_POST['action'])) {
         case 'get_data_from_submit': 
         $arr = get_data_from_submit();
         if(!empty($arr)){
-            if(isset($_POST['isPrint']) && $_POST['isPrint'] == 1)
+            if(isset($get['isPrint']) && $get['isPrint'] == 1)
                 send_data_to_server($arr[1]);
             else
                 $_SESSION['PREVIEW_SERVER_DATA'] = $arr[1];
@@ -54,8 +55,8 @@ function get_receipt_data_from_server(){
 // get data from submit
 function get_data_from_submit(){
     $flag = true;
-    $arr = $_GET;
-    $maxID = $_POST['max'];
+    $arr = $_POST;
+    $maxID = $GLOBALS['get']['max'];
     $cur = 0;
     $ID_list = null;
     if(isset($arr['product']))

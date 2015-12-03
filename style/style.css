@@ -126,7 +126,13 @@ table.tri-receipt-table td {
   width: 100%;
 }
 /* footer of table*/
-.table-footer{
+.table-footer-row{
   font-weight: bold;
   background-color: #FFE13C;
 }
+
+table#receipt-product-list{  
+  border-collapse: collapse;
+  border-spacing: 0px;
+}
+

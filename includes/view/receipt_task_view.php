@@ -1,4 +1,8 @@
-<?php require_once($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php'); ?>
+<?php 
+session_start();
+require_once($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php'); 
+
+?>
 
 <script type="text/javascript" src="<?php echo CONFIG_PATH('js')."receipt_function.js"; ?>"></script>
 <script type="text/javascript" src="<?php echo CONFIG_PATH('lib')."sorttable.js"; ?>"></script>
@@ -41,8 +45,8 @@
 					</tr>
 				</tbody>
 				<tfoot >
-					<tr class = "table-footer">
-						<td></td><td></td><td><p>Thành tiền</p></td><td><p id="Total_all" class="total-price form-control"></p></td><td></td>
+					<tr class="table-footer-row">
+						<td colspan="4" style="text-align:right"><p>Thành tiền</p></td><td><p id="Total_all" class="total-price form-control"></p></td>
 					</tr>
 				</tfoot>
 			</table>
@@ -72,7 +76,4 @@
 
 		</div>
 	</div>
-
-	<!-- make a toast here -->
-	<div id="toast" style="display:none">Toast event</div>
 </div>

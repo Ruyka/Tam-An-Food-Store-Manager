@@ -33,3 +33,12 @@ function get_username(){
 	});
 	return user_name;
 }
+
+// function to make a toast like in android
+function make_toast(Msg,time){
+    // set message
+    $("#toast").html(Msg);
+    // set toast time
+    $("#toast").fadeIn(400).delay(time).fadeOut(400);
+}
+
