@@ -698,7 +698,7 @@ CREATE TABLE IF NOT EXISTS `trademark` (
 --
 
 INSERT INTO `trademark` (`Name`, `Nation`, `ID`, `Phone_Number`, `Email`, `Website`) VALUES
-(' Lifecoco', 'Vietnam', '0000001', '0129309102', 'Lifecoco@gmail.com', 'Lifecoco.com'),
+('Lifecoco', 'Vietnam', '0000001', '0129309102', 'Lifecoco@gmail.com', 'Lifecoco.com'),
 ('Ong Thay Tue Hai', 'Vietnam', '0000002', '0129309103', 'otth@gmail.com', 'ongthaytuehai.com'),
 ('HoaSuaFoods', 'Vietnam', '0000003', '0129309104', 'hsf@gmail.com', 'hoasuafood.com'),
 ('Ritarice', 'Vietnam', '0000004', '0129309105', 'rtr@gmail.com', 'ritarice.com'),
@@ -784,38 +784,6 @@ BEGIN
 END $$
 
 
-
-DELIMITER $$
-DROP FUNCTION IF EXISTS formatCSL$$
-
-CREATE FUNCTION formatCSL(
-_text TEXT
-)
-RETURNS TEXT
-NO SQL
-SQL SECURITY DEFINER
-BEGIN
- 
-IF _text IS NULL THEN
-    RETURN NULL;
-END IF;
- 
-SET _text = TRIM(_text);
- 
-WHILE INSTR(_text, ' ,') DO
-    SET _text = REPLACE(_text, ' ,', ',');
-END WHILE;
- 
-WHILE INSTR(_text, ', ') DO
-    SET _text = REPLACE(_text, ', ', ',');
-END WHILE;
- 
-RETURN _text;
- 
-END$$
-
-
-
 DELIMITER $$
 DROP FUNCTION IF EXISTS isValidCSL$$
 
@@ -835,10 +803,9 @@ DELIMITER $$
 DROP FUNCTION IF EXISTS insert_receipt_to_database$$
 
 CREATE FUNCTION insert_receipt_to_database( id int, quantity  float)
-RETURN INT
+RETURNS INT
 BEGIN
   -- TODO
-  RETURN INT;
 END $$
 
 DELIMITER ;

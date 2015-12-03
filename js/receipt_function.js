@@ -52,7 +52,7 @@ $(document).ready(function(){
     observe_change('');
     // cancel button
     $("#cancel").click(function(){
-        reload_task();
+        reload_task('receipt');
     });
     $("#receipt-form").submit(function(event){
       event.preventDefault();
