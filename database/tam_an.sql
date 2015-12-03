@@ -783,12 +783,62 @@ BEGIN
   SELECT ID AS 'Id', Name FROM tam_an.user WHERE Username LIKE uname AND Password LIKE pass;
 END $$
 
-DELIMITER $$
-DROP PROCEDURE IF EXISTS insert_receipt_to_database$$
 
-CREATE PROCEDURE insert_receipt_to_database( id int, quantity  float)
+
+DELIMITER $$
+DROP FUNCTION IF EXISTS formatCSL$$
+
+CREATE FUNCTION formatCSL(
+_text TEXT
+)
+RETURNS TEXT
+NO SQL
+SQL SECURITY DEFINER
+BEGIN
+ 
+IF _text IS NULL THEN
+    RETURN NULL;
+END IF;
+ 
+SET _text = TRIM(_text);
+ 
+WHILE INSTR(_text, ' ,') DO
+    SET _text = REPLACE(_text, ' ,', ',');
+END WHILE;
+ 
+WHILE INSTR(_text, ', ') DO
+    SET _text = REPLACE(_text, ', ', ',');
+END WHILE;
+ 
+RETURN _text;
+ 
+END$$
+
+
+
+DELIMITER $$
+DROP FUNCTION IF EXISTS isValidCSL$$
+
+CREATE FUNCTION isValidCSL(
+_textIn TEXT
+)
+RETURNS BOOLEAN
+NO SQL
+SQL SECURITY DEFINER
+BEGIN
+ 
+RETURN _textIn IS NOT NULL && (_textIn = '' || _textIn REGEXP '^([1-9][0-9]{2},)*[1-9][0-9]{2}?$');
+ 
+END$$
+
+DELIMITER $$
+DROP FUNCTION IF EXISTS insert_receipt_to_database$$
+
+CREATE FUNCTION insert_receipt_to_database( id int, quantity  float)
+RETURN INT
 BEGIN
   -- TODO
+  RETURN INT;
 END $$
 
 DELIMITER ;

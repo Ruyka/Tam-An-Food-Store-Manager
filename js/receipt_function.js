@@ -10,8 +10,8 @@ function get_data(){
     $.ajax({
         async: false,
         url: receipt_path,
-        type: "post",
-        data: {action:'get_receipt_data_from_server'},
+        type: "get",
+        data: "q="+JSON.stringify({action:'get_receipt_data_from_server'}),
         success: function (data) {
           tmp = JSON.parse(data);
       }  
@@ -69,9 +69,9 @@ $(document).ready(function(){
         // send receipt list to server
         $.ajax({
             async: false,
-            url: receipt_path+"?"+$('#receipt-form').serialize(),
+            url: receipt_path+"?q="+JSON.stringify({action:'get_data_from_submit', max:next, isPrint:1}),
             type: "post",
-            data: {action:'get_data_from_submit', max:next, isPrint:1},
+            data: $('#receipt-form').serialize(),
             // if server is not return error, get data from server
             success: function (data) {
               receipt_list = JSON.parse(data);
@@ -100,9 +100,9 @@ $(document).ready(function(){
         var isError = false;
         $.ajax({
             async: false,
-            url: receipt_path+"?"+$('#receipt-form').serialize(),
+            url: receipt_path+"?q="+JSON.stringify({action:'get_data_from_submit', max:next, isPrint:0}),
             type: "post",
-            data: {action:'get_data_from_submit', max:next, isPrint:0},
+            data: $('#receipt-form').serialize(),
             success: function (data) {
               receipt_list = JSON.parse(data);
           },          
@@ -355,12 +355,4 @@ function make_print_section(receipt_list){
 
     var full_receipt = receipt_logo + receipt_info + receipt_list_table + receipt_quote;
     $("#print_here").html(full_receipt);
-}
-
-// function to make a toast like in android
-function make_toast(Msg,time){
-    // set message
-    $("#toast").html(Msg);
-    // set toast time
-    $("#toast").fadeIn(400).delay(time).fadeOut(400);
 }
