@@ -125,3 +125,8 @@ table.tri-receipt-table td {
 .product-list {
   width: 100%;
 }
+/* footer of table*/
+.table-footer{
+  font-weight: bold;
+  background-color: #FFE13C;
+}
