@@ -30,9 +30,11 @@
 			var task = document.getElementById(task_id);
 			var val = task.value;
 				
-			if(val == "receipt")
+			if(val.localeCompare("receipt")==0)
 				$("#"+task_id).parent().find("div.load").load('<?php echo CONFIG_PATH("view")."receipt_task_view.php"; ?>');
-			else 
+			else if (val.localeCompare("alter-product")==0)
+				$("#"+task_id).parent().find("div.load").load('<?php echo CONFIG_PATH("view")."alter_product_task_view.php"; ?>');
+			else
 				$("#"+task_id).parent().find("div.load").load('<?php echo CONFIG_PATH("view")."blank.php"; ?>');
 		}
 		</script>
@@ -45,6 +47,7 @@
 					<div class="inner-content">
 						<select id="task1" tabindex="-1" class="form-control " onchange="switch_task('task1')">
 							<option value="receipt">In hóa đơn</option>
+							<option value="alter-product">Chỉnh sửa sản phẩm</option>
 							<option value="2">Quản lý nhập</option>
 							<option value="3">Quản lý dư</option>
 						</select>	
