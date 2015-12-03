@@ -136,3 +136,22 @@ table#receipt-product-list{
   border-spacing: 0px;
 }
 
+.cell-title{
+  text-align: left;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.STT-product{
+  text-align: center;
+  font-size: 15px; 
+}
+input[type=checkbox]
+{
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(1.5); /* IE */
+  -moz-transform: scale(1.5); /* FF */
+  -webkit-transform: scale(1.5); /* Safari and Chrome */
+  -o-transform: scale(1.5); /* Opera */
+  padding: 10px;
+}
