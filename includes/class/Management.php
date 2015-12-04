@@ -40,8 +40,13 @@
 
 		//send the message to server to get the list of product info
 		//return array type
-		public function get_list_of_product_info(){
-			return $this->get_response_from_message("get list of product info");
+		public function get_list_of_product_info($query = NULL){
+			if (is_null($query))
+				return $this->get_response_from_message("get list of product info");
+			else{
+				$q['query'] = $query; 
+				return $this->get_response_from_message("get list of product info",true,json_encode($q));
+			}
 		}
 		
 		//send message to server to get the list of user name

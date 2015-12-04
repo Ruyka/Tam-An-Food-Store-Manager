@@ -155,3 +155,8 @@ input[type=checkbox]
   -o-transform: scale(1.5); /* Opera */
   padding: 10px;
 }
+.restrict-table-area{  
+    max-height: 500px ;
+    overflow-y: auto;
+}
+

@@ -3,27 +3,37 @@ var url = window.location.href;
 url = url.split("/");
 config_url = "http://"+url[2]+"/Tam-An-Food-Store-Manager/includes/function/general_function.php";
 
+
 // get list pf product from database
-function get_list_of_product(){
+function get_list_of_product(query){
+    // if there is no query, get list of product from receipt function
+    if(typeof query === 'undefined'){
+        function_file_name = 'receipt_function.php';
+        send_action = 'get_receipt_data_from_server';
+    }
+    //else get data from function in alter_product_function 
+    else{
+        function_file_name = 'alter_product_function.php';
+        send_action = 'get_data_with_query_from_server';
+    }
+    //AJAX, send GET
     var tmp = null;
     $.ajax({
         async: false,
-        url: get_path('function','receipt_function.php'),
+        url: get_path('function',function_file_name),
         type: "get",
-        data: "q="+JSON.stringify({action:'get_receipt_data_from_server'}),
+        data: "q="+JSON.stringify({action:send_action,query:query}),
         success: function (data) {
           tmp = JSON.parse(data);
       }  
     });
+    //return list of product
     var list_of_product;
     if (typeof tmp['list_product'] !== 'undefined') {
         // the variable is defined
-        list_of_product = tmp['list_product'];
+        return tmp['list_product'];
     }
-    else{
-        list_of_product = "";
-    }
-    return list_of_product;
+    return tmp['error'];
 }
 
 // get path

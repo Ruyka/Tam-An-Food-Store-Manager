@@ -774,6 +774,13 @@ BEGIN
   SELECT Name, Unit AS 'UnitName', Price, ID AS 'Id', Product_ID AS 'ProductId' FROM tam_an.product WHERE Price != 0;
 END $$
 
+DELIMITER $$
+DROP PROCEDURE IF EXISTS get_list_of_product_info_with_query$$
+
+CREATE PROCEDURE get_list_of_product_info_with_query(pname varchar(100))
+BEGIN
+  SELECT Name, Unit AS 'UnitName', Price, ID AS 'Id', Product_ID AS 'ProductId' FROM tam_an.product WHERE Price != 0 AND Name LIKE CONCAT('%', pname, '%');
+END $$
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS check_user_login$$
