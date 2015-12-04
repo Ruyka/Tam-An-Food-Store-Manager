@@ -42,7 +42,7 @@
 		
 		<table>
 			
-			<tr class="row1"><td>Thêm mới:</td><td> <button type="button">+1</button> </td> <td> <button type="button">Hàng loạt từ file</button> </td>
+			<tr class="row1"><td>Thêm mới:</td><td> <button type="button" id="show">+1</button> </td> <td> <button type="button">Hàng loạt từ file</button> </td>
 
 		</table>
 		
@@ -65,7 +65,7 @@
 		
 		<table>
 			
-			<tr ><td>Hành động:</td><td> <button type="button">Xóa mục đã chọn</button> </td> <td> <button type="button">Xuất file</button> </td>
+			<tr ><td>Hành động:</td><td> <button type="button" id="delete">Xóa mục đã chọn</button> </td> <td> <button type="button">Xuất file</button> </td>
 
 		</table>
 		
@@ -79,6 +79,54 @@ function toggle(source) {
 </script>
 
 
+	
+<dialog id="window">
+    <div contenteditable="true">
+		<table class="table table-striped table-bordered" id="tb1">
+			<tr ><th contenteditable="false">STT</th><th contenteditable="false"> Tên </th><th contenteditable="false"> Giá </th><th contenteditable="false"> % Chi phí </th><th contenteditable="false"> Giá mua </th><th>  Discard  </th> </tr>
+			<tr><td contenteditable="false">1</td><td contenteditable="true"></td><td></td><td></td><td></td><td><input type="checkbox" name="foo" value="bar1"><br/></td>
+			
+
+			
+		</table>
+	</div>
+	<button id="adđ">Add</button>
+    <button id="exit">Exit</button>
+</dialog>
+
+
+<script type="text/javascript">
+(function() {
+   	var dialog = document.getElementById('window');
+	document.getElementById('show').onclick = function() {
+		dialog.show();
+	};
+	document.getElementById('exit').onclick = function() {
+		dialog.close();
+	};
+})();
+
+</script>
+
+
+<dialog id="window2">
+	<p> Bạn có chắc muốn xóa vĩnh viễn các mục dã chọn </p>
+    <button id="exit">Yes</button>
+	<button id="exit2">Exit</button>
+	
+</dialog>
+<script type="text/javascript">
+(function() {
+   	var dialog = document.getElementById('window2');
+	document.getElementById('delete').onclick = function() {
+		dialog.show();
+	};
+	document.getElementById('exit2').onclick = function() {
+		dialog.close();
+	};
+})();
+
+</script>
 
 		
 		

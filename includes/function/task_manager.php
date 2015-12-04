@@ -12,7 +12,7 @@ require_once($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.p
     			$task = $get['task'];
     			if(isset($_SESSION['task'])){
     				$task_arr = $_SESSION['task'];
-    				if(!empty(array_search($task, $task_arr)))
+    				if(is_int(array_search($task, $task_arr)))
     					echo array_search($task, $task_arr);
     				else
     					echo -1;
