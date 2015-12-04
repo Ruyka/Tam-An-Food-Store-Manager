@@ -36,91 +36,91 @@ $(document).ready(function(){
 });
 
 
-    // print  button
-    function print_button(){
-        // default value of receipt_list
-        var receipt_list = "";
-        // check if server return error
-        var isError = false;
-        // send receipt list to server
-        $.ajax({
-            async: false,
-            url: receipt_path+"?q="+JSON.stringify({action:'get_data_from_submit', max:next, isPrint:1}),
-            type: "post",
-            data: $('#receipt-form').serialize(),
-            // if server is not return error, get data from server
-            success: function (data) {
-              receipt_list = JSON.parse(data);
-          },          
+// print  button
+function print_button(){
+    // default value of receipt_list
+    var receipt_list = "";
+    // check if server return error
+    var isError = false;
+    // send receipt list to server
+    $.ajax({
+        async: false,
+        url: receipt_path+"?q="+JSON.stringify({action:'get_data_from_submit', max:next, isPrint:1}),
+        type: "post",
+        data: $('#receipt-form').serialize(),
+        // if server is not return error, get data from server
+        success: function (data) {
+          receipt_list = JSON.parse(data);
+      },          
           // if there has been an error, log it into console and set isError to true
-          error: function (data) {  
-            isError = true;              
-            console.log(data);
-        }  
+      error: function (data) {  
+        isError = true;              
+        console.log(data);
+    }  
     });
-        if(isError){
-            make_print_section("");
-            make_toast("There has been a error",2000);
-        }
-        else{
-            make_print_section(receipt_list);
-            window.print();
-        }
+    if(isError){
+        make_print_section("");
+        make_toast("There has been a error",2000);
     }
+    else{
+        make_print_section(receipt_list);
+        window.print();
+    }
+}
 
 
 
-    // preview button
-    function preview_button(){
-        var receipt_list = "";
-        var isError = false;
-        $.ajax({
-            async: false,
-            url: receipt_path+"?q="+JSON.stringify({action:'get_data_from_submit', max:next, isPrint:0}),
-            type: "post",
-            data: $('#receipt-form').serialize(),
-            success: function (data) {
-              receipt_list = JSON.parse(data);
-          },          
-          error: function (data) {  
+// preview button
+function preview_button(){
+    var receipt_list = "";
+    var isError = false;
+    $.ajax({
+        async: false,
+        url: receipt_path+"?q="+JSON.stringify({action:'get_data_from_submit', max:next, isPrint:0}),
+        type: "post",
+        data: $('#receipt-form').serialize(),
+        success: function (data) {
+          receipt_list = JSON.parse(data);
+      },          
+      error: function (data) {  
+        isError = true;              
+        console.log(data);
+    }  
+});        
+    if(isError){
+        make_print_section("");
+        $("#preview_section").html($("#print_here").html());
+        make_toast("There has been a error",2000);
+    }
+    else{
+        make_print_section(receipt_list);
+        $("#preview_section").html($("#print_here").html());
+    }
+}
+
+
+
+// preview print
+function preview_print(){
+    isError = false;
+    $.ajax({
+        async: false,
+        url: receipt_path,
+        type: "post",
+        data: {action:'send_data_to_server'},
+        error: function (data) {  
             isError = true;              
             console.log(data);
         }  
-    });        
-        if(isError){
-            make_print_section("");
-            $("#preview_section").html($("#print_here").html());
-            make_toast("There has been a error",2000);
-        }
-        else{
-            make_print_section(receipt_list);
-            $("#preview_section").html($("#print_here").html());
-        }
-    }
-
-
-
-    // preview print
-    function preview_print(){
-        isError = false;
-        $.ajax({
-            async: false,
-            url: receipt_path,
-            type: "post",
-            data: {action:'send_data_to_server'},
-            error: function (data) {  
-                isError = true;              
-                console.log(data);
-            }  
-        });    
-        if(!isError)
-            window.print();  
-        else
-            make_toast("There has been a error",3000);
-    }
+    });    
+    if(!isError)
+        window.print();  
+    else
+        make_toast("There has been a error",3000);
+}
 
     // add new input
-    function add_more(id){
+function add_more(id){
     // set %ID% as regular expression
     var re = new RegExp('%ID%', 'g');
     // find and replace all appearence of %ID% to next

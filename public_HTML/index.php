@@ -41,6 +41,7 @@
 					<div class="inner-content">
 						<select id="task2" tabindex="-1" class="form-control" onchange="switch_task(2)">
 							<option value="receipt">In hóa đơn</option>
+							<option value="alter-product">Chỉnh sửa sản phẩm</option>
 							<option value="2">Quản lý nhập</option>
 							<option value="3">Quản lý dư</option>
 						</select>

@@ -23,4 +23,4 @@
     // thank you quote
     var receipt_thanks = "<br /><p><b> Cám ơn và hẹn gặp lại! </b></p>";
     // scaled logo
-    var scaled_logo = "<img src='scaled_logo.jpg' id='tri_img' />";
+    var scaled_logo = "<img src='"+get_path('media','image/logo.jpg')+"' id='tri_img' />";

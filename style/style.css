@@ -109,8 +109,8 @@ body {
 }
 /* tri image id */
 #tri_img {
-  width: auto;
-  height: auto;
+  width: 40%;
+  height: 40%;
 }
 /* tri dashed line */
 .tri_dashed_line{
