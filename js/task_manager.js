@@ -30,16 +30,16 @@ function switch_task(task_id) {
 	$("#load"+task_id).load(get_task_path(task));
 	update_taskid_task(task_id, task);
 
-	toggle_options_list(task_id);
+	toggle_options_list(task_id, task);
 }
 
-function toggle_options_list(task_id){
+function toggle_options_list(task_id, task){
 	var task2_id = task_id == 1 ? 2 : 1;
 
 	if($("#task"+task2_id).children(".hide").length != 0)
 		$("#task"+task2_id).children(".hide").toggleClass('hide');
 
-	
+	$("#task"+task2_id+" option[value='"+task+"']").toggleClass('hide');
 }
 
 function get_taskid_from_task(task){
