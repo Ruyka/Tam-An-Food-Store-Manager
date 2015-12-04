@@ -22,5 +22,15 @@
     var receipt_info_table = "<table><tr><td><b>Địa Chỉ: </b></td><td>%ADDRESS%</td></tr><tr><td><b>Điện thoại: </b></td><td>%TEL%</td></tr><tr><td><b>Ngày: </b></td><td>%DATE%  %TIME%</td></tr><tr><td><b>Thu ngân: </b></td><td>%CASHIER%</td></tr></table>";
     // thank you quote
     var receipt_thanks = "<br /><p><b> Cám ơn và hẹn gặp lại! </b></p>";
-    // scaled logo
+
+    var ALTER_PRODUCT_ROW=[
+            '<tr>',
+            '<td class="STT-product" style="padding-top:15px;">%PRODUCT_ID%</td>',
+            '<td><input id ="alter-product%ID%-name" class="form-control product-list" value = "%PRODUCT_NAME%" style="width:100%; min-width:200px"></td>',
+            '<td><input id ="alter-product%ID%-bought" class="form-control" style="width:100%; min-width:100px" onchange="alter_product_observe(0,\'%ID%\')"></td>',
+            '<td><input id ="alter-product%ID%-percentage" class="form-control" style="width:100%; min-width:70px" onchange="alter_product_observe(1,\'%ID%\')"></td>',
+            '<td><input id ="alter-product%ID%-sale" class="form-control" value = "%PRODUCT_SALE%" style="width:100%; min-width:80px " onchange="alter_product_observe(2,\'%ID%\')"></td>',
+            '<td><input type="checkbox" name="foo" value="bar1" style ="margin-top:10px;" tabindex="-1"><br/></td>',
+            '</tr>'
+        ];
     var scaled_logo = "<img src='"+get_path('media','image/logo.jpg')+"' id='tri_img' />";
