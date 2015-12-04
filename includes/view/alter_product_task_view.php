@@ -1,6 +1,6 @@
 <?php require_once($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php');?>
 <script type="text/javascript" src="<?php echo CONFIG_PATH('lib')."sorttable.js"; ?>"></script>
-
+<script type="text/javascript" src="<?php echo CONFIG_PATH('js')."alter_product_function.js"; ?>"></script>
 <!-- use 1 table to display Add more Product and Search-->
 <div class="table-responsive"> 
 	<table class="table">

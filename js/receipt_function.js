@@ -4,33 +4,9 @@ user_name = get_username();
 // get receipt_function.php path
 receipt_path = get_path('function', 'receipt_function.php');
 
-// get data from database
-function get_data(){
-    var tmp = null;
-    $.ajax({
-        async: false,
-        url: receipt_path,
-        type: "get",
-        data: "q="+JSON.stringify({action:'get_receipt_data_from_server'}),
-        success: function (data) {
-          tmp = JSON.parse(data);
-      }  
-  });
-    return tmp;
-}
 
-
-
-// pass data to variable
-product_data = get_data();
-// get product list from data
-if (typeof product_data['list_product'] !== 'undefined') {
-    // the variable is defined
-    list_product = product_data['list_product'];
-}
-else{
-    list_product = "";
-}
+//get list of product from server
+list_product = get_list_of_product();
 // make option list for select
 option_list = make_optionlist(list_product);
 // Total price of receipt
