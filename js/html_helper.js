@@ -25,7 +25,7 @@
 
     var ALTER_PRODUCT_ROW=[
             '<tr>',
-            '<td class="STT-product">%ID%</td>',
+            '<td class="STT-product" style="padding-top:15px;">%PRODUCT_ID%</td>',
             '<td><input id ="alter-product%ID%-name" class="form-control product-list" value = "%PRODUCT_NAME%" style="width:100%; min-width:200px"></td>',
             '<td><input id ="alter-product%ID%-bought" class="form-control" style="width:100%; min-width:100px" onchange="alter_product_observe(0,\'%ID%\')"></td>',
             '<td><input id ="alter-product%ID%-percentage" class="form-control" style="width:100%; min-width:70px" onchange="alter_product_observe(1,\'%ID%\')"></td>',

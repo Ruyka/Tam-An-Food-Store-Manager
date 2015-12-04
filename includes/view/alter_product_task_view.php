@@ -33,14 +33,6 @@
 		<tr class="success"><th>STT</th><th>Tên</th><th>Giá mua</th><th>% Chi phí</th><th>Giá bán</th><th class="sorttable_nosort"> <input type="checkbox" tabindex="-1" onClick="toggle(this)" /></th> </tr>
 		</thead>
 		<tbody id="alter-product-list">
-			<tr>
-				<td class="STT-product">1</td>
-				<td><input id ="alter-product-name" class="form-control product-list" value = "Lọc xanh" style="width:100%; min-width:200px"></td>
-				<td><input id ="alter-product-bought" class="form-control" style="width:100%; min-width:100px" onchange="alter_product_observe(0,'')"></td>
-				<td><input id ="alter-product-percentage" class="form-control" style="width:100%; min-width:70px" onchange="alter_product_observe(1,'')"></td>
-				<td><input id ="alter-product-sale" class="form-control" value = "20.000" style="width:100%; min-width:80px " onchange="alter_product_observe(2,'')"></td>
-				<td><input type="checkbox" name="foo" value="bar1" style ="margin-top:10px;" tabindex="-1"><br/></td>
-			</tr>
 			
 		</tbody>
 	</table>

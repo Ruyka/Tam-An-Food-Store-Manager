@@ -6,20 +6,23 @@ $(document).ready(function(){
 });
 
 function alter_product_make_list_product(){
-  var str;
+  var str = "";
   for (i = 0; i< list_product.length; ++i){
-    str = "";
-
+    var new_product_tr = "";
     for (j=0; j< ALTER_PRODUCT_ROW.length; ++j){
       var row = ALTER_PRODUCT_ROW[j]; 
       
       row = row.replace(new RegExp("%ID%", 'g'), i);
       
-      str += row;
+      new_product_tr += row;
     }
+    new_product_tr = new_product_tr.replace(new RegExp("%PRODUCT_ID%", 'g'), list_product[i]['product_id']);
+    new_product_tr = new_product_tr.replace(new RegExp("%PRODUCT_NAME%", 'g'), list_product[i]['name']);
+    new_product_tr = new_product_tr.replace(new RegExp("%PRODUCT_SALE%", 'g'), parseFloat(list_product[i]['unit']['price']));
+    str += new_product_tr;
   }
-  alert(str);
-  return;
+
+  return str;
 }
 
 function alter_product_observe(source, id){
@@ -31,6 +34,9 @@ function alter_product_observe(source, id){
     
     switch (source) {
       case 0:
+        if (!isNaN(bought_price) && bought_price!=0)
+          $("#alter-product"+ id + "-percentage").val( sale*100/bought_price);
+      
       case 1:
         if (!isNaN(percentage) && !isNaN(bought_price)){
           $("#alter-product"+ id + "-sale").val( bought_price *percentage/100);
