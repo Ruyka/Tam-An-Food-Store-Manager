@@ -175,12 +175,11 @@ function observe_change(id){
     // change field "Price per product" to corresponding price
     $("#product"+id+"_price").html(numberWithCommas(pval));
 
-    //document.getElementById("td"+id+"_price").setAttribute("sorttable_customkey", numberWithCommas(pval) );
     // get element of product quantity with "id"
     var ppid = document.getElementById("product"+id+"_quantity");
     // get quantity
     var ppval = $(ppid).val();
-    $("#td"+id+"_quantity").attr("sorttable_customkey",ppval);
+    
     // check if quantity is a number
     if(isNaN(ppval)){
         ppval = 0;  

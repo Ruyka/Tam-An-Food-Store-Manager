@@ -1,5 +1,4 @@
 <?php require_once($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php');?>
-<script type="text/javascript" src="<?php echo CONFIG_PATH('lib')."sorttable.js"; ?>"></script>
 <script type="text/javascript" src="<?php echo CONFIG_PATH('js')."alter_product_function.js"; ?>"></script>
 <!-- use 1 table to display Add more Product and Search-->
 <div class="table-responsive"> 
@@ -18,7 +17,7 @@
 			<td class= "cell-title">Tra cứu:</td>
 			<td> <input type="text" placeholder="Lọc" style="width:100%;font-size: 15px;padding:5px;"/> </td> 
 			<td> 
-				<button style="font-size = 10px"class="btn btn-default" tabindex="-1">
+				<button style="font-size = 10px"class="btn btn-default" tabindex="-1" onclick="alter_product_search_product()">
 				Tìm <span class="glyphicon glyphicon-search" ></span></button> 
 			</td>
 		</tr>
@@ -30,7 +29,33 @@
 
 	<table id="product-table" class="table sortable table-striped table-bordered" >
 		<thead>
-		<tr class="success"><th>STT</th><th>Tên</th><th>Giá mua</th><th>% Chi phí</th><th>Giá bán</th><th class="sorttable_nosort"> <input type="checkbox" tabindex="-1" onClick="toggle(this)" /></th> </tr>
+		<tr class="success">
+			
+			<th id="alter-product-id-column">STT
+				<span class="glyphicon glyphicon-arrow-up" onclick="alter_product_sort('ASC',alter-product-id-column')" ></span>
+				<span class="glyphicon glyphicon-arrow-down" onclick="alter_product_sort('DESC','alter-product-id-column')" ></span> 
+			</th>
+				
+			<th id="alter-product-name-column">Tên
+				<span class="glyphicon glyphicon-arrow-up" onclick="alter_product_sort('ASC','alter-product-name-column')" ></span>
+				<span class="glyphicon glyphicon-arrow-down" onclick="alter_product_sort('DESC','alter-product-name-column')" ></span> 
+			</th>
+
+			<th class="sorttable_numeric" id="alter-product-bought-column">Giá mua
+				<span class="glyphicon glyphicon-arrow-up" onclick="alter_product_sort('ASC','alter-product-bought-column')" ></span>
+				<span class="glyphicon glyphicon-arrow-down" onclick="alter_product_sort('DESC','alter-product-bought-column')" ></span> 
+			</th>
+			
+			<th class="sorttable_numeric" id="alter-product-percentage-column">% Chi phí
+				<span class="glyphicon glyphicon-arrow-up" onclick="alter_product_sort('ASC','alter-product-percentage-column')" ></span>
+				<span class="glyphicon glyphicon-arrow-down" onclick="alter_product_sort('DESC','alter-product-percentage-column')" ></span> 
+			</th>
+			
+			<th class="sorttable_numeric" id="alter-product-sale-column">Giá bán
+				<span class="glyphicon glyphicon-arrow-up" onclick="alter_product_sort('ASC','alter-product-sale-column')" ></span>
+				<span class="glyphicon glyphicon-arrow-down" onclick="alter_product_sort('DESC','alter-product-sale-column')" ></span> 
+			</th>
+			<th class="sorttable_nosort"> <input type="checkbox" tabindex="-1" onClick="toggle(this)" /></th> </tr>
 		</thead>
 		<tbody id="alter-product-list">
 			

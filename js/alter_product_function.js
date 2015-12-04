@@ -1,24 +1,50 @@
-//get list of product from server
-list_product = get_list_of_product();
+
 
 $(document).ready(function(){
-    $("#alter-product-list").append(alter_product_make_list_product());
+  //addd table to sortable
+  var newTableObject = document.getElementById("product-table");
+  sorttable.makeSortable(newTableObject);
 });
 
-function alter_product_make_list_product(){
+
+//search list product
+function alter_product_search_product(){
+  //get list of product from server
+  list_product = get_list_of_product();
+  $("#alter-product-list").append(alter_product_make_list_product(list_product));
+}
+
+//explicitly sort by JS
+function alter_product_sort(sort_type, column){
+  var myTH = document.getElementById(column);
+
+  sorttable.innerSortFunction.apply(myTH, [sort_type]);
+}
+
+//make the HTML code of List Product
+function alter_product_make_list_product(list_product){
   var str = "";
+
+  //scan all product in the list
   for (i = 0; i< list_product.length; ++i){
+    
     var new_product_tr = "";
+    //scan all the Const sentence that make the HTML
     for (j=0; j< ALTER_PRODUCT_ROW.length; ++j){
       var row = ALTER_PRODUCT_ROW[j]; 
-      
+      //replace %ID% with the id of the row
       row = row.replace(new RegExp("%ID%", 'g'), i);
-      
+      //merge in one string
       new_product_tr += row;
     }
+    
+    // replace the %PRODUCT_ID% with the product real ID
     new_product_tr = new_product_tr.replace(new RegExp("%PRODUCT_ID%", 'g'), list_product[i]['product_id']);
+    // replace the %PRODUCT_NAME% with the product real NAME
     new_product_tr = new_product_tr.replace(new RegExp("%PRODUCT_NAME%", 'g'), list_product[i]['name']);
+    // replace the %PRODUCT_SALE% with the product real PRICE
     new_product_tr = new_product_tr.replace(new RegExp("%PRODUCT_SALE%", 'g'), parseFloat(list_product[i]['unit']['price']));
+    
     str += new_product_tr;
   }
 
@@ -29,14 +55,16 @@ function alter_product_observe(source, id){
     var bought_price= parseFloat($("#alter-product"+ id + "-bought").val());
     var percentage = parseFloat($("#alter-product" + id + "-percentage").val());
     var sale =parseFloat($("#alter-product"+ id + "-sale").val());
-    if (isNaN(sale))
+
+    if (isNaN(sale)){
       $("#alter-product"+ id + "-sale").val(0);
-    
+      $("#alter-product"+ id + "-sale").attr("sorttable_customkey", 0);
+    }
     switch (source) {
       case 0:
-        if (!isNaN(bought_price) && bought_price!=0)
+        if (!isNaN(bought_price) && bought_price!=0){
           $("#alter-product"+ id + "-percentage").val( sale*100/bought_price);
-      
+        }
       case 1:
         if (!isNaN(percentage) && !isNaN(bought_price)){
           $("#alter-product"+ id + "-sale").val( bought_price *percentage/100);
@@ -52,4 +80,9 @@ function alter_product_observe(source, id){
         }
         break;
     }
+    //change value to sort
+    $("#alter-product"+ id + "-name").attr("sorttable_customkey", $("#alter-product"+ id + "-name").val());
+    $("#alter-product"+ id + "-bought").attr("sorttable_customkey", $("#alter-product"+ id + "-bought").val());
+    $("#alter-product"+ id + "-percentage").attr("sorttable_customkey", $("#alter-product"+ id + "-percentage").val());
+    $("#alter-product"+ id + "-sale").attr("sorttable_customkey", $("#alter-product"+ id + "-sale").val());
 }
