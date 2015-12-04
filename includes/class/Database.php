@@ -127,10 +127,12 @@
 			}
 			return $result;
 		}
-		public function get_list_of_product_info(){
-            
-            $sql = mysqli_query($this->db,"CALL get_list_of_product_info();");
-    		
+		public function get_list_of_product_info($data = NULL){
+            if (is_null($data))
+            	$sql = mysqli_query($this->db,"CALL get_list_of_product_info();");
+            else
+            	$sql = mysqli_query($this->db,"CALL get_list_of_product_info_with_query('$data');");
+    		$result = NULL;
             if($sql && mysqli_num_rows($sql)!=0){    
                 $result = array();
 				while($rlt = mysqli_fetch_array($sql,MYSQL_ASSOC)){
@@ -158,7 +160,7 @@
 	}
 	// $db = new Database();
 	// $db->connect();
-	
+	// TEST($db->get_list_of_product_info("Đ"));
 	// $tmp = new SoldProduct(113);
  //     $tmp->add_attribute("Sữa",100, NULL, "100", "SUA1111",
  //     		NULL,"17/11/2015");

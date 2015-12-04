@@ -1,4 +1,11 @@
 
+// if add one more product modal show, focus on that
+$('#add_one_product_modal').on('shown.bs.modal', function () {
+    $('#modal-focus').focus();
+});
+$('#add_one_more_product').on('focus', function () {
+    $('#product-search').focus();
+});
 
 $(document).ready(function(){
   //addd table to sortable
@@ -10,8 +17,17 @@ $(document).ready(function(){
 //search list product
 function alter_product_search_product(){
   //get list of product from server
-  list_product = get_list_of_product();
-  $("#alter-product-list").append(alter_product_make_list_product(list_product));
+  
+  var query =  $('#product-search').val();
+  if (query==='')
+    list_product = get_list_of_product();
+  else
+    list_product = get_list_of_product(query);
+  
+  if (list_product ==='No data')
+    alert('No data bitch');
+  else
+  $("#alter-product-list").html(alter_product_make_list_product(list_product));
 }
 
 //explicitly sort by JS
@@ -52,24 +68,35 @@ function alter_product_make_list_product(list_product){
 }
 
 function alter_product_observe(source, id){
+    //get vvalue
     var bought_price= parseFloat($("#alter-product"+ id + "-bought").val());
     var percentage = parseFloat($("#alter-product" + id + "-percentage").val());
     var sale =parseFloat($("#alter-product"+ id + "-sale").val());
 
+    //sale price is not allowed to be empty
     if (isNaN(sale)){
       $("#alter-product"+ id + "-sale").val(0);
       $("#alter-product"+ id + "-sale").attr("sorttable_customkey", 0);
     }
     switch (source) {
+      //the case 0 is change on product bought price
+      //affect percentage value
       case 0:
         if (!isNaN(bought_price) && bought_price!=0){
           $("#alter-product"+ id + "-percentage").val( sale*100/bought_price);
         }
+      //and affect sale
+      
       case 1:
+      //the case 1 is changed on percentage value
+      //change on sale price
         if (!isNaN(percentage) && !isNaN(bought_price)){
           $("#alter-product"+ id + "-sale").val( bought_price *percentage/100);
         }
         break;
+
+      //case 2 change on product price
+      //affect the percentage of the product
       case 2:
         if (sale ==0){
           $("#alter-product" + id + "-percentage").val(0);
