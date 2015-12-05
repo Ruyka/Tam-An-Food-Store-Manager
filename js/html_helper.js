@@ -24,13 +24,13 @@
     var receipt_thanks = "<br /><p><b> Cám ơn và hẹn gặp lại! </b></p>";
 
     var ALTER_PRODUCT_ROW=[
-            '<tr>',
-            '<td class="STT-product" style="padding-top:15px;min-width:100px">%PRODUCT_ID%</td>',
-            '<td><input id ="alter-product%ID%-name" class="form-control product-list" sorttable_customkey ="%PRODUCT_NAME%" value = "%PRODUCT_NAME%" style="width:100%; min-width:250px" onchange="alter_product_observe(4,\'%ID%\')"></td>',
-            '<td><input id ="alter-product%ID%-bought" class="form-control" style="width:100%; min-width:100px" onchange="alter_product_observe(0,\'%ID%\')"></td>',
-            '<td><input id ="alter-product%ID%-percentage" class="form-control" style="width:100%; min-width:70px" onchange="alter_product_observe(1,\'%ID%\')"></td>',
-            '<td><input id ="alter-product%ID%-sale" class="form-control" sorttable_customkey ="%PRODUCT_SALE%" value = "%PRODUCT_SALE%" style="width:100%; min-width:80px " onchange="alter_product_observe(2,\'%ID%\')"></td>',
-            '<td><input type="checkbox" name="foo" value="bar1" style ="margin-top:10px;" tabindex="-1"><br/></td>',
+            '<tr id ="alter-product%PRODUCT_ID%">',
+            '<td  id ="alter-product%PRODUCT_ID%-id" class="STT-product" style="padding-top:15px;min-width:100px">%PRODUCT_ID%</td>',
+            '<td><input id ="alter-product%PRODUCT_ID%-name" class="form-control product-list" sorttable_customkey ="%PRODUCT_NAME%" value = "%PRODUCT_NAME%" style="width:100%; min-width:250px" onchange="alter_product_observe(4,\'%PRODUCT_ID%\')"></td>',
+            '<td><input id ="alter-product%PRODUCT_ID%-bought" class="form-control" sorttable_customkey ="%PRODUCT_BOUGHT%" value = "%PRODUCT_BOUGHT%" style="width:100%; min-width:100px" onchange="alter_product_observe(0,\'%PRODUCT_ID%\')"></td>',
+            '<td><input id ="alter-product%PRODUCT_ID%-percentage" class="form-control" sorttable_customkey ="%PRODUCT_PERCENTAGE%" value = "%PRODUCT_PERCENTAGE%"style="width:100%; min-width:70px" onchange="alter_product_observe(1,\'%PRODUCT_ID%\')"></td>',
+            '<td><input id ="alter-product%PRODUCT_ID%-sale" class="form-control" sorttable_customkey ="%PRODUCT_SALE%" value = "%PRODUCT_SALE%" style="width:100%; min-width:80px " onchange="alter_product_observe(2,\'%PRODUCT_ID%\')"></td>',
+            '<td><input type="checkbox" name="foo" class = "alter-product-check-box" value="%PRODUCT_ID%" style ="margin-top:10px;" tabindex="-1"><br/></td>',
             '</tr>'
         ];
     var scaled_logo = "<img src='"+get_path('media','image/logo.jpg')+"' id='tri_img' />";
