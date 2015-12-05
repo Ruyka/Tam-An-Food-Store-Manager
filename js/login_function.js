@@ -28,7 +28,7 @@ function check_sign_in(){
     login_message = obj_msg.message;
 
     if (login_message.localeCompare("")!=0){ 
-      $("#error_message").hide("fast");
+      $("#error_message").hide();
       $("#error_message").html(login_message);
       $("#error_message").show("fast");
       $("#password").focus();

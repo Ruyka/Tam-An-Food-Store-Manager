@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `tam_an_fix_bug`
 --
-CREATE DATABASE IF NOT EXISTS `Tam_An` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+CREATE DATABASE IF NOT EXISTS `Tam_An` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `Tam_An`;
 
 -- --------------------------------------------------------
@@ -777,9 +777,9 @@ END $$
 DELIMITER $$
 DROP PROCEDURE IF EXISTS get_list_of_product_info_with_query$$
 
-CREATE PROCEDURE get_list_of_product_info_with_query(pname varchar(100))
+CREATE PROCEDURE get_list_of_product_info_with_query(pname varchar(100) CHARSET utf8)
 BEGIN
-  SELECT Name, Unit AS 'UnitName', Price, ID AS 'Id', Product_ID AS 'ProductId' FROM tam_an.product WHERE Price != 0 AND Name LIKE CONCAT('%', pname, '%');
+  SELECT Name, Unit AS 'UnitName', Price, ID AS 'Id', Product_ID AS 'ProductId' FROM tam_an.product WHERE Price != 0 AND Name LIKE CONCAT('%', pname, '%') ;
 END $$
 
 DELIMITER $$
