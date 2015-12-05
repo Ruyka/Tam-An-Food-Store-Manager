@@ -24,10 +24,17 @@ function alter_product_search_product(){
   else
     list_product = get_list_of_product(query);
   
-  if (list_product ==='No data')
-    alert('No data bitch');
-  else
-  $("#alter-product-list").html(alter_product_make_list_product(list_product));
+  if (list_product ==='No data'){
+    $("#alter-product-list").html('');
+    $("#not-found").hide();
+    $("#not-found").html('Không tìm thấy dữ liệu bạn cần tìm.');
+    $("#not-found").show("fast");
+    
+  }
+  else{
+    $("#not-found").html('');
+    $("#alter-product-list").html(alter_product_make_list_product(list_product));
+  }
 }
 
 //explicitly sort by JS

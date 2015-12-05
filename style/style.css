@@ -135,17 +135,18 @@ table.receipt-product-list{
   border-collapse: collapse;
   border-spacing: 0px;
 }
-
+/* the title of collumn*/
 .cell-title{
   text-align: left;
   font-weight: bold;
   font-size: 15px;
 }
-
+/*STT column of alter product table*/
 .STT-product{
   text-align: center;
   font-size: 15px; 
 }
+/* 1.5x size of every check box*/
 input[type=checkbox]
 {
   /* Double-sized Checkboxes */
@@ -155,8 +156,16 @@ input[type=checkbox]
   -o-transform: scale(1.5); /* Opera */
   padding: 10px;
 }
+/* restrict height of product table*/
 .restrict-table-area{  
     max-height: 500px ;
     overflow-y: auto;
 }
 
+#not-found{
+  font-size: 20px;
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  text-align: center;
+}
