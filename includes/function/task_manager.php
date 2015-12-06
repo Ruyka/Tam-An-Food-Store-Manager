@@ -41,6 +41,15 @@ require_once($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.p
     				echo $_SESSION['task'][$id];
     			}
     			break;
+            case 'exchange_task':
+                if(isset($_SESSION['task'])){
+                    $temp = $_SESSION['task'][0];
+                    $_SESSION['task'][0] = $_SESSION['task'][1];
+                    $_SESSION['task'][1] = temp;
+                }
+                else
+                    $_SESSION['task'] = array('blank', 'blank');        
+                break;
     	}
 	}
 ?>

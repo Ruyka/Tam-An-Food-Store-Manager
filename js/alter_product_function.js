@@ -80,7 +80,8 @@ function alter_product_search_product(){
     list_product = get_list_of_product();
   else
     list_product = get_list_of_product(query);
-  
+
+  console.log(list_product);
   show_if_not_equal(list_product,'No data', alter_product_make_list_product(list_product),'Không có thay đổi gần đây.');
 }
 
@@ -107,7 +108,7 @@ function alter_product_make_list_product(list_product){
     
     
     var alter_data = global_alter_product_log[list_product[i]['product_id']];
-    
+
     if (typeof alter_data !== 'undefined') {    
       if (alter_data['action']==='Xóa sản phẩm'){
         new_product_tr ="";  

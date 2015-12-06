@@ -20,9 +20,9 @@ function get_list_of_product(query){
     var tmp = null;
     $.ajax({
         async: false,
-        url: get_path('function',function_file_name),
-        type: "get",
-        data: "q="+JSON.stringify({action:send_action,query:query}),
+        url: get_path('function',function_file_name)+"?q="+JSON.stringify({action:send_action}),
+        type: "post",
+        data: {query:query},
         success: function (data) {
           tmp = JSON.parse(data);
       }  

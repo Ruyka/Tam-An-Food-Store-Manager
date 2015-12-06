@@ -126,3 +126,20 @@ function get_current_task(task_id){
   });
     return current_task;
 }
+
+// // swap two view
+// function exchange_task(){
+// 	var temp = document.getElementById("load1").innerHTML;
+// 	document.getElementById("load1").innerHTML = document.getElementById("load2").innerHTML;
+// 	document.getElementById("load2").innerHTML = temp;
+
+//     $.ajax({
+//         async: false,
+//         url: task_manager_path,
+//         type: "get",
+//         data: "q="+JSON.stringify({action:'exchange_task'}),
+//         success: function(task){
+//         	current_task = task;
+//         }
+//   });
+// }
