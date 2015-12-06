@@ -169,6 +169,11 @@ table.receipt-product-list{
 .alter-product-check-box{
   margin-top:10px;
 }
+.sort-button{
+  padding-left:0px;
+  padding-right:0px;
+  padding-bottom:10px;
+}
 /* 1.5x size of every check box*/
 input[type=checkbox]
 {
@@ -181,8 +186,16 @@ input[type=checkbox]
 }
 /* restrict height of product table*/
 .restrict-table-area{  
-    max-height: 500px ;
+    max-height: 560px ;
     overflow-y: auto;
+}
+.no-id-product{
+  text-align: center;
+  font-size: 15px; 
+  padding-top:20px;
+  min-width:100px;
+  font-weight: bold;
+  color: red;
 }
 
 #not-found{
