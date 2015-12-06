@@ -1,4 +1,5 @@
 <?php 
+require_once(CLASS_PATH."SQLLexical.php");
 Class SQLBuilder{
 	// hold sql query
 	private $query;
@@ -7,9 +8,31 @@ Class SQLBuilder{
 	public function __construct($query = ""){
 		$this->query = $query;
 	}
+	//this return SQL command to query searching for product in alter product view
+	public function alter_product_query($data){
+		///format key word to tokens
+		$keywords = SQLLexical::format_product_query_to_array($data);
+    	$keywords = SQLLexical::make_keywords($keywords);
+    	//make query
+    	$len = sizeof($keywords);
+    	$tempID = array();
+    	for($i = 0; $i < $len; $i++)
+    		$tempID[$i] = 'Name';
 
+		            	
+		return $this->select(array("Name", "Unit AS 'UnitName'", "Price", "ID AS 'Id'", "Product_ID AS 'ProductId'"))
+					->from("tam_an.product")->where()
+					->not_equals("Price",0)
+					->sql_and()
+					->left_paren()
+					->or_recursive('like', $tempID, $keywords)
+					->right_paren()
+					->to_string();
+	}
+
+	//PRIVATE method
 	// SELECT param 1,...,param n
-	public function select($param){
+	private function select($param){
 		if(!is_array($param))
 			$param = array($param);
 
@@ -24,7 +47,7 @@ Class SQLBuilder{
 		return $temp;
 	}
 
-	public function from($param){
+	private function from($param){
 		if(!is_array($param))
 			$param = array($param);
 
@@ -33,19 +56,19 @@ Class SQLBuilder{
 		return $this;
 	}
 
-	public function where(){
+	private function where(){
 		$this->query .= "WHERE ";
 		
 		return $this;
 	}
 
-	public function is($id, $value){
+	private function is($id, $value){
 		$this->query .= $id.' IS '.$value.' ';
 
 		return $this;
 	}
 
-	public function in($id, $array){
+	private function in($id, $array){
 		if(!is_array($array))
 			$array = array($array);
 		$this->query .= $id.' IN ('.implode(', ', $array).') ';
@@ -53,37 +76,37 @@ Class SQLBuilder{
 		return $this;
 	}
 
-	public function like($id, $value){
+	private function like($id, $value){
 		$this->query .= $id.' LIKE \''.$value.'\' ';
 		
 		return $this;
 	}
 
-	public function equals($id, $value){
+	private function equals($id, $value){
 		$this->query .= $id.' = '.$value.' ';
 		
 		return $this;
 	}
 
-	public function not_equals($id, $value){
+	private function not_equals($id, $value){
 		$this->query .= $id.' != '.$value.' ';
 		
 		return $this;
 	}
 
-	public function sql_or(){
+	private function sql_or(){
 		$this->query .= ' OR ';
 
 		return $this;
 	}
 
-	public function sql_and(){
+	private function sql_and(){
 		$this->query .= ' AND ';
 		
 		return $this;
 	}
 
-	public function or_recursive($func, $id_array, $value_array){
+	private function or_recursive($func, $id_array, $value_array){
 		if(!is_array($id_array))
 			$id_array = array($id_array);
 
@@ -107,7 +130,7 @@ Class SQLBuilder{
 		return $this;
 	}
 
-	public function and_recursive($func, $id_array, $value_array){
+	private function and_recursive($func, $id_array, $value_array){
 		if(!is_array($id_array))
 			$id_array = array($id_array);
 
@@ -128,17 +151,17 @@ Class SQLBuilder{
 		return $this;
 	}
 
-	public function left_paren(){
+	private function left_paren(){
 		$this->query .= '( ';
 		return $this;
 	}
 
-	public function right_paren(){
+	private function right_paren(){
 		$this->query .= ') ';
 		return $this;
 	}
 
-	public function to_string(){
+	private function to_string(){
 		return $this->query;
 	}
 }
