@@ -145,6 +145,29 @@ table.receipt-product-list{
 .STT-product{
   text-align: center;
   font-size: 15px; 
+  padding-top:15px;
+  min-width:100px;
+}
+/* product name column of alter product table*/
+.alter-product-name{
+  width:100%; 
+  min-width:250px;
+}
+/*product bought price of alter product table*/
+.alter-product-bought{
+  width:100%; 
+  min-width:100px;
+}
+.alter-product-percentage{
+  width:100%; 
+  min-width:70px;
+}
+.alter-product-sale{
+  width:100%;
+  min-width:80px; 
+}
+.alter-product-check-box{
+  margin-top:10px;
 }
 /* 1.5x size of every check box*/
 input[type=checkbox]
