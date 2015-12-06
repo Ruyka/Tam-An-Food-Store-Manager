@@ -1,10 +1,14 @@
 <?php 
 Class SQLBuilder{
+	// hold sql query
 	private $query;
+
+	// default sql query = ""
 	public function __construct($query = ""){
 		$this->query = $query;
 	}
 
+	// SELECT param 1,...,param n
 	public function select($param){
 		if(!is_array($param))
 			$param = array($param);
@@ -14,11 +18,11 @@ Class SQLBuilder{
 		return $this;
 	}
 
-	// public function as($value){
-	// 	$temp = " AS '".$value."' ";
+	static public function sql_as($value){
+		$temp = " AS '".$value."' ";
 
-	// 	return $temp;
-	// }
+		return $temp;
+	}
 
 	public function from($param){
 		if(!is_array($param))
@@ -55,39 +59,17 @@ Class SQLBuilder{
 		return $this;
 	}
 
+	public function equals($id, $value){
+		$this->query .= $id.' = '.$value.' ';
+		
+		return $this;
+	}
+
 	public function sql_or(){
 		$this->query .= ' OR ';
 
 		return $this;
 	}
-
-	// private function like_recursive($id, $value){
-	// 	$query = ' '.$id.' LIKE \''.$value.'\' ';
-		
-	// 	return $query;
-	// }
-
-	// private function is_recursive($id, $value){
-	// 	$query = ' '.$id.' IS '.$value.' ';
-		
-	// 	return $query;
-	// }
-	
-	// private function in_recursive($id, $array){
-	// 	if(!is_array($array))
-	// 		$array = array($array);
-	// 	$query = ' '.$id.' IN ('.implode(', ', $array).') ';
-		
-	// 	return $query;
-	// }
-
-	// private function func_selector($func){
-	// 	if(!is_array($array))
-	// 		$array = array($array);
-	// 	$query = ' '.$id.' IN ('.implode(', ', $array).') ';
-		
-	// 	return $query;
-	// }
 
 	public function sql_and(){
 		$this->query .= ' AND ';
