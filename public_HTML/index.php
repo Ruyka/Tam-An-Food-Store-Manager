@@ -34,7 +34,9 @@
 							<option value="3">Quản lý dư</option>
 						</select>	
 
-						<div id="load1">IF YOU SEE THIS THEN SWITCH TASK FUNCTION IS NOT WORKING</div>		
+						<div id="load1">
+							
+						</div>		
 					</div>
 				</div>
 
@@ -47,7 +49,9 @@
 							<option value="2">Quản lý nhập</option>
 							<option value="3">Quản lý dư</option>
 						</select>
-						<div id="load2">THIS FUNCTION HAS NOT BEEN IMPLEMENTED</div>	
+						<div id="load2">
+							
+						</div>	
 					</div>
 				</div>
 			

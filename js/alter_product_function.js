@@ -357,7 +357,7 @@ function alter_add_product_observe(source, id){
     var bought_price= parseFloat($("#alter-product-no-id"+ id + "-bought").val());
     var percentage = parseFloat($("#alter-product-no-id" + id + "-percentage").val());
     var sale =parseFloat($("#alter-product-no-id"+ id + "-sale").val());
-    
+    alert("aaa");
     //sale price is not allowed to be empty
     if (isNaN(sale)){
       $("#alter-product-no-id"+ id + "-sale").val(0);
