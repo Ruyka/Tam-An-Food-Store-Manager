@@ -44,4 +44,6 @@ function get_product_data_from_server($query){
 	else
 		return $data;
 }
+
+
 ?>

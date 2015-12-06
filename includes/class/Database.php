@@ -3,6 +3,7 @@
 	require_once($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php');
 	require_once(CLASS_PATH."Receipt.php");
 	require_once(CLASS_PATH."SQLBuilder.php");
+	
 	class Database{
 		// this infomation can be found in config file
 		//Properties
@@ -132,19 +133,8 @@
             if (is_null($data))
             	$sql = mysqli_query($this->db,"CALL get_list_of_product_info();");
             else{
-            	$keywords = format_query_to_array($data);
-            	$keywords = make_keywords($keywords);
-
-            	$len = sizeof($keywords);
-            	$tempID = array();
-            	for($i = 0; $i < $len; $i++)
-            		$tempID[$i] = 'Name';
-
-				$sqlbuilder = new SQLBuilder();            	
-				$sqlbuilder->select(array("Name", "Unit AS 'UnitName'", "Price", "ID AS 'Id'", "Product_ID AS 'ProductId'"))->from("tam_an.product")->where()
-				->not_equals("Price",0)->sql_and()->left_paren()->or_recursive('like', $tempID, $keywords)->right_paren();
-
-            	$sql = mysqli_query($this->db, $sqlbuilder->to_string());
+            	$sqlbuilder = new SQLBuilder;
+            	$sql = mysqli_query($this->db, $sqlbuilder->alter_product_query($data));
             }
     		$result = NULL;
             if($sql && mysqli_num_rows($sql)!=0){    
@@ -172,34 +162,10 @@
 		}
 		
 	}
-	// function to tokenize query into individual element (tempory here lol)
-	function format_query_to_array($query){
-	  $keyword_tokens = explode('+', trim($query,'+'));
-	  foreach ($keyword_tokens as $key => $value) {
-	  	if(empty($value))
-	  		unset($keyword_tokens[$key]);
-	  }
-	  $keyword_tokens = preg_grep('/^\s*\z/', $keyword_tokens, PREG_GREP_INVERT);
 
-	  $keyword_tokens = array_map('trim', $keyword_tokens);
-
-	  return $keyword_tokens;
-	}
-
-	// change 'keyword' => '%keyword%'
-	function make_keywords($keywords){
-		if(!is_array($keywords))
-			$keywords = array($keywords);
-
-		foreach ($keywords as $key => $value) 
-			$keywords[$key] = "%".$value."%";
-		
-		return $keywords;
-	}
-
-	// $db = new Database();
-	// $db->connect();
-	// TEST($db->get_list_of_product_info('den + xanh'));
+	 //$db = new Database();
+	 //$db->connect();
+	 //TEST($db->get_list_of_product_info('Bánh tráng'));
 	// $tmp = new SoldProduct(113);
  //     $tmp->add_attribute("Sữa",100, NULL, "100", "SUA1111",
  //     		NULL,"17/11/2015");
