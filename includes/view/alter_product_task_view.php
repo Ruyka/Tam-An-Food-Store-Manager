@@ -57,8 +57,8 @@
 				<th class="sorttable_numeric" id="alter-product-sale-column">Giá bán
 					<span class="glyphicon glyphicon-arrow-up btn btn-small sort-button" onclick="alter_product_sort('ASC','alter-product-sale-column')" ></span><span class="glyphicon glyphicon-arrow-down btn btn-small sort-button" onclick="alter_product_sort('DESC','alter-product-sale-column')" ></span> 
 				</th>
-				<th class="sorttable_nosort"> <input type="checkbox" tabindex="-1" onClick="toggle(this)" /></th> 
-				<th class="sorttable_nosort" style="width:100px"> Hành Động </th></tr>
+				<th class="sorttable_nosort" style="padding-bottom:10px"> <input type="checkbox" style="width:40px;" tabindex="-1" onClick="toggle(this)" /></th> 
+				<th class="sorttable_nosort" style="width:100px; padding-bottom:20px"> Hành Động </th></tr>
 			</thead>
 			
 			<tbody id="alter-product-list">
@@ -76,10 +76,11 @@
 			<tr style="margin-top:20px;">
 				<td class= "cell-title" style ="width:150px">Hành động:</td>
 				<td>
-					<button id ="alter_product_remove_btn" type="button" class="btn btn-primary" onclick ="alter_product_remove_item()" tabindex="-1">Xóa mục đã chọn</button> 
+					<button id ="alter_product_remove_btn" type="button" class="btn btn-primary" 
+							onclick ="return confirm('Xóa sản phẩm này khỏi danh sách? (Không thể phục hồi)'); alter_product_remove_item();" tabindex="-1">Xóa mục đã chọn</button> 
 					<button type="button" class="btn btn-primary" tabindex="-1">Xuất file</button>
 					
-					<button type="button" class="btn btn-primary" tabindex="-1">Lưu</button>
+					<button type="button" class="btn btn-primary" onclick ="save_data()" tabindex="-1">Lưu</button>
 				</td>
 				
 			</tr>
@@ -94,7 +95,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Preview</h4>
+					<h4 class="modal-title">Thêm Mới</h4>
 				</div>
 				
 				<div class="modal-body">
@@ -119,8 +120,10 @@
 				</div>
 
 				<div class="modal-footer">
-					<button type="button" class="btn btn-info" data-dismiss="modal" onclick="add_one_product();alter_product_show('change');">Thêm</button>
-					<button type="button" class="btn btn-info" data-dismiss="modal">Hủy Bỏ</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal" 
+							onclick="add_one_product();alter_product_show('change');restore();">Thêm</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal"
+							onclick="restore();">Hủy Bỏ</button>
 				</div>
 			</div>
 
