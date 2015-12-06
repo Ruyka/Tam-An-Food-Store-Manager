@@ -65,6 +65,12 @@ Class SQLBuilder{
 		return $this;
 	}
 
+	public function not_equals($id, $value){
+		$this->query .= $id.' != '.$value.' ';
+		
+		return $this;
+	}
+
 	public function sql_or(){
 		$this->query .= ' OR ';
 
@@ -119,6 +125,16 @@ Class SQLBuilder{
 		$len = strlen($this->query) - 3;
 		$this->query = substr($this->query, 0, $len);
 
+		return $this;
+	}
+
+	public function left_paren(){
+		$this->query .= '( ';
+		return $this;
+	}
+
+	public function right_paren(){
+		$this->query .= ') ';
 		return $this;
 	}
 
