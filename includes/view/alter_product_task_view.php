@@ -16,7 +16,7 @@
 		</tr>
 		<tr>
 			<td class= "cell-title">Tra cứu:</td>
-			<td> <input type="text" id ="product-search" placeholder="Lọc" style="width:100%;font-size: 15px;padding:5px;"/> </td> 
+			<td> <input type="text" id ="product-search" placeholder="Tìm Kiếm" style="width:100%;font-size: 15px;padding:5px;"/> </td> 
 			<td> 
 				<button style="font-size = 10px"class="btn btn-default" tabindex="-1" onclick="alter_product_search_product()">
 				Tìm <span class="glyphicon glyphicon-search" ></span></button> 
@@ -26,61 +26,68 @@
 </div>
 
 <!-- THis table hold the result of searching-->
-
-<div id ="alter-product-search-area" class="table-responsive restrict-table-area"> 
-	<p class= "cell-title"> Kết Quả </p>
-	<table id="product-table" class="table sortable table-striped table-bordered  table-fixed " >
-		<thead>
-		<tr class="success">
-			
-			<th id="alter-product-id-column" class="sorttable_numeric">STT
-				<span class="glyphicon glyphicon-arrow-up" onclick="alter_product_sort('ASC','alter-product-id-column')" ></span><span class="glyphicon glyphicon-arrow-down" onclick="alter_product_sort('DESC','alter-product-id-column')" ></span> 
-			</th>
+<div id ="alter-product-search-area">
+	<p class= "cell-title" style="margin-bottom:30px"> Kết Quả 
+		<button id ="alter_product_change_btn" style="float:right" type="button" class="btn btn-default" onclick ="alter_product_show('change')" tabindex="-1">Xem thay đổi</button>
+		<button id ="alter_product_search_btn" style="float:right" type="button" class="btn btn-default" onclick ="alter_product_show('search')" tabindex="-1">Xem tìm kiếm</button>
+	</p>
+	<div class="break"> </div>
+	<div class="table-responsive restrict-table-area"> 
+		
+		<table id="product-table" class="table sortable table-striped table-bordered  table-fixed " >
+			<thead>
+			<tr class="success">
 				
-			<th id="alter-product-name-column">Tên
-				<span class="glyphicon glyphicon-arrow-up" onclick="alter_product_sort('ASC','alter-product-name-column')" ></span><span class="glyphicon glyphicon-arrow-down" onclick="alter_product_sort('DESC','alter-product-name-column')" ></span> 
-			</th>
+				<th id="alter-product-id-column" class="sorttable_numeric">STT
+					<span class="glyphicon glyphicon-arrow-up btn btn-small sort-button"  onclick="alter_product_sort('ASC','alter-product-id-column')" ></span><span class="glyphicon glyphicon-arrow-down btn btn-small sort-button" onclick="alter_product_sort('DESC','alter-product-id-column')" ></span> 
+				</th>
+					
+				<th id="alter-product-name-column">Tên
+					<span class="glyphicon glyphicon-arrow-up btn btn-small sort-button" onclick="alter_product_sort('ASC','alter-product-name-column')" ></span><span class="glyphicon glyphicon-arrow-down btn btn-small sort-button" onclick="alter_product_sort('DESC','alter-product-name-column')" ></span> 
+				</th>
 
-			<th class="sorttable_numeric" id="alter-product-bought-column">Giá mua
-				<span class="glyphicon glyphicon-arrow-up" onclick="alter_product_sort('ASC','alter-product-bought-column')" ></span><span class="glyphicon glyphicon-arrow-down" onclick="alter_product_sort('DESC','alter-product-bought-column')" ></span> 
-			</th>
+				<th class="sorttable_numeric" id="alter-product-bought-column">Giá mua
+					<span class="glyphicon glyphicon-arrow-up btn btn-small sort-button" onclick="alter_product_sort('ASC','alter-product-bought-column')" ></span><span class="glyphicon glyphicon-arrow-down btn btn-small sort-button" onclick="alter_product_sort('DESC','alter-product-bought-column')" ></span> 
+				</th>
+				
+				<th class="sorttable_numeric" id="alter-product-percentage-column">% Chi phí
+					<span class="glyphicon glyphicon-arrow-up btn btn-small sort-button" onclick="alter_product_sort('ASC','alter-product-percentage-column')" ></span><span class="glyphicon glyphicon-arrow-down btn btn-small sort-button" onclick="alter_product_sort('DESC','alter-product-percentage-column')" ></span> 
+				</th>
+				
+				<th class="sorttable_numeric" id="alter-product-sale-column">Giá bán
+					<span class="glyphicon glyphicon-arrow-up btn btn-small sort-button" onclick="alter_product_sort('ASC','alter-product-sale-column')" ></span><span class="glyphicon glyphicon-arrow-down btn btn-small sort-button" onclick="alter_product_sort('DESC','alter-product-sale-column')" ></span> 
+				</th>
+				<th class="sorttable_nosort" style="padding-bottom:10px"> <input type="checkbox" style="width:40px;" tabindex="-1" onClick="toggle(this)" /></th> 
+				<th class="sorttable_nosort" style="width:100px; padding-bottom:20px"> Hành Động </th></tr>
+			</thead>
 			
-			<th class="sorttable_numeric" id="alter-product-percentage-column">% Chi phí
-				<span class="glyphicon glyphicon-arrow-up" onclick="alter_product_sort('ASC','alter-product-percentage-column')" ></span><span class="glyphicon glyphicon-arrow-down" onclick="alter_product_sort('DESC','alter-product-percentage-column')" ></span> 
-			</th>
+			<tbody id="alter-product-list">
+				
+			</tbody>
+		</table>
+		<div id = "not-found">
 			
-			<th class="sorttable_numeric" id="alter-product-sale-column">Giá bán
-				<span class="glyphicon glyphicon-arrow-up" onclick="alter_product_sort('ASC','alter-product-sale-column')" ></span><span class="glyphicon glyphicon-arrow-down" onclick="alter_product_sort('DESC','alter-product-sale-column')" ></span> 
-			</th>
-			<th class="sorttable_nosort"> <input type="checkbox" tabindex="-1" onClick="toggle(this)" /></th> 
-			<th class="sorttable_nosort" style="width:100px"> Hành Động </th></tr>
-		</thead>
-		
-		<tbody id="alter-product-list">
-			
-		</tbody>
-	</table>
-	<div id = "not-found">
-		
+		</div>
+	</div>
+
+	<div class="table-responsive" > 
+		<table class="table">
+
+			<tr style="margin-top:20px;">
+				<td class= "cell-title" style ="width:150px">Hành động:</td>
+				<td>
+					<button id ="alter_product_remove_btn" type="button" class="btn btn-primary" 
+							onclick ="return confirm('Xóa sản phẩm này khỏi danh sách? (Không thể phục hồi)'); alter_product_remove_item();" tabindex="-1">Xóa mục đã chọn</button> 
+					<button type="button" class="btn btn-primary" tabindex="-1">Xuất file</button>
+					
+					<button type="button" class="btn btn-primary" onclick ="save_data()" tabindex="-1">Lưu</button>
+				</td>
+				
+			</tr>
+		</table>
+
 	</div>
 </div>
-<div class="table-responsive"> 
-	<table class="table">
-
-		<tr >
-			<td class= "cell-title">Hành động:</td>
-			<td>
-				<button id ="alter_product_remove_btn" type="button" class="btn btn-primary" onclick ="alter_product_remove_item()" tabindex="-1">Xóa mục đã chọn</button> 
-				<button type="button" class="btn btn-primary" tabindex="-1">Xuất file</button>
-				<button id ="alter_product_change_btn" type="button" class="btn btn-primary" onclick ="alter_product_show('change')" tabindex="-1">Xem thay đổi</button>
-				<button id ="alter_product_search_btn" type="button" class="btn btn-primary" onclick ="alter_product_show('search')" tabindex="-1">Xem tìm kiếm</button>
-				<button type="button" class="btn btn-primary" tabindex="-1">Lưu</button>
-			</td>
-		</tr>
-	</table>
-
-</div>
-
 <!-- press add one more and toogle this-->
 <div class="modal fade" id="add_one_product_modal" role="dialog">
 		<div class="modal-dialog">
@@ -88,7 +95,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Preview</h4>
+					<h4 class="modal-title">Thêm Mới</h4>
 				</div>
 				
 				<div class="modal-body">
@@ -101,10 +108,10 @@
 							
 							<tbody>
 								<tr>
-									<td><input class="form-control product-list" id="modal-focus" ></td>
-									<td><input class="form-control" ></td>
-									<td><input class="form-control" ></td>
-									<td><input class="form-control" ></td>
+									<td><input id ="alter-product-add-name" class="form-control product-list" id="modal-focus" ></td>
+									<td><input id ="alter-product-add-bought" class="form-control" ></td>
+									<td><input id ="alter-product-add-percentage" class="form-control" ></td>
+									<td><input id ="alter-product-add-sale" class="form-control" ></td>
 								</tr>
 							</tbody>
 						</table>
@@ -113,8 +120,10 @@
 				</div>
 
 				<div class="modal-footer">
-					<button type="button" class="btn btn-info" data-dismiss="modal">Thêm</button>
-					<button type="button" class="btn btn-info" data-dismiss="modal">Hủy Bỏ</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal" 
+							onclick="add_one_product();alter_product_show('change');restore();">Thêm</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal"
+							onclick="restore();">Hủy Bỏ</button>
 				</div>
 			</div>
 
