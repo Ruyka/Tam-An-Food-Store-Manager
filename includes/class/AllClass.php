@@ -12,4 +12,5 @@
 	require_once(CLASS_PATH."TradeMark.php");
 	require_once(CLASS_PATH."Unit.php");
 	require_once(CLASS_PATH."View.php");
+	require_once(CLASS_PATH."SQLBuilder.php");
 ?>
