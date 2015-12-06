@@ -30,16 +30,16 @@
             '<td><input id ="alter-product%PRODUCT_ID%-bought" type="number" class="alter-product-bought form-control" sorttable_customkey ="%PRODUCT_BOUGHT%" value = "%PRODUCT_BOUGHT%"  onchange="alter_product_observe(0,\'%PRODUCT_ID%\')"></td>',
             '<td><input id ="alter-product%PRODUCT_ID%-percentage" type="number" class="alter-product-percentage form-control" sorttable_customkey ="%PRODUCT_PERCENTAGE%" value = "%PRODUCT_PERCENTAGE%" onchange="alter_product_observe(1,\'%PRODUCT_ID%\')"></td>',
             '<td><input id ="alter-product%PRODUCT_ID%-sale" type="number" class="alter-product-sale form-control" sorttable_customkey ="%PRODUCT_SALE%" value = "%PRODUCT_SALE%" onchange="alter_product_observe(2,\'%PRODUCT_ID%\')"></td>',
-            '<td><input type="checkbox" name="foo" class = "alter-product-check-box" value="%PRODUCT_ID%"  tabindex="-1"><br/></td>',
+            '<td style="padding-top: 15px;" ><input type="checkbox" name="foo" class = "alter-product-check-box" value="%PRODUCT_ID%"  tabindex="-1"><br/></td>',
             '</tr>'
         ];
     var ALTER_PRODUCT_ADD_NEW_PRODUCT_ROW=[
             '<tr id ="alter-product-no-id%PRODUCT_ID%">',
             '<td class="no-id-product">Mới</td>',
-            '<td><input id ="alter-product-no-id%PRODUCT_ID%-name" class="alter-product-name form-control product-list" sorttable_customkey ="%PRODUCT_NAME%" value = "%PRODUCT_NAME%" onchange="alter_product_observe(4,\'%PRODUCT_ID%\')"></td>',
-            '<td><input id ="alter-product-no-id%PRODUCT_ID%-bought" type="number" class="alter-product-bought form-control" sorttable_customkey ="%PRODUCT_BOUGHT%" value = "%PRODUCT_BOUGHT%"  onchange="alter_product_observe(0,\'%PRODUCT_ID%\')"></td>',
-            '<td><input id ="alter-product-no-id%PRODUCT_ID%-percentage" type="number" class="alter-product-percentage form-control" sorttable_customkey ="%PRODUCT_PERCENTAGE%" value = "%PRODUCT_PERCENTAGE%" onchange="alter_product_observe(1,\'%PRODUCT_ID%\')"></td>',
-            '<td><input id ="alter-product-no-id%PRODUCT_ID%-sale" type="number" class="alter-product-sale form-control" sorttable_customkey ="%PRODUCT_SALE%" value = "%PRODUCT_SALE%" onchange="alter_product_observe(2,\'%PRODUCT_ID%\')"></td>',
+            '<td><input id ="alter-product-no-id%PRODUCT_ID%-name" class="alter-product-name form-control product-list" sorttable_customkey ="%PRODUCT_NAME%" value = "%PRODUCT_NAME%"></td>',
+            '<td><input id ="alter-product-no-id%PRODUCT_ID%-bought" type="number" class="alter-product-bought form-control" sorttable_customkey ="%PRODUCT_BOUGHT%" value = "%PRODUCT_BOUGHT%"  onchange="alter_add_product_observe(0,\'%PRODUCT_ID%\')"></td>',
+            '<td><input id ="alter-product-no-id%PRODUCT_ID%-percentage" type="number" class="alter-product-percentage form-control" sorttable_customkey ="%PRODUCT_PERCENTAGE%" value = "%PRODUCT_PERCENTAGE%" onchange="alter_add_product_observe(1,\'%PRODUCT_ID%\')"></td>',
+            '<td><input id ="alter-product-no-id%PRODUCT_ID%-sale" type="number" class="alter-product-sale form-control" sorttable_customkey ="%PRODUCT_SALE%" value = "%PRODUCT_SALE%" onchange="alter_add_product_observe(2,\'%PRODUCT_ID%\')"></td>',
             '<td>%ACTION%</td>',
             '</tr>'
         ];
