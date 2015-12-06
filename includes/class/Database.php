@@ -130,8 +130,14 @@
 		public function get_list_of_product_info($data = NULL){
             if (is_null($data))
             	$sql = mysqli_query($this->db,"CALL get_list_of_product_info();");
-            else
-            	$sql = mysqli_query($this->db,"CALL get_list_of_product_info_with_query('$data');");
+            else{
+            	$keywords = preg_replace('/\s+/', '', $data);
+            	$keywords = trim($keywords,'+');
+            	$keywords_tokens = explode('+', $keywords);
+			  	$sql_query = "SELECT Name, Unit AS 'UnitName', Price, ID AS 'Id', Product_ID AS 'ProductId' FROM tam_an.product WHERE Price != 0 AND (Name LIKE '%";
+			  	$sql_query .= implode("%' OR Name LIKE '%", $keywords_tokens) . "%')";
+            	$sql = mysqli_query($this->db,$sql_query);
+            }
     		$result = NULL;
             if($sql && mysqli_num_rows($sql)!=0){    
                 $result = array();
@@ -160,7 +166,7 @@
 	}
 	// $db = new Database();
 	// $db->connect();
-	// TEST($db->get_list_of_product_info("Đ"));
+	// TEST($db->get_list_of_product_info('D'));
 	// $tmp = new SoldProduct(113);
  //     $tmp->add_attribute("Sữa",100, NULL, "100", "SUA1111",
  //     		NULL,"17/11/2015");

@@ -11,8 +11,8 @@ if(isset($_GET['q']) && !empty($_GET['q'])) {
     $action = $get['action'];
     switch ($action) {
         case 'get_data_with_query_from_server':
-        	//get query out of GET
-        	$query = $get['query'];
+        	//get query out of POST
+    	    $query = $_POST['query'];
         	$data = get_product_data_from_server($query);
         	if (is_object($data)){
         		echo $data->json_encode();
