@@ -77,7 +77,7 @@
 				<td class= "cell-title" style ="width:150px">Hành động:</td>
 				<td>
 					<button id ="alter_product_remove_btn" type="button" class="btn btn-primary" 
-							onclick ="return confirm('Xóa sản phẩm này khỏi danh sách? (Không thể phục hồi)'); alter_product_remove_item();" tabindex="-1">Xóa mục đã chọn</button> 
+							onclick ="confirm('Xóa sản phẩm này khỏi danh sách? (Không thể phục hồi)');alter_product_remove_item();" tabindex="-1">Xóa mục đã chọn</button> 
 					<button type="button" class="btn btn-primary" tabindex="-1">Xuất file</button>
 					
 					<button type="button" class="btn btn-primary" onclick ="save_data()" tabindex="-1">Lưu</button>

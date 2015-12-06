@@ -70,6 +70,25 @@
 				$this->db->add_receipt(json_decode($client_data,true));
 		}
 
+		//input: array of product id
+		private function remove_product($client_data = NULL){
+			if (!is_null($client_data))
+				$this->db->remove_product(json_decode($client_data,true));
+		}
+
+		//input:  list of product
+		private function push_alter_product_data($client_data = NULL){
+			if (!is_null($client_data))
+				$this->db->push_alter_product_data(json_decode($client_data,true));
+		}
+
+		//input: list of product
+		private function push_new_product_data($client_data = NULL){
+			if (!is_null($client_data))
+				$this->db->push_new_product_data(json_decode($client_data,true));
+		}
+
+		
 		//check if the function are existed or not
 		private function check_username_existed($client_data = NULL){
 			if (!is_null($client_data)){

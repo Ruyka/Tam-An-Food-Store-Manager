@@ -199,18 +199,18 @@
 	
 	//SAMPLE CODE TO TEST, READ FOR FUN lol :V
 
-     // $tmp = new SoldProduct(113);
-     // $tmp->add_attribute("Sữa",100, NULL, "100", "SUA1111",
-     // 		NULL,"17/11/2015");
+      // $tmp = new SoldProduct(113);
+      // $tmp->add_attribute("Sữa", NULL, "100", "SUA1111",
+      // 		NULL,"17/11/2015");
 
-     // $BasicInfo = new BasicInfo("Kim Nhật Thành","knthanh@apcs.vn","0923232121","4 ABCD");
+      // $BasicInfo = new BasicInfo("Kim Nhật Thành","knthanh@apcs.vn","0923232121","4 ABCD");
 
-     // $receipt = new Receipt(1,1,new Employee("EM011",$BasicInfo,10000,1,"1313131"));
+      // $receipt = new Receipt(1,1,new Employee("EM011",$BasicInfo,10000,1,"1313131"));
     
-     // $receipt->add($tmp);
-     // $receipt->add($tmp);
+      // $receipt->add($tmp);
+      // $receipt->add($tmp);
      
-     // $receipt2 = new Receipt();
-     // $receipt2->get_data_from_json($receipt->json_encode());
-     // TEST($receipt2->json_encode(false));
+      // $receipt2 = new Receipt();
+      // $receipt2->get_data_from_json($receipt->json_encode());
+      // TEST($receipt2->json_encode(false));
 ?>
