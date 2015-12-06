@@ -12,15 +12,12 @@ class Product{
 	private $product_code;
 	// name of the product
 	private $name ;
-	// total number of the product in storage
-	private $total_number;
 	// infomation about unit of product
 	private $unit ;
 	// infomation about trademark of product
 	private $trademark ;
 	// the date that the product will be depleted
 	private $dated;
-	
 	//save the type of the Product object
 	protected $object_type;
 
@@ -29,19 +26,19 @@ class Product{
 		$this->product_id = "";
 		$this->product_code="";
 		$this->name = "";
-		$this->total_number = 0;
+		
 		$this->unit = NULL;
 		$this->trademark = NULL;
 		$this->dated = "";
 		$this->object_type = "Product";
 	}
 	//this function add the attribute for the product
-    public function add_attribute( $name, $total_number, $unit = NULL, 
+    public function add_attribute( $name, $unit = NULL, 
     								$product_id = "", $product_code=""
     								, $trademark = NULL, $dated = NULL) {
     	
     	$this->name = $name;
-		$this->total_number = $total_number;
+		
 		$this->unit = $unit;
 		$this->product_id = $product_id;
 		$this->product_code = $product_code;
@@ -56,10 +53,6 @@ class Product{
 		return $this->name;
 	}
 	
-	//get total number of the product to display
-	public function get_total_number(){
-		return $this->total_number;
-	}
 	
 	//get price of product
 	public function get_price(){
@@ -102,7 +95,6 @@ class Product{
 			'product_id' => $this->product_id,
 			'product_code' => $this->product_code,
 	        'name' => $this->name,
-	        'total_number' => $this->total_number,
 	        'object_type' => $this->object_type,
     	);
 
@@ -141,8 +133,7 @@ class Product{
 	//get data from an array data 
 	public function get_data_from_array($data){
 		// a right Basic info array must have 6 properties id, naeme, total_number, unit, trademark, dated
-		if ( isset($data['product_id']) && isset($data['name']) 
-				&& isset($data['total_number'])  ){
+		if ( isset($data['product_id']) && isset($data['name'])){
 			
 			$this->get_data($data);
 		}
@@ -157,8 +148,6 @@ class Product{
 		$this->product_code = $data['product_code'];
 		// get name
 		$this->name = $data['name'];
-		//get total numbet off product that remains
-		$this->total_number = $data['total_number'];
 		// get unit data
 		if (!is_null($data['unit'])){
 			$this->unit = new Unit();

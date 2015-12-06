@@ -20,18 +20,56 @@ if(isset($_GET['q']) && !empty($_GET['q'])) {
         	else
         		echo json_encode($data);
         	break;
-        case 'send_data_to_server':
-        if(isset($_SESSION['PREVIEW_SERVER_DATA'])){
-            send_data_to_server($_SESSION['PREVIEW_SERVER_DATA']);
-            unset($_SESSION['PREVIEW_SERVER_DATA']);
-        }else{
-            header('HTTP/1.1 400 Bad Request');
-            header('Content-Type: application/json; charset=UTF-8');
-            echo json_encode(array('message' => 'session data missing', 'code' => 1000));
-        }
-        break;
+        case 'push_alter_product_data_to_server':
+            $array_product = $_POST['array_product'];
+            $array_product = json_decode($array_product,true);
+            push_alter_product_data_to_server($array_product);
+            break;
+        case 'push_new_product_data_to_server':
+            $array_product = $_POST['array_product'];
+            $array_product = json_decode($array_product,true);
+            push_new_product_data_to_server($array_product);
+            break;
     }
 }
+
+function push_alter_product_data_to_server($array){
+    $receipt = new Receipt();
+    $array_id = array();
+    foreach ($array as $key => $product){
+        if (strcmp($product['action'],'Xóa sản phẩm')==0){
+            $array_id[]=$product['id'];
+        }
+        else{
+            $import_product = new ImportProduct($product['bought']);
+            $import_product->add_attribute($product['name'],new Unit("", $product['sale']),$product['id']);
+            $receipt->add($import_product);
+        }
+    }
+    
+     
+    $manage = new Management();
+    $manage->push_alter_product_data_to_server($receipt);
+    $manage->remove_product($array_id);
+}
+
+function push_new_product_data_to_server($array){
+    if (sizeof($array)==0) return;
+
+    $receipt = new Receipt();
+
+    foreach ($array as $key => $product)
+    {
+        $import_product = new ImportProduct($product['bought']);
+        $import_product->add_attribute($product['name'],new Unit("", $product['sale']));
+        $receipt->add($import_product);
+    }
+    //TEST($receipt->json_encode(true));
+    $manage = new Management();
+    $manage->push_new_product_data_to_server($receipt);
+    
+}
+
 
 function get_product_data_from_server($query){
 	$manager = new Management();

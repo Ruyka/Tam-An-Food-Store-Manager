@@ -8,34 +8,41 @@
 			//$server = new Server;
 
 		}
-		public function look_up( $from, $to) {
-
-		} 
-		public function edit ( $old_product, $new_product){
-
-		}
 
 		public function check_username_existed($data){
 			$user_info = array('username' => $data);
-			return $this->get_response_from_message("check username existed", true, json_encode($user_info));
+			return $this->get_response_from_message("check username existed", json_encode($user_info));
 		}
 
 		// signup an account push data to database
 		public function sign_up($data){
-			return $this->get_response_from_message("sign up",true, json_encode($data));
+			return $this->get_response_from_message("sign up", json_encode($data));
 		}
 
 		public function add_receipt($receipt){
 
-			$this->get_response_from_message("add receipt", false, $receipt->json_encode(true));
+			$this->get_response_from_message("add receipt", $receipt->json_encode(true));
 		}
 
+		public function push_alter_product_data_to_server($receipt){
+			
+			$this->get_response_from_message("push_alter_product_data", $receipt->json_encode(true));
+		}
+
+		public function remove_product($product){
+			
+			$this->get_response_from_message("remove_product", json_encode($product));
+		}
+
+		public function push_new_product_data_to_server($receipt){
+			$this->get_response_from_message("push_new_product_data", $receipt->json_encode(true));
+		}
 		//check user login info with server
 		public function check_user_login($username, $password){
 			$user_info = array();
 			$user_info['username'] = $username;
 			$user_info['password'] = $password;
-			return $this->get_response_from_message("check user login",true, json_encode($user_info));
+			return $this->get_response_from_message("check user login", json_encode($user_info));
 		}
 
 		//send the message to server to get the list of product info
@@ -45,7 +52,7 @@
 				return $this->get_response_from_message("get list of product info");
 			else{
 				$q['query'] = $query; 
-				return $this->get_response_from_message("get list of product info",true,json_encode($q));
+				return $this->get_response_from_message("get list of product info",json_encode($q));
 			}
 		}
 		
@@ -57,7 +64,7 @@
 
 
 		//send message to server and get response
-		private function get_response_from_message($message, $is_get_response = true, $json_data = NULL){
+		private function get_response_from_message($message, $json_data = NULL){
 			//set the url of the server we need to request
 			$url = CONFIG_PATH('class'). 'Server.php';
 			
@@ -83,10 +90,10 @@
 			$result = file_get_contents( $url, false, $context );
 			
 			//if we need to get respone from server, return respone after get it
-			if ($is_get_response){
-				$response = json_decode( $result,true );
-				return $response;
-			}
+			
+			$response = json_decode( $result,true );
+			return $response;
+		
 
 		}
 

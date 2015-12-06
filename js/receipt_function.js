@@ -7,8 +7,10 @@ receipt_path = get_path('function', 'receipt_function.php');
 
 //get list of product from server
 list_product = get_list_of_product();
+
 // make option list for select
 option_list = make_optionlist(list_product);
+
 // Total price of receipt
 Total_all = 0;
 // make_print_section();

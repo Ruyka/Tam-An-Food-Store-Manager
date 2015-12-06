@@ -211,6 +211,7 @@ function alter_product_assign_val_to_input(id, name, bought, percentage, sale){
 }
 //onclick remove button
 function alter_product_remove_item(){
+  
   $('.alter-product-check-box:checkbox:checked').each(function () {
       var id = $(this).val();
       
@@ -343,7 +344,10 @@ function add_new_product(name, bought, percentage, sale){
 
 //save data to serverr
 function save_data(){
-
+  save_alter_change(global_alter_product_log);
+  global_alter_product_log = [];
+  save_new_product(global_list_new_product);
+  global_list_new_product = [];
 }
 
 
