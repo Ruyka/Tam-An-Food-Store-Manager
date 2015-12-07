@@ -1,4 +1,5 @@
 <?php 
+require_once($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php');
 require_once(CLASS_PATH."SQLLexical.php");
 Class SQLBuilder{
 	// hold sql query
@@ -8,7 +9,15 @@ Class SQLBuilder{
 	public function __construct($query = ""){
 		$this->query = $query;
 	}
-	//this return SQL command to query searching for product in alter product view
+
+	// query = ""
+	public function reset(){
+		$this->query = "";
+
+		return $this;
+	}
+
+	// this return SQL command to query searching for product in alter product view
 	public function alter_product_query($data){
 		///format key word to tokens
 		$keywords = SQLLexical::format_product_query_to_array($data);
@@ -20,13 +29,31 @@ Class SQLBuilder{
     		$tempID[$i] = 'Name';
 
 		            	
-		return $this->select(array("Name", "Unit AS 'UnitName'", "Price", "ID AS 'Id'", "Product_ID AS 'ProductId'"))
+		return $this->select(array("Name", SQLBuilder::sql_as("Unit", "UnitName"), "Price", SQLBuilder::sql_as("ID", "Id"), SQLBuilder::sql_as("Product_ID", "ProductId")))
 					->from("tam_an.product")->where()
-					->not_equals("Price",0)
-					->sql_and()
-					->left_paren()
 					->or_recursive('like', $tempID, $keywords)
-					->right_paren()
+					->to_string();
+	}
+
+	// 
+	public function alter_product_remove_product_query($data){		            	
+		return $this->sql_delete()
+					->from("tam_an.product")->where()
+					->in('ID', $data)
+					->to_string();
+	}
+
+	// 
+	public function alter_product_update_product_query($data){
+		// TODO
+	}
+
+	public function alter_product_new_product_query($data){
+		$input = SQLLexical::make_new_product_list($data['list_product']);
+		            	
+		return $this->sql_insert('tam_an.product',array('Name','Bought','Price'))
+					->sql_insert_values_recursive($input)
+					->end_query()
 					->to_string();
 	}
 
@@ -41,12 +68,51 @@ Class SQLBuilder{
 		return $this;
 	}
 
-	static public function sql_as($value){
-		$temp = " AS '".$value."' ";
+	// DELETE
+	private function sql_delete(){
 
-		return $temp;
+		$this->query .= "DELETE ";
+		
+		return $this;
 	}
 
+	// SET ID = Value,....
+	private function set($id_array, $value_array){
+		if(!is_array($id_array))
+			$id_array = array($id_array);
+
+		if(!is_array($value_array))
+			$value_array = array($value_array);
+
+		$this->query .= "SET ";
+
+		foreach (array_map(null, $id_array, $value_array) as $key => $value) {
+			$this->equals($value[0], $value[1]);
+			$this->query .= ", ";
+		}
+
+		$len = strlen($this->query) - 2;
+		$this->query = substr($this->query, 0, $len).' ';
+
+		return $this;  
+	}
+
+	// UPDATE table,....
+	private function update($param){
+		if(!is_array($param))
+			$param = array($param);
+
+		$this->query .= "UPDATE ".implode(', ', $param).' ';
+		
+		return $this;
+	}
+
+	// $id AS '$value'
+	static public function sql_as( $id, $value){
+		return $id." AS '".$value."' ";
+	}
+
+	// FROM table,....
 	private function from($param){
 		if(!is_array($param))
 			$param = array($param);
@@ -56,18 +122,21 @@ Class SQLBuilder{
 		return $this;
 	}
 
+	// WHERE
 	private function where(){
 		$this->query .= "WHERE ";
 		
 		return $this;
 	}
 
+	// $id IS $value
 	private function is($id, $value){
 		$this->query .= $id.' IS '.$value.' ';
 
 		return $this;
 	}
 
+	// $id IN (value,...)
 	private function in($id, $array){
 		if(!is_array($array))
 			$array = array($array);
@@ -76,36 +145,42 @@ Class SQLBuilder{
 		return $this;
 	}
 
+	// $id LIKE '$value'
 	private function like($id, $value){
 		$this->query .= $id.' LIKE \''.$value.'\' ';
 		
 		return $this;
 	}
 
+	// $id = $value
 	private function equals($id, $value){
 		$this->query .= $id.' = '.$value.' ';
 		
 		return $this;
 	}
 
+	// $id != $value
 	private function not_equals($id, $value){
 		$this->query .= $id.' != '.$value.' ';
 		
 		return $this;
 	}
 
+	// OR
 	private function sql_or(){
-		$this->query .= ' OR ';
+		$this->query .= 'OR ';
 
 		return $this;
 	}
 
+	// AND
 	private function sql_and(){
-		$this->query .= ' AND ';
+		$this->query .= 'AND ';
 		
 		return $this;
 	}
 
+	// [func($id, $value)] OR [func($id, $value)] OR ...
 	private function or_recursive($func, $id_array, $value_array){
 		if(!is_array($id_array))
 			$id_array = array($id_array);
@@ -125,11 +200,12 @@ Class SQLBuilder{
 
 
 		$len = strlen($this->query) - 3;
-		$this->query = substr($this->query, 0, $len);
+		$this->query = substr($this->query, 0, $len).' ';
 
 		return $this;
 	}
 
+	// [func($id, $value)] AND [func($id, $value)] AND ...
 	private function and_recursive($func, $id_array, $value_array){
 		if(!is_array($id_array))
 			$id_array = array($id_array);
@@ -146,21 +222,70 @@ Class SQLBuilder{
 		}
 
 		$len = strlen($this->query) - 3;
-		$this->query = substr($this->query, 0, $len);
+		$this->query = substr($this->query, 0, $len).' ';
 
 		return $this;
 	}
 
+	// INSERT INTO ... (...) VALUES
+	private function sql_insert($table, $id_array){
+		if(!is_array($id_array))
+			$id_array = array($id_array);
+
+		$this->query .= "INSERT INTO ".$table." (".implode(', ', $id_array).") VALUES ";
+
+		return $this;
+	}
+
+	// (value, value, ...)
+	private function sql_insert_values($value_array){
+		if(!is_array($value_array))
+			$value_array = array($value_array);
+
+		TEST($value_array);
+		$this->query .= "( '".implode('\', \'', $value_array)."') ";
+
+		return $this;
+	}
+
+	// (value, value, ...),
+	// (value, value, ...),
+	// ...
+	// (value, value, ...)
+	private function sql_insert_values_recursive($value_array){
+		if(!is_array($value_array))
+			$value_array = array($value_array);
+		TEST($value_array);
+		foreach ($value_array as $key => $value){
+			$this->sql_insert_values($value);
+			$this->query .= ', ';
+		}
+
+		$len = strlen($this->query) - 2;
+		$this->query = substr($this->query, 0, $len).' ';		
+
+		return $this;
+	}
+
+	// (
 	private function left_paren(){
 		$this->query .= '( ';
 		return $this;
 	}
 
+	// )
 	private function right_paren(){
 		$this->query .= ') ';
 		return $this;
 	}
 
+	// ;
+	private function end_query(){
+		$this->query .= '; ';
+		return $this;
+	}
+
+	// query
 	private function to_string(){
 		return $this->query;
 	}
@@ -168,6 +293,6 @@ Class SQLBuilder{
 
 
 // $builder = new SQLBuilder();
-// print_r($builder->select(array('Name', 'ID'))->from('product')->where()->or_recursive('like', array('ID', 'ID'), array('productID','employeeID'))->to_string());
+// TEST($builder->alter_product_new_product_query(array('list_product'=>array(array('test1',1,1),array('test2',2,2),array('test3',3,3))))->to_string());
 
 ?>

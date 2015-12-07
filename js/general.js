@@ -26,7 +26,7 @@ function get_list_of_product(query){
         data: {query:query},
         success: function (data) {
           tmp = JSON.parse(data);
-
+          console.log(JSON.parse(data));
       }  
     });
     //return list of product
@@ -36,6 +36,39 @@ function get_list_of_product(query){
         return tmp['list_product'];
     }
     return tmp['error'];
+}
+
+function save_alter_change(array_product){
+    //AJAX, send GET
+    function_file_name = 'alter_product_function.php';
+    send_action = 'push_alter_product_data_to_server';
+    var tmp = null;
+    $.ajax({
+        async: false,
+        url: get_path('function',function_file_name)+"?q="+JSON.stringify({action:send_action}),
+        type: "post",
+        data: {array_product:JSON.stringify(array_product)},
+        success: function (data) {
+
+        }  
+    });
+
+}
+
+function save_new_product(array_product){
+    //AJAX, send GET
+    function_file_name = 'alter_product_function.php';
+    send_action = 'push_new_product_data_to_server';
+    var tmp = null;
+    $.ajax({
+        async: false,
+        url: get_path('function',function_file_name)+"?q="+JSON.stringify({action:send_action}),
+        type: "post",
+        data: {array_product:JSON.stringify(array_product)},
+        success: function (data) {
+
+        }  
+    });
 }
 
 // get path
@@ -76,3 +109,6 @@ function make_toast(Msg,time){
     $("#toast").fadeIn(400).delay(time).fadeOut(400);
 }
 
+$(document).ready(function(){
+    make_toast("Xin Chào "+get_username()+". Chúc một ngày tốt lành!", 3000);
+});

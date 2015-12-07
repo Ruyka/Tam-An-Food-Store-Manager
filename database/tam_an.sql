@@ -188,8 +188,8 @@ CREATE TABLE IF NOT EXISTS `product` (
   `Unit` varchar(50) DEFAULT NULL,
   `Product_TypeID` int DEFAULT NULL,
   `TrademarkID` int DEFAULT NULL,
-  `Price` double DEFAULT NULL,
-  `Bought` double DEFAULT NULL,  
+  `Price` double DEFAULT 0,
+  `Bought` double DEFAULT 0,  
   `NumRemain` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `FK_Product_Product_Type` (`Product_TypeID`),
@@ -622,18 +622,18 @@ CREATE TABLE IF NOT EXISTS `provider product` (
 -- Dumping data for table `provider product`
 --
 
-INSERT INTO `provider product` (`Name`, `ProductID`, `ProviderID`) VALUES
-('Chojyo Kansa miso', '0000001', '0000001'),
-('Chojyo Miso( dam)', '0000002', '0000001'),
-('dau dua duong toc Lifecoco (180ml)', '0000003', '0000001'),
-('dau dua duong da Lifecoco (180ml)', '0000004', '0000001'),
-('banh duong sinh', '0000005', '0000001'),
-('gao mam den huu co', '0000006', '0000002'),
-('gao cao cap nang mai', '0000007', '0000003'),
-('rau den', '0000008', '0000004'),
-('rau muong', '0000009', '0000005'),
-('cam lon', '0000010', '0000006'),
-('rong bien nha trang', '0000011', '0000007');
+-- INSERT INTO `provider product` (`Name`, `ProductID`, `ProviderID`) VALUES
+-- ('Chojyo Kansa miso', '0000001', '0000001'),
+-- ('Chojyo Miso( dam)', '0000002', '0000001'),
+-- ('dau dua duong toc Lifecoco (180ml)', '0000003', '0000001'),
+-- ('dau dua duong da Lifecoco (180ml)', '0000004', '0000001'),
+-- ('banh duong sinh', '0000005', '0000001'),
+-- ('gao mam den huu co', '0000006', '0000002'),
+-- ('gao cao cap nang mai', '0000007', '0000003'),
+-- ('rau den', '0000008', '0000004'),
+-- ('rau muong', '0000009', '0000005'),
+-- ('cam lon', '0000010', '0000006'),
+-- ('rong bien nha trang', '0000011', '0000007');
 
 -- --------------------------------------------------------
 
@@ -746,10 +746,10 @@ ALTER TABLE `product`
 --
 -- Constraints for table `provider product`
 --
-ALTER TABLE `provider product`
-  ADD CONSTRAINT `FK_Provider Product_Product` FOREIGN KEY (`ProductID`) REFERENCES `product` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `FK_Provider Product_Provider` FOREIGN KEY (`ProviderID`) REFERENCES `provider` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
+-- ALTER TABLE `provider product`
+--   ADD CONSTRAINT `FK_Provider Product_Product` FOREIGN KEY (`ProductID`) REFERENCES `product` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+--   ADD CONSTRAINT `FK_Provider Product_Provider` FOREIGN KEY (`ProviderID`) REFERENCES `provider` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+-- 
 --
 -- Constraints for table `receipt`
 --

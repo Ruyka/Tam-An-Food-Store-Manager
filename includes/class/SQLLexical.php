@@ -5,7 +5,7 @@
 	  		foreach ($keyword_tokens as $key => $value) {
 			  	if(empty($value))
 			  		unset($keyword_tokens[$key]);
-			  	}
+			}
 		    $keyword_tokens = preg_grep('/^\s*\z/', $keyword_tokens, PREG_GREP_INVERT);
 
 		    $keyword_tokens = array_map('trim', $keyword_tokens);
@@ -24,6 +24,14 @@
 			return $keywords;
 		}
 
+		// make input product list
+		static function make_new_product_list($product_list){
+			$result_array = array();
+			foreach ($product_list as $key => $value) {
+				$result_array[] = array($value['name'], $value['import_price'], $value['unit']['price']);
+			}
+			return $result_array;
+		}
 	}
 
 ?>

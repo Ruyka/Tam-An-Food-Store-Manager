@@ -34,10 +34,11 @@ if(isset($_GET['q']) && !empty($_GET['q'])) {
 }
 
 function push_alter_product_data_to_server($array){
+    if (sizeof($array)==0) return;
     $receipt = new Receipt();
     $array_id = array();
 
-    foreach ($array as $product)
+    foreach ($array as $product){
         if (isset($product['id'])){    
             if (strcmp($product['action'],'Xóa sản phẩm')==0){
                 $array_id[]=$product['id'];
@@ -48,7 +49,8 @@ function push_alter_product_data_to_server($array){
                 $receipt->add($import_product);
             }
         }
-    
+    }
+
     $manage = new Management();
     $manage->remove_product($array_id);
     $manage->push_alter_product_data_to_server($receipt);
@@ -59,14 +61,15 @@ function push_new_product_data_to_server($array){
 
     $receipt = new Receipt();
 
-    foreach ($array as $key => $product)
+    foreach ($array as $key => $product){
         if (isset($product['name']))
         {
             $import_product = new ImportProduct($product['bought']);
             $import_product->add_attribute($product['name'],new Unit($product['unit_name'], $product['sale']));
             $receipt->add($import_product);
         }
-
+    }
+    echo $receipt->json_encode(true);
     $manage = new Management();
     $manage->push_new_product_data_to_server($receipt);
     
