@@ -22,11 +22,17 @@ Class SQLBuilder{
 		            	
 		return $this->select(array("Name", "Unit AS 'UnitName'", "Price", "ID AS 'Id'", "Product_ID AS 'ProductId'"))
 					->from("tam_an.product")->where()
-					->not_equals("Price",0)
-					->sql_and()
-					->left_paren()
 					->or_recursive('like', $tempID, $keywords)
-					->right_paren()
+					->to_string();
+	}
+
+	public function alter_product_remove_product_query($data){
+		if(!is_array($data))
+			$data = array($data);
+		            	
+		return $this->sql_delete()
+					->from("tam_an.product")->where()
+					->in('ID', $keywords)
 					->to_string();
 	}
 
@@ -37,6 +43,14 @@ Class SQLBuilder{
 			$param = array($param);
 
 		$this->query .= "SELECT ".implode(', ', $param).' ';
+		
+		return $this;
+	}
+
+	// DELETE
+	private function sql_delete(){
+
+		$this->query .= " DELETE ";
 		
 		return $this;
 	}

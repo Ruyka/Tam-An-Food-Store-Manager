@@ -77,10 +77,7 @@ function alter_product_search_product(){
   alter_product_show('search');
   //get list of product from server
   var query =  $('#product-search').val();
-  if (query==='')
-    list_product = get_list_of_product();
-  else
-    list_product = get_list_of_product(query);
+  list_product = get_list_of_product(query);
 
   //console.log(list_product);
   show_if_not_equal(list_product,'No data', alter_product_make_list_product(list_product),'Không có thay đổi gần đây.');

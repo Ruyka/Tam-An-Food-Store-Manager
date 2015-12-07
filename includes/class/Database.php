@@ -100,7 +100,8 @@
 
 		//input: array of product id
 		private function remove_product($client_data = NULL){
-			TEST($client_data);
+			$builder = new SQLBuilder();
+			mysqli_query($this->db, $builder->alter_product_remove_product_query($client_data));
 		}
 
 		//input:  list of product
