@@ -11,7 +11,11 @@ $('#add_one_more_product').on('focus', function () {
     $('#product-search').focus();
 });
 
-
+$( "#product-search" ).keydown(function( event ) {
+  if ( event.which == 13 ) {
+    alter_product_search_product();
+  }
+});
 
 //readyy
 $(document).ready(function(){
@@ -63,8 +67,8 @@ function alter_product_show(option){
     //hide remove item button
     $('#alter_product_remove_btn').show();
     
-    $('#alter-product-list').html(global_list_product_HTML);
-
+    //$('#alter-product-list').html(global_list_product_HTML);
+    show_if_not_equal(global_list_product_HTML,'', global_list_product_HTML,'Không tìm thấy dữ liệu.');
   }
 
 }
@@ -80,7 +84,7 @@ function alter_product_search_product(){
   list_product = get_list_of_product(query);
 
   //console.log(list_product);
-  show_if_not_equal(list_product,'No data', alter_product_make_list_product(list_product),'Không có thay đổi gần đây.');
+  show_if_not_equal(list_product,'No data', alter_product_make_list_product(list_product),'Không tìm thấy dữ liệu.');
 }
 
 //explicitly sort by JS
@@ -92,6 +96,8 @@ function alter_product_sort(sort_type, column){
 
 //make the HTML code of List Product
 function alter_product_make_list_product(list_product){
+  
+  if (list_product==='No data') return "";
   var str = "";
   
   var PRODUCT_HTML = "";
@@ -345,6 +351,7 @@ function save_data(){
   global_alter_product_log = [];
   save_new_product(global_list_new_product);
   global_list_new_product = [];
+  alter_product_search_product();
 }
 
 

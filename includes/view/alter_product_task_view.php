@@ -16,7 +16,7 @@
 		</tr>
 		<tr>
 			<td class= "cell-title">Tra cứu:</td>
-			<td> <input type="text" id ="product-search" placeholder="Tìm Kiếm" style="width:100%;font-size: 15px;padding:5px;"/> </td> 
+			<td> <input type="text" id ="product-search" placeholder="Tìm Kiếm" onkeydown =""style="width:100%;font-size: 15px;padding:5px;"/> </td> 
 			<td> 
 				<button style="font-size = 10px"class="btn btn-default" tabindex="-1" onclick="alter_product_search_product()">
 				Tìm <span class="glyphicon glyphicon-search" ></span></button> 
