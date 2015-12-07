@@ -26,7 +26,7 @@ function get_list_of_product(query){
         data: {query:query},
         success: function (data) {
           tmp = JSON.parse(data);
-
+          console.log(JSON.parse(data));
       }  
     });
     //return list of product
@@ -66,7 +66,7 @@ function save_new_product(array_product){
         type: "post",
         data: {array_product:JSON.stringify(array_product)},
         success: function (data) {
-          
+
         }  
     });
 }

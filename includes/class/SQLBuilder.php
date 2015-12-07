@@ -9,6 +9,14 @@ Class SQLBuilder{
 	public function __construct($query = ""){
 		$this->query = $query;
 	}
+
+	// query = ""
+	public function reset(){
+		$this->query = "";
+
+		return $this;
+	}
+
 	// this return SQL command to query searching for product in alter product view
 	public function alter_product_query($data){
 		///format key word to tokens
@@ -28,8 +36,7 @@ Class SQLBuilder{
 	}
 
 	// 
-	public function alter_product_remove_product_query($data){
-		            	
+	public function alter_product_remove_product_query($data){		            	
 		return $this->sql_delete()
 					->from("tam_an.product")->where()
 					->in('ID', $data)
@@ -42,10 +49,11 @@ Class SQLBuilder{
 	}
 
 	public function alter_product_new_product_query($data){
+		$input = SQLLexical::make_new_product_list($data['list_product']);
 		            	
-		return $this->sql_delete()
-					->from("tam_an.product")->where()
-					->in('ID', $keywords)
+		return $this->sql_insert('tam_an.product',array('Name','Bought','Price'))
+					->sql_insert_values_recursive($input)
+					->end_query()
 					->to_string();
 	}
 
@@ -234,7 +242,8 @@ Class SQLBuilder{
 		if(!is_array($value_array))
 			$value_array = array($value_array);
 
-		$this->query .= "( ".implode(', ', $value_array).") ";
+		TEST($value_array);
+		$this->query .= "( '".implode('\', \'', $value_array)."') ";
 
 		return $this;
 	}
@@ -242,18 +251,18 @@ Class SQLBuilder{
 	// (value, value, ...),
 	// (value, value, ...),
 	// ...
-	// (value, value, ...);
+	// (value, value, ...)
 	private function sql_insert_values_recursive($value_array){
 		if(!is_array($value_array))
 			$value_array = array($value_array);
-
+		TEST($value_array);
 		foreach ($value_array as $key => $value){
 			$this->sql_insert_values($value);
 			$this->query .= ', ';
 		}
 
 		$len = strlen($this->query) - 2;
-		$this->query = substr($this->query, 0, $len).'; ';		
+		$this->query = substr($this->query, 0, $len).' ';		
 
 		return $this;
 	}
@@ -276,13 +285,6 @@ Class SQLBuilder{
 		return $this;
 	}
 
-	// query = ""
-	public function reset(){
-		$this->query = "";
-
-		return $this;
-	}
-
 	// query
 	private function to_string(){
 		return $this->query;
@@ -291,6 +293,6 @@ Class SQLBuilder{
 
 
 // $builder = new SQLBuilder();
-// TEST($builder->alter_product_remove_product_query(array(1, 2, 3, 4, 5)));
+// TEST($builder->alter_product_new_product_query(array('list_product'=>array(array('test1',1,1),array('test2',2,2),array('test3',3,3))))->to_string());
 
 ?>

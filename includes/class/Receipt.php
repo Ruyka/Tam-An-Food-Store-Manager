@@ -34,6 +34,7 @@
 			$this->time = $time;
 			$this->receiver = $receiver;
 			$this->clients = $clients;
+			$this->list_product = array();
 		}
 
 		//Method:
@@ -44,9 +45,9 @@
 			if (isset($list_of_product)){
 				
 				//if list_product = NULL, init it with an empty array
-				if (!isset($this->list_product)){
-					$this->list_product = array();
-				}
+				// if (!isset($this->list_product)){
+				// 	$this->list_product = array();
+				// }
 				// if list of product has many value
 				if (is_array($list_of_product)){
 					//add value to the end of array list_product
@@ -124,8 +125,7 @@
 			$i = 0;
 			foreach ($this->list_product as $value) {
 				
-				$json['list_product']["$i"] = $value->json_encode(false);
-				++$i;
+				$json['list_product'][$i++] = $value->json_encode(false);
 				
 	    	}
 
@@ -195,7 +195,6 @@
 	    	}
 		} 
 	}
-
 	
 	//SAMPLE CODE TO TEST, READ FOR FUN lol :V
 

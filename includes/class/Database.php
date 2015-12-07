@@ -88,19 +88,19 @@
 			
 		}
 		//input: array of product id
-		private function remove_product($client_data = NULL){
+		public function remove_product($client_data = NULL){
 			$builder = new SQLBuilder();
-			mysqli_query($this->db, $builder->alter_product_remove_product_query($client_data));
+			return mysqli_query($this->db, $builder->alter_product_remove_product_query($client_data));
 		}
 		//input:  list of product
-		private function push_alter_product_data($client_data = NULL){
+		public function push_alter_product_data($client_data = NULL){
 			$builder = new SQLBuilder();
-			mysqli_query($this->db, $builder->alter_product_update_product_query($client_data));
+			return mysqli_query($this->db, $builder->alter_product_update_product_query($client_data));
 		}
 		//input: list of product
-		private function push_new_product_data($client_data = NULL){
+		public function push_new_product_data($client_data = NULL){
 			$builder = new SQLBuilder();
-			mysqli_query($this->db, $builder->alter_product_new_product_query($client_data));
+			return mysqli_query($this->db, $builder->alter_product_new_product_query($client_data));
 		}
 		//sign up
 		public function sign_up($user_data){
@@ -165,7 +165,7 @@
 
 	 // $db = new Database();
 	 // $db->connect();
-	 // TEST($db->get_list_of_product_info('Bánh tráng'));
+ 	// TEST($db->get_list_of_product_info(''));
 	// $tmp = new SoldProduct(113);
  //     $tmp->add_attribute("Sữa",100, NULL, "100", "SUA1111",
  //     		NULL,"17/11/2015");
