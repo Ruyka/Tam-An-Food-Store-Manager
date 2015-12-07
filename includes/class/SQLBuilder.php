@@ -51,7 +51,7 @@ Class SQLBuilder{
 	public function alter_product_new_product_query($data){
 		$input = SQLLexical::make_new_product_list($data['list_product']);
 		            	
-		return $this->sql_insert('tam_an.product',array('Name','Bought','Price'))
+		return $this->sql_insert('tam_an.product',array('Name','Bought','Price', 'Unit'))
 					->sql_insert_values_recursive($input)
 					->end_query()
 					->to_string();
