@@ -38,7 +38,7 @@
 			<thead>
 			<tr class="success">
 				
-				<th id="alter-product-id-column" class="sorttable_numeric">STT
+				<th id="alter-product-id-column" class="no-padding-left-right sorttable_numeric">STT
 					<span class="glyphicon glyphicon-arrow-up btn btn-small sort-button"  onclick="alter_product_sort('ASC','alter-product-id-column')" ></span><span class="glyphicon glyphicon-arrow-down btn btn-small sort-button" onclick="alter_product_sort('DESC','alter-product-id-column')" ></span> 
 				</th>
 					
@@ -62,7 +62,7 @@
 					<span class="glyphicon glyphicon-arrow-up btn btn-small sort-button" onclick="alter_product_sort('ASC','alter-product-sale-column')" ></span><span class="glyphicon glyphicon-arrow-down btn btn-small sort-button" onclick="alter_product_sort('DESC','alter-product-sale-column')" ></span> 
 				</th>
 				<th class="sorttable_nosort" style="padding-bottom:10px"> <input type="checkbox" style="width:40px;" tabindex="-1" onClick="toggle(this)" /></th> 
-				<th class="sorttable_nosort" style="width:100px; padding-bottom:20px"> Hành Động </th></tr>
+				<th class="sorttable_nosort" style="min-width:90px; padding:0px 0px 10px 5px; ">Hành Động</th></tr>
 			</thead>
 			
 			<tbody id="alter-product-list">
@@ -112,11 +112,11 @@
 							
 							<tbody>
 								<tr>
-									<td><input id ="alter-product-add-name" class="form-control product-list" id="modal-focus" ></td>
-									<td><input id ="alter-product-add-unit" class="form-control product-list" id="modal-focus" ></td>
-									<td><input id ="alter-product-add-bought" class="form-control" ></td>
-									<td><input id ="alter-product-add-percentage" class="form-control" ></td>
-									<td><input id ="alter-product-add-sale" class="form-control" ></td>
+									<td><input id ="alter-product-add-name" class="form-control product-list" id="modal-focus" onchange="alter_product_add_one_product_observe(4)"></td>
+									<td><input id ="alter-product-add-unit" class="form-control product-list" id="modal-focus" onchange="alter_product_add_one_product_observe(4)"></td>
+									<td><input id ="alter-product-add-bought" class="form-control" onchange="alter_product_add_one_product_observe(0)"></td>
+									<td><input id ="alter-product-add-percentage" class="form-control" onchange="alter_product_add_one_product_observe(1)"></td>
+									<td><input id ="alter-product-add-sale" class="form-control" onchange="alter_product_add_one_product_observe(2)"></td>
 								</tr>
 							</tbody>
 						</table>

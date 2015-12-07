@@ -1,6 +1,7 @@
 
 global_alter_product_log = [];
 global_list_product_HTML = "";
+ALTER_PRODUCT_IS_SEARCH = true;
 global_list_new_product =[];
 // if add one more product modal show, focus on that
 $('#add_one_product_modal').on('shown.bs.modal', function () {
@@ -72,7 +73,8 @@ function alter_product_show(option){
   $('#alter-product-search-area').show();
   // if option is change, switch to show changes
   if (option==='change'){
-
+    //switch state 
+    ALTER_PRODUCT_IS_SEARCH = false;
     //save the current serach result
     global_list_product_HTML = $('#alter-product-list').html();
       
@@ -91,19 +93,7 @@ function alter_product_show(option){
     show_if_not_equal(tmp,'', tmp,'Không có thay đổi gần đây.');
   }
   else{
-    //hide the action column
-    $('#alter-product-search-area td:nth-child(8),th:nth-child(8)').hide();
-    //hide switch to search button
-    $('#alter_product_search_btn').hide();
-    // show switch to see change button
-    $('#alter_product_change_btn').show();
-    //show the tick column
-    $('#alter-product-search-area td:nth-child(7),th:nth-child(7)').show(); 
-    //hide remove item button
-    $('#alter_product_remove_btn').show();
-    
-    //$('#alter-product-list').html(global_list_product_HTML);
-    show_if_not_equal(global_list_product_HTML,'', global_list_product_HTML,'Không tìm thấy dữ liệu.');
+    alter_product_search_product();
   }
 
 }
@@ -111,9 +101,21 @@ function alter_product_show(option){
 
 //search list product
 function alter_product_search_product(){
+  //switch state
+  ALTER_PRODUCT_IS_SEARCH = true;
   //show the search result table 
   $('#alter-product-search-area').show();
-  alter_product_show('search');
+  //hide the action column
+  $('#alter-product-search-area td:nth-child(8),th:nth-child(8)').hide();
+  //hide switch to search button
+  $('#alter_product_search_btn').hide();
+  // show switch to see change button
+  $('#alter_product_change_btn').show();
+  //show the tick column
+  $('#alter-product-search-area td:nth-child(7),th:nth-child(7)').show(); 
+  //hide remove item button
+  $('#alter_product_remove_btn').show();
+
   //get list of product from server
   var query =  $('#product-search').val();
   if (query==='')
@@ -173,46 +175,9 @@ function alter_product_make_list_product(list_product){
 
 //observe the change from user
 function alter_product_observe(source, id){
-    //get value
-    var bought_price= parseFloat($("#alter-product"+ id + "-bought").val());
-    var percentage = parseFloat($("#alter-product" + id + "-percentage").val());
-    var sale =parseFloat($("#alter-product"+ id + "-sale").val());
-    
-    //sale price is not allowed to be empty
-    if (isNaN(sale)){
-      $("#alter-product"+ id + "-sale").val(0);
-      $("#alter-product"+ id + "-sale").attr("sorttable_customkey", 0);
-    }
-  
-    switch (source) {
-      //the case 0 is change on product bought price
-      //affect percentage value
-      case 0:
-        if (!isNaN(bought_price) && bought_price!=0){
-          $("#alter-product"+ id + "-percentage").val( sale*100/bought_price);
-        }
-      //and affect sale
-      
-      case 1:
-      //the case 1 is changed on percentage value
-      //change on sale price
-        if (!isNaN(percentage) && !isNaN(bought_price)){
-          $("#alter-product"+ id + "-sale").val( bought_price *percentage/100);
-        }
-        break;
-
-      //case 2 change on product price
-      //affect the percentage of the product
-      case 2:
-        if (sale ==0){
-          $("#alter-product" + id + "-percentage").val(0);
-        }
-        else
-        if (!isNaN(bought_price) && bought_price!=0){
-          $("#alter-product" + id + "-percentage").val(sale/bought_price *100);
-        }
-        break;
-    }
+    observe(source,$("#alter-product"+ id + "-bought")
+            ,$("#alter-product" + id + "-percentage")
+            ,$("#alter-product"+ id + "-sale"));
 
     //assign value to every input box
     alter_product_assign_val_to_input(id, 
@@ -222,8 +187,10 @@ function alter_product_observe(source, id){
                                       $("#alter-product"+ id + "-percentage").val(),
                                       $("#alter-product"+ id + "-sale").val());
     
-
-    $('#alter-product-search-area td:nth-child(7),th:nth-child(7)').hide();
+    if(ALTER_PRODUCT_IS_SEARCH == true){
+      $('#alter-product-search-area td:nth-child(7),th:nth-child(7)').hide();
+    }
+    
     //get change
     
     global_alter_product_log[id] = {'id' : id,
@@ -236,7 +203,10 @@ function alter_product_observe(source, id){
                                     'action': 'Đổi giá trị.'
                                     };
     
-    $('#alter-product-search-area td:nth-child(7),th:nth-child(7)').show();
+    if(ALTER_PRODUCT_IS_SEARCH == true){
+      $('#alter-product-search-area td:nth-child(7),th:nth-child(7)').show();
+    }
+    
 }
 
 
@@ -357,6 +327,7 @@ function make_show_changes_html(){
   for (key in global_alter_product_log) {
     var product = global_alter_product_log[key];
     result += '<tr id ="alter-product'+product['id']+'">' + product['html'];
+    if (product['html'].indexOf(product['action']) == -1)
     result = result + '<td>' + product['action'] + '</td>' +'</tr>';
   }
   
@@ -406,47 +377,11 @@ function save_data(){
 
 //observe the change from user
 function alter_add_product_observe(source, id){
-    //get value
-    var bought_price= parseFloat($("#alter-product-no-id"+ id + "-bought").val());
-    var percentage = parseFloat($("#alter-product-no-id" + id + "-percentage").val());
-    var sale =parseFloat($("#alter-product-no-id"+ id + "-sale").val());
-    alert("aaa");
-    //sale price is not allowed to be empty
-    if (isNaN(sale)){
-      $("#alter-product-no-id"+ id + "-sale").val(0);
-      $("#alter-product-no-id"+ id + "-sale").attr("sorttable_customkey", 0);
-    }
-  
-    switch (source) {
-      //the case 0 is change on product bought price
-      //affect percentage value
-      case 0:
-        if (!isNaN(bought_price) && bought_price!=0){
-          $("#alter-product-no-id"+ id + "-percentage").val( sale*100/bought_price);
-        }
-      //and affect sale
-      
-      case 1:
-      //the case 1 is changed on percentage value
-      //change on sale price
-        if (!isNaN(percentage) && !isNaN(bought_price)){
-          $("#alter-product-no-id"+ id + "-sale").val( bought_price *percentage/100);
-        }
-        break;
-
-      //case 2 change on product price
-      //affect the percentage of the product
-      case 2:
-        if (sale ==0){
-          $("#alter-product-no-id" + id + "-percentage").val(0);
-        }
-        else
-        if (!isNaN(bought_price) && bought_price!=0){
-          $("#alter-product-no-id" + id + "-percentage").val(sale/bought_price *100);
-        }
-        break;
-    }
-
+    observe(source,$("#alter-product-no-id"+ id + "-bought")
+            ,$("#alter-product-no-id" + id + "-percentage")
+            ,$("#alter-product-no-id"+ id + "-sale"));
+    
+    
     //get change
     global_list_new_product[id] = {
                                     'name': $("#alter-product-no-id"+ id + "-name").val(),
@@ -465,4 +400,53 @@ function restore(){
   $("#alter-product-add-bought").val('');
   $("#alter-product-add-percentage").val('');
   $("#alter-product-add-sale").val('');
+}
+
+//observe the change from user
+function alter_product_add_one_product_observe(source){
+    
+    //sale price is not allowed to be empty
+    observe(source,$("#alter-product-add-bought"),$("#alter-product-add-percentage"),$("#alter-product-add-sale"))
+    
+}
+function observe(source, bought, percentage, sale){
+  var bought_price_v = parseFloat(bought.val());
+  var percentage_v = parseFloat(percentage.val());
+  var sale_v = parseFloat(sale.val());
+  if (isNaN(sale_v)){
+      sale.val(0);
+      sale.attr("sorttable_customkey", 0);
+    }
+  switch (source) {
+      //the case 0 is change on product bought price
+      //affect percentage value
+      case 0:
+        if (!isNaN(bought_price_v) && bought_price_v!=0){
+          if (isNaN(percentage_v))
+            percentage.val( sale_v*100/bought_price_v);
+          else
+            sale.val(bought_price_v*percentage_v/100);
+        }
+      //and affect sale
+        break;
+      case 1:
+      //the case 1 is changed on percentage value
+      //change on sale price
+        if (!isNaN(percentage_v) && !isNaN(bought_price_v)){
+          sale.val( bought_price_v *percentage_v/100);
+        }
+        break;
+
+      //case 2 change on product price
+      //affect the percentage of the product
+      case 2:
+        if (sale ==0){
+          percentage.val(0);
+        }
+        else
+        if (!isNaN(bought_price_v) && bought_price_v!=0){
+          percentage.val(sale_v/bought_price_v *100);
+        }
+        break;
+    }
 }
