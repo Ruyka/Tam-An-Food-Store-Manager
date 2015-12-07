@@ -99,10 +99,8 @@ Class SQLBuilder{
 
 	// UPDATE table,....
 	private function update($param){
-		if(!is_array($param))
-			$param = array($param);
 
-		$this->query .= "UPDATE ".implode(', ', $param).' ';
+		$this->query .= "UPDATE ".$param.' ';
 		
 		return $this;
 	}

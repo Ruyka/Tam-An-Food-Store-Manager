@@ -765,7 +765,7 @@ DROP PROCEDURE IF EXISTS get_list_of_product_info$$
 
 CREATE PROCEDURE get_list_of_product_info()
 BEGIN
-  SELECT Name, Unit AS 'UnitName', Price, ID AS 'Id', Product_ID AS 'ProductId' FROM tam_an.product WHERE Price != 0;
+  SELECT Name, Unit AS 'UnitName', Price, ID AS 'Id', Product_ID AS 'ProductId', Bought FROM tam_an.product WHERE Price != 0;
 END $$
 
 DELIMITER $$
