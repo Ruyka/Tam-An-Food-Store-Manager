@@ -345,6 +345,7 @@ function save_data(){
   global_alter_product_log = [];
   save_new_product(global_list_new_product);
   global_list_new_product = [];
+  alter_product_search_product();
 }
 
 

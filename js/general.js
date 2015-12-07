@@ -48,7 +48,7 @@ function save_alter_change(array_product){
         type: "post",
         data: {array_product:JSON.stringify(array_product)},
         success: function (data) {
-          
+
         }  
     });
 
