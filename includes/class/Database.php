@@ -13,7 +13,6 @@
 	   	const DB_NAME = DBNAME;
 		private $db = NULL;
 		
-
 		//Method
 		//connect to database
 		public function connect(){
@@ -35,19 +34,14 @@
 				
             }
 		}
-
 		private function create_default_database(){
 			$filename = DATABASE_PATH . "tam_an.sql";
 			$host =self::DB_SERVER;
 			$db = new PDO("mysql:host=$host;", self::DB_USER, self::DB_PASSWORD);
-
 			$sql = file_get_contents($filename);
-
 			$qr = $db->exec($sql);
 			
 		}
-
-
 		//check database connectivity
 		public function is_connect(){
 			return !is_null($this->db);
@@ -66,14 +60,12 @@
 			}
 			else
 				$result = array('message' => "not existed"); 
-
 			return $result;
 		}
 		//check if user login are validated
 		public function check_user_login($user_data){
 			$username = $user_data['username'];
 			$password = $user_data['password'];
-
 			$sql = mysqli_query($this->db,"CALL check_user_login('$username', '".md5($password)."');");
 					
             if($sql && mysqli_num_rows($sql)!=0){
@@ -82,8 +74,6 @@
 			}
 		}
 		
-
-
 		//add receipt to database
 		public function add_receipt($receipt_data){
 			//new receipt
@@ -97,29 +87,26 @@
 			//mysqli_query($this->db, "CALL test('$comma_seperated_list');");
 			
 		}
-
 		//input: array of product id
 		private function remove_product($client_data = NULL){
-			//TEST($client_data);
+			$builder = new SQLBuilder();
+			mysqli_query($this->db, $builder->alter_product_remove_product_query($client_data));
 		}
-
 		//input:  list of product
 		private function push_alter_product_data($client_data = NULL){
-			//TEST($client_data);
+			$builder = new SQLBuilder();
+			mysqli_query($this->db, $builder->alter_product_update_product_query($client_data));
 		}
-
 		//input: list of product
 		private function push_new_product_data($client_data = NULL){
-			//TEST($client_data);
+			$builder = new SQLBuilder();
+			mysqli_query($this->db, $builder->alter_product_new_product_query($client_data));
 		}
-
 		//sign up
 		public function sign_up($user_data){
-
 			$name = $user_data['name'];
 			$username = $user_data['username'];
 			$password = $user_data['password'];
-
 			//check if the account exist or not
 			$sql = mysqli_query($this->db,"SELECT Id FROM employee WHERE username = '$username'");
     					
@@ -160,7 +147,6 @@
             }
             return $result;
 		}
-
 		public function get_list_of_user_name(){
 			
             
@@ -176,16 +162,13 @@
 		}
 		
 	}
-
 	 //$db = new Database();
 	 //$db->connect();
 	 //TEST($db->get_list_of_product_info('Bánh tráng'));
 	// $tmp = new SoldProduct(113);
  //     $tmp->add_attribute("Sữa",100, NULL, "100", "SUA1111",
  //     		NULL,"17/11/2015");
-
  //     $BasicInfo = new BasicInfo("Kim Nhật Thành","knthanh@apcs.vn","0923232121","4 ABCD");
-
  //     $receipt = new Receipt(1,1,new Employee("EM011",$BasicInfo,10000,1,"1313131"));
     
  //     $receipt->add($tmp);
