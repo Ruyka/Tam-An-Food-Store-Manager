@@ -1,3 +1,4 @@
+
 // config url location
 var url = window.location.href;
 url = url.split("/");

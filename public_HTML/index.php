@@ -24,7 +24,7 @@
 		<div class="no-print"> 
 				<?php require_once(VIEW_PATH."header.php");?>
 
-				<div class="col-md-6">
+				<div id ="loadpanel1" class="col-md-6">
 					
 					<div class="inner-content">
 						<select id="task1" tabindex="-1" class="form-control " onchange="switch_task(1)">
@@ -40,7 +40,7 @@
 					</div>
 				</div>
 
-				<div class="col-md-6">
+				<div id ="loadpanel2" class="col-md-6">
 					
 					<div class="inner-content">
 						<select id="task2" tabindex="-1" class="form-control" onchange="switch_task(2)">
