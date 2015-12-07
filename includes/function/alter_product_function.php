@@ -45,7 +45,7 @@ function push_alter_product_data_to_server($array){
             }
             else{
                 $import_product = new ImportProduct($product['bought']);
-                $import_product->add_attribute($product['name'],new Unit("", $product['sale']),$product['id']);
+                $import_product->add_attribute($product['name'],new Unit($product['unit_name'], $product['sale']),$product['id']);
                 $receipt->add($import_product);
             }
         }
@@ -65,7 +65,7 @@ function push_new_product_data_to_server($array){
         if (isset($product['name']))
         {
             $import_product = new ImportProduct($product['bought']);
-            $import_product->add_attribute($product['name'],new Unit("", $product['sale']));
+            $import_product->add_attribute($product['name'],new Unit($product['unit_name'], $product['sale']));
             $receipt->add($import_product);
         }
     }

@@ -70,6 +70,7 @@ function save_new_product(array_product){
         }  
     });
 }
+
 // get path
 function get_path(direc, f){
 	var path = "";
