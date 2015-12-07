@@ -36,21 +36,22 @@ if(isset($_GET['q']) && !empty($_GET['q'])) {
 function push_alter_product_data_to_server($array){
     $receipt = new Receipt();
     $array_id = array();
-    foreach ($array as $key => $product){
-        if (strcmp($product['action'],'Xóa sản phẩm')==0){
-            $array_id[]=$product['id'];
+
+    foreach ($array as $product)
+        if (isset($product['id'])){    
+            if (strcmp($product['action'],'Xóa sản phẩm')==0){
+                $array_id[]=$product['id'];
+            }
+            else{
+                $import_product = new ImportProduct($product['bought']);
+                $import_product->add_attribute($product['name'],new Unit("", $product['sale']),$product['id']);
+                $receipt->add($import_product);
+            }
         }
-        else{
-            $import_product = new ImportProduct($product['bought']);
-            $import_product->add_attribute($product['name'],new Unit("", $product['sale']),$product['id']);
-            $receipt->add($import_product);
-        }
-    }
     
-     
     $manage = new Management();
-    $manage->push_alter_product_data_to_server($receipt);
     $manage->remove_product($array_id);
+    $manage->push_alter_product_data_to_server($receipt);
 }
 
 function push_new_product_data_to_server($array){
@@ -59,12 +60,13 @@ function push_new_product_data_to_server($array){
     $receipt = new Receipt();
 
     foreach ($array as $key => $product)
-    {
-        $import_product = new ImportProduct($product['bought']);
-        $import_product->add_attribute($product['name'],new Unit("", $product['sale']));
-        $receipt->add($import_product);
-    }
-    //TEST($receipt->json_encode(true));
+        if (isset($product['name']))
+        {
+            $import_product = new ImportProduct($product['bought']);
+            $import_product->add_attribute($product['name'],new Unit("", $product['sale']));
+            $receipt->add($import_product);
+        }
+
     $manage = new Management();
     $manage->push_new_product_data_to_server($receipt);
     

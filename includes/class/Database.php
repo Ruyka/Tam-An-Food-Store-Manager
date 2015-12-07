@@ -100,17 +100,17 @@
 
 		//input: array of product id
 		private function remove_product($client_data = NULL){
-			TEST($client_data);
+			//TEST($client_data);
 		}
 
 		//input:  list of product
 		private function push_alter_product_data($client_data = NULL){
-			TEST($client_data);
+			//TEST($client_data);
 		}
 
 		//input: list of product
 		private function push_new_product_data($client_data = NULL){
-			TEST($client_data);
+			//TEST($client_data);
 		}
 
 		//sign up

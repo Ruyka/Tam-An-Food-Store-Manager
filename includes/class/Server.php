@@ -43,7 +43,7 @@
 				//decode data into array
 				$data = json_decode($json_data, true);
 				
-				// get request
+		  		// get request
 				$input = $data['request'];
 				// get data of clients if available
 				if (isset($data['data']))
