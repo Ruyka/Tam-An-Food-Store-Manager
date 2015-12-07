@@ -146,12 +146,17 @@ table.receipt-product-list{
   text-align: center;
   font-size: 15px; 
   padding-top:15px;
-  min-width:100px;
+  min-width:80px;
 }
 /* product name column of alter product table*/
 .alter-product-name{
   width:100%; 
   min-width:250px;
+}
+/* product unit name column of alter product table*/
+.alter-product-unit{
+  width:100%; 
+  min-width:50px;
 }
 /*product bought price of alter product table*/
 .alter-product-bought{
@@ -160,19 +165,23 @@ table.receipt-product-list{
 }
 .alter-product-percentage{
   width:100%; 
-  min-width:70px;
+  min-width:80px;
 }
 .alter-product-sale{
   width:100%;
-  min-width:80px; 
+  min-width:90px; 
 }
 .alter-product-check-box{
-  width:40px;
+  width:30px;
 }
 .sort-button{
   padding-left:0px;
   padding-right:0px;
   padding-bottom:10px;
+}
+.no-padding-left-right{
+  font-size: 15px;
+  padding: 0px;
 }
 /* 1.5x size of every check box*/
 input[type=checkbox]
@@ -204,4 +213,13 @@ input[type=checkbox]
   margin-top: 15px;
   margin-bottom: 15px;
   text-align: center;
+}
+
+#alter-product-percentage-column,
+#alter-product-name-column,
+#alter-product-unit-column,
+#alter-product-bought-column,
+#alter-product-sale-column,
+#alter-product-id-column{
+  padding:0px 0px 0px 5px;
 }
