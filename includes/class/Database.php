@@ -180,9 +180,9 @@
 		
 	}
 
-	 //$db = new Database();
-	 //$db->connect();
-	 //TEST($db->get_list_of_product_info('Bánh tráng'));
+	 // $db = new Database();
+	 // $db->connect();
+	 // TEST($db->get_list_of_product_info('Bánh tráng'));
 	// $tmp = new SoldProduct(113);
  //     $tmp->add_attribute("Sữa",100, NULL, "100", "SUA1111",
  //     		NULL,"17/11/2015");

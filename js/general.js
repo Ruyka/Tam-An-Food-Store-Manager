@@ -107,3 +107,6 @@ function make_toast(Msg,time){
     $("#toast").fadeIn(400).delay(time).fadeOut(400);
 }
 
+$(document).ready(function(){
+    make_toast("Xin Chào "+get_username()+". Chúc một ngày tốt lành!", 3000);
+});

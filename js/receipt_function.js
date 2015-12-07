@@ -286,7 +286,7 @@ function make_print_section(receipt_list){
     var receipt_quote = receipt_thanks;
 
     // make infomation section
-    receipt_info = receipt_info.replace(re_address, "Tam An");
+    receipt_info = receipt_info.replace(re_address, tam_an_address);
     receipt_info = receipt_info.replace(re_tel, "");
     // receipt_info = receipt_info.replace(re_receiptid, "-1");
     receipt_info = receipt_info.replace(re_date, receipt_date);
