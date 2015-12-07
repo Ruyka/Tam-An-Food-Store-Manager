@@ -34,6 +34,7 @@ if(isset($_GET['q']) && !empty($_GET['q'])) {
 }
 
 function push_alter_product_data_to_server($array){
+    if (sizeof($array)==0) return;
     $receipt = new Receipt();
     $array_id = array();
     foreach ($array as $key => $product){

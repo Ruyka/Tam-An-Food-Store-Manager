@@ -106,12 +106,14 @@
 
 		//input:  list of product
 		private function push_alter_product_data($client_data = NULL){
-			TEST($client_data);
+			$builder = new SQLBuilder();
+			mysqli_query($this->db, $builder->alter_product_update_product_query($client_data));
 		}
 
 		//input: list of product
 		private function push_new_product_data($client_data = NULL){
-			TEST($client_data);
+			$builder = new SQLBuilder();
+			mysqli_query($this->db, $builder->alter_product_new_product_query($client_data));
 		}
 
 		//sign up

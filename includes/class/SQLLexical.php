@@ -5,7 +5,7 @@
 	  		foreach ($keyword_tokens as $key => $value) {
 			  	if(empty($value))
 			  		unset($keyword_tokens[$key]);
-			  	}
+			}
 		    $keyword_tokens = preg_grep('/^\s*\z/', $keyword_tokens, PREG_GREP_INVERT);
 
 		    $keyword_tokens = array_map('trim', $keyword_tokens);
@@ -23,7 +23,6 @@
 			
 			return $keywords;
 		}
-
 	}
 
 ?>

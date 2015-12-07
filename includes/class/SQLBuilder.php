@@ -8,7 +8,7 @@ Class SQLBuilder{
 	public function __construct($query = ""){
 		$this->query = $query;
 	}
-	//this return SQL command to query searching for product in alter product view
+	// this return SQL command to query searching for product in alter product view
 	public function alter_product_query($data){
 		///format key word to tokens
 		$keywords = SQLLexical::format_product_query_to_array($data);
@@ -20,15 +20,31 @@ Class SQLBuilder{
     		$tempID[$i] = 'Name';
 
 		            	
-		return $this->select(array("Name", "Unit AS 'UnitName'", "Price", "ID AS 'Id'", "Product_ID AS 'ProductId'"))
+		return $this->select(array("Name", SQLBuilder::sql_as("Unit", "UnitName"), "Price", SQLBuilder::sql_as("ID", "Id"), SQLBuilder::sql_as("Product_ID", "ProductId"))
 					->from("tam_an.product")->where()
 					->or_recursive('like', $tempID, $keywords)
 					->to_string();
 	}
 
+	// 
 	public function alter_product_remove_product_query($data){
-		if(!is_array($data))
-			$data = array($data);
+		            	
+		return $this->sql_delete()
+					->from("tam_an.product")->where()
+					->in('ID', $keywords)
+					->to_string();
+	}
+
+	// 
+	public function alter_product_update_product_query($data){
+		            	
+		return $this->sql_delete()
+					->from("tam_an.product")->where()
+					->in('ID', $keywords)
+					->to_string();
+	}
+
+	public function alter_product_new_product_query($data){
 		            	
 		return $this->sql_delete()
 					->from("tam_an.product")->where()
@@ -55,10 +71,18 @@ Class SQLBuilder{
 		return $this;
 	}
 
-	static public function sql_as($value){
-		$temp = " AS '".$value."' ";
+	// DELETE
+	private function update($param){
+		if(!is_array($param))
+			$param = array($param);
 
-		return $temp;
+		$this->query .= " UPDATE ".implode(', ', $param).' ';
+		
+		return $this;
+	}
+
+	static public function sql_as( $id, $value){
+		return " ".$id." AS '".$value."' ";
 	}
 
 	private function from($param){
