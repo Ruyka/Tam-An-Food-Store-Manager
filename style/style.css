@@ -139,7 +139,7 @@ table.receipt-product-list{
 .cell-title{
   text-align: left;
   font-weight: bold;
-  font-size: 15px;
+  font-size: 10px;
 }
 /*STT column of alter product table*/
 .STT-product{
@@ -164,7 +164,7 @@ table.receipt-product-list{
 }
 .alter-product-sale{
   width:100%;
-  min-width:80px; 
+  min-width:90px; 
 }
 .alter-product-check-box{
   width:40px;
@@ -173,6 +173,10 @@ table.receipt-product-list{
   padding-left:0px;
   padding-right:0px;
   padding-bottom:10px;
+}
+.no-padding-left-right{
+  padding-left: 0px;
+  padding-right: 0px;
 }
 /* 1.5x size of every check box*/
 input[type=checkbox]

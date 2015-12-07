@@ -38,38 +38,6 @@ function get_list_of_product(query){
     return tmp['error'];
 }
 
-function save_alter_change(array_product){
-    //AJAX, send GET
-    function_file_name = 'alter_product_function.php';
-    send_action = 'push_alter_product_data_to_server';
-    var tmp = null;
-    $.ajax({
-        async: false,
-        url: get_path('function',function_file_name)+"?q="+JSON.stringify({action:send_action}),
-        type: "post",
-        data: {array_product:JSON.stringify(array_product)},
-        success: function (data) {
-
-        }  
-    });
-
-}
-
-function save_new_product(array_product){
-    //AJAX, send GET
-    function_file_name = 'alter_product_function.php';
-    send_action = 'push_new_product_data_to_server';
-    var tmp = null;
-    $.ajax({
-        async: false,
-        url: get_path('function',function_file_name)+"?q="+JSON.stringify({action:send_action}),
-        type: "post",
-        data: {array_product:JSON.stringify(array_product)},
-        success: function (data) {
-          
-        }  
-    });
-}
 // get path
 function get_path(direc, f){
 	var path = "";

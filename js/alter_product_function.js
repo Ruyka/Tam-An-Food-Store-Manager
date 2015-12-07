@@ -22,7 +22,7 @@ $(document).ready(function(){
   //no search at beginning, hide it
   $('#alter-product-search-area').hide();
   //hide the last column, action column
-  $('#alter-product-search-area td:nth-child(7),th:nth-child(7)').hide();
+  $('#alter-product-search-area td:nth-child(8),th:nth-child(8)').hide();
   //hide the switch to search button
   $('#alter_product_search_btn').hide();
   
@@ -31,6 +31,41 @@ $(document).ready(function(){
   sorttable.makeSortable(newTableObject);
   
 });
+
+
+function save_alter_change(array_product){
+    //AJAX, send GET
+    function_file_name = 'alter_product_function.php';
+    send_action = 'push_alter_product_data_to_server';
+    var tmp = null;
+    $.ajax({
+        async: false,
+        url: get_path('function',function_file_name)+"?q="+JSON.stringify({action:send_action}),
+        type: "post",
+        data: {array_product:JSON.stringify(array_product)},
+        success: function (data) {
+
+        }  
+    });
+
+}
+
+function save_new_product(array_product){
+    //AJAX, send GET
+    function_file_name = 'alter_product_function.php';
+    send_action = 'push_new_product_data_to_server';
+    var tmp = null;
+    $.ajax({
+        async: false,
+        url: get_path('function',function_file_name)+"?q="+JSON.stringify({action:send_action}),
+        type: "post",
+        data: {array_product:JSON.stringify(array_product)},
+        success: function (data) {
+          
+        }  
+    });
+}
+
 
 //show the modified history of user
 function alter_product_show(option){
@@ -42,13 +77,13 @@ function alter_product_show(option){
     global_list_product_HTML = $('#alter-product-list').html();
       
     //show the action column
-    $('#alter-product-search-area td:nth-child(7),th:nth-child(7)').show();
+    $('#alter-product-search-area td:nth-child(8),th:nth-child(8)').show();
     //show switch to search button
     $('#alter_product_search_btn').show();
     // hide switch to see change button
     $('#alter_product_change_btn').hide();
     //hide the tick column
-    $('#alter-product-search-area td:nth-child(6),th:nth-child(6)').hide();
+    $('#alter-product-search-area td:nth-child(7),th:nth-child(7)').hide();
     //hide remove item button
     $('#alter_product_remove_btn').hide();
 
@@ -57,13 +92,13 @@ function alter_product_show(option){
   }
   else{
     //hide the action column
-    $('#alter-product-search-area td:nth-child(7),th:nth-child(7)').hide();
+    $('#alter-product-search-area td:nth-child(8),th:nth-child(8)').hide();
     //hide switch to search button
     $('#alter_product_search_btn').hide();
     // show switch to see change button
     $('#alter_product_change_btn').show();
     //show the tick column
-    $('#alter-product-search-area td:nth-child(6),th:nth-child(6)').show(); 
+    $('#alter-product-search-area td:nth-child(7),th:nth-child(7)').show(); 
     //hide remove item button
     $('#alter_product_remove_btn').show();
     
@@ -122,12 +157,13 @@ function alter_product_make_list_product(list_product){
       }
       else
       new_product_tr = replace_token(new_product_tr, list_product[i]['product_id']
-                    , alter_data['name'],alter_data['bought'], alter_data['percentage']
+                    , alter_data['name'] , alter_data['unit_name'],alter_data['bought'], alter_data['percentage']
                     , parseFloat(alter_data['sale']));
     }
     else{
       new_product_tr = replace_token(new_product_tr, list_product[i]['product_id']
-                    , list_product[i]['name'],"","", parseFloat(list_product[i]['unit']['price']));
+                    , list_product[i]['name'], list_product[i]['unit']['unit_name']
+                    ,"","", parseFloat(list_product[i]['unit']['price']));
     }
     str += new_product_tr;
   }
@@ -181,16 +217,18 @@ function alter_product_observe(source, id){
     //assign value to every input box
     alter_product_assign_val_to_input(id, 
                                       $("#alter-product"+ id + "-name").val(),
+                                      $("#alter-product"+ id + "-unit").val(),
                                       $("#alter-product"+ id + "-bought").val(),
                                       $("#alter-product"+ id + "-percentage").val(),
                                       $("#alter-product"+ id + "-sale").val());
     
 
-    $('#alter-product-search-area td:nth-child(6),th:nth-child(6)').hide();
+    $('#alter-product-search-area td:nth-child(7),th:nth-child(7)').hide();
     //get change
     
     global_alter_product_log[id] = {'id' : id,
                                     'name': $("#alter-product"+ id + "-name").val(),
+                                    'unit_name' : $("#alter-product"+ id + "-unit").val(),
                                     'bought':$("#alter-product"+ id + "-bought").val(),
                                     'percentage':$("#alter-product"+ id + "-percentage").val(),
                                     'sale':$("#alter-product"+ id + "-sale").val(),
@@ -198,18 +236,20 @@ function alter_product_observe(source, id){
                                     'action': 'Đổi giá trị.'
                                     };
     
-    $('#alter-product-search-area td:nth-child(6),th:nth-child(6)').show();
+    $('#alter-product-search-area td:nth-child(7),th:nth-child(7)').show();
 }
 
 
-function alter_product_assign_val_to_input(id, name, bought, percentage, sale){
+function alter_product_assign_val_to_input(id, name, unit_name, bought, percentage, sale){
     //change value to sort
     $("#alter-product"+ id + "-name").attr("sorttable_customkey", name);
+    $("#alter-product"+ id + "-unit").attr("sorttable_customkey", unit_name);
     $("#alter-product"+ id + "-bought").attr("sorttable_customkey", bought);
     $("#alter-product"+ id + "-percentage").attr("sorttable_customkey", percentage);
     $("#alter-product"+ id + "-sale").attr("sorttable_customkey", sale);
     //put real value to it
     $("#alter-product"+ id + "-name").attr("value", name);
+    $("#alter-product"+ id + "-unit").attr("value", unit_name);
     $("#alter-product"+ id + "-bought").attr("value", bought);
     $("#alter-product"+ id + "-percentage").attr("value", percentage);
     $("#alter-product"+ id + "-sale").attr("value", sale);
@@ -221,13 +261,14 @@ function alter_product_remove_item(){
   $('.alter-product-check-box:checkbox:checked').each(function () {
       var id = $(this).val();
       
-      $('#alter-product-search-area td:nth-child(6),th:nth-child(6)').hide();
+      $('#alter-product-search-area td:nth-child(7),th:nth-child(7)').hide();
       set_all_input_readonly(id, true);
       
       //get change
       
       global_alter_product_log[id] = {'id' : id,
                                       'name': $("#alter-product"+ id + "-name").val(),
+                                      'unit_name': $("#alter-product"+ id + "-unit").val(),
                                       'bought':$("#alter-product"+ id + "-bought").val(),
                                       'percentage':$("#alter-product"+ id + "-percentage").val(),
                                       'sale':$("#alter-product"+ id + "-sale").val(),
@@ -235,7 +276,7 @@ function alter_product_remove_item(){
                                       'action': 'Xóa sản phẩm'
                                       };
       
-      $('#alter-product-search-area td:nth-child(6),th:nth-child(6)').show();
+      $('#alter-product-search-area td:nth-child(7),th:nth-child(7)').show();
       set_all_input_readonly(id, false);
       deleteRow("alter-product"+ id);
   });  
@@ -255,6 +296,7 @@ function deleteRow(rowid)
 
 function set_all_input_readonly(id, val){
   $("#alter-product"+ id + "-name").prop('readonly', val);
+  $("#alter-product"+ id + "-unit").prop('readonly', val);
   $("#alter-product"+ id + "-bought").prop('readonly', val);
   $("#alter-product"+ id + "-percentage").prop('readonly', val);
   $("#alter-product"+ id + "-sale").prop('readonly', val);
@@ -278,11 +320,13 @@ function show_if_not_equal(cod1, cod2, val, msg){
 
 
 
-function replace_token(str, id, name, bought, percentage, sale){
+function replace_token(str, id, name, unit_name, bought, percentage, sale){
   // replace the %PRODUCT_ID% with the product real ID
     str = str.replace(new RegExp("%PRODUCT_ID%", 'g'), id);
     // replace the %PRODUCT_NAME% with the product real NAME
     str = str.replace(new RegExp("%PRODUCT_NAME%", 'g'), name);
+    // replace the %PRODUCT_UNIT_NAME% with the product real NAME
+    str = str.replace(new RegExp("%PRODUCT_UNIT_NAME%", 'g'), unit_name);
     // replace the %PRODUCT_NAME% with the product real BOUGHT
     str = str.replace(new RegExp("%PRODUCT_BOUGHT%", 'g'), bought);
     // replace the %PRODUCT_NAME% with the product real PERCENTAGE
@@ -322,7 +366,7 @@ function make_show_changes_html(){
 // creat HTML for new product
 function create_new_product_html(id, str, product){
   var result = "";
-  result = replace_token(str,id, product['name'],product['bought'],product['percentage'],product['sale']);
+  result = replace_token(str,id, product['name'],product['unit_name'],product['bought'],product['percentage'],product['sale']);
   result = result.replace(new RegExp("%ACTION%", 'g'), product['action']);
   return result;
 }
@@ -330,16 +374,18 @@ function create_new_product_html(id, str, product){
 //add one product function
 function add_one_product(){
   var name = $('#alter-product-add-name').val();
+  var unit = $('#alter-product-add-unit').val();
   var bought = $('#alter-product-add-bought').val();
   var percentage = $('#alter-product-add-percentage').val();
   var sale = $('#alter-product-add-sale').val();
-  add_new_product(name, bought, percentage, sale);
+  add_new_product(name, unit, bought, percentage, sale);
   //console.log(global_list_new_product);
 }
 
-function add_new_product(name, bought, percentage, sale){
+function add_new_product(name, unit, bought, percentage, sale){
   global_list_new_product.push({
                                 'name': name,
+                                'unit_name' : unit,
                                 'bought':bought,
                                 'percentage': percentage,
                                 'sale':sale,
@@ -404,6 +450,7 @@ function alter_add_product_observe(source, id){
     //get change
     global_list_new_product[id] = {
                                     'name': $("#alter-product-no-id"+ id + "-name").val(),
+                                    'unit_name': $("#alter-product-no-id"+ id + "-unit").val(),
                                     'bought':$("#alter-product-no-id"+ id + "-bought").val(),
                                     'percentage':$("#alter-product-no-id"+ id + "-percentage").val(),
                                     'sale':$("#alter-product-no-id"+ id + "-sale").val(),
@@ -413,6 +460,7 @@ function alter_add_product_observe(source, id){
 }
 
 function restore(){
+  $("#alter-product-add-unit").val('');
   $("#alter-product-add-name").val('');
   $("#alter-product-add-bought").val('');
   $("#alter-product-add-percentage").val('');

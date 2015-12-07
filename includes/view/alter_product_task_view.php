@@ -46,6 +46,10 @@
 					<span class="glyphicon glyphicon-arrow-up btn btn-small sort-button" onclick="alter_product_sort('ASC','alter-product-name-column')" ></span><span class="glyphicon glyphicon-arrow-down btn btn-small sort-button" onclick="alter_product_sort('DESC','alter-product-name-column')" ></span> 
 				</th>
 
+				<th id="alter-product-unit-column">Đơn vị
+					<span class="glyphicon glyphicon-arrow-up btn btn-small sort-button" onclick="alter_product_sort('ASC','alter-product-unit-column')" ></span><span class="glyphicon glyphicon-arrow-down btn btn-small sort-button" onclick="alter_product_sort('DESC','alter-product-unit-column')" ></span> 
+				</th>
+
 				<th class="sorttable_numeric" id="alter-product-bought-column">Giá mua
 					<span class="glyphicon glyphicon-arrow-up btn btn-small sort-button" onclick="alter_product_sort('ASC','alter-product-bought-column')" ></span><span class="glyphicon glyphicon-arrow-down btn btn-small sort-button" onclick="alter_product_sort('DESC','alter-product-bought-column')" ></span> 
 				</th>
@@ -103,12 +107,13 @@
 
 						<table id="product-table" class="table sortable table-striped table-bordered  table-fixed " >
 							<thead>
-								<tr class="success"><th>Tên</th><th >Giá mua</th><th>% Chi phí</th><th>Giá bán</th></tr>
+								<tr class="success"><th>Tên</th><th>Đơn Vị</th><th >Giá mua</th><th>% Chi phí</th><th>Giá bán</th></tr>
 							</thead>
 							
 							<tbody>
 								<tr>
 									<td><input id ="alter-product-add-name" class="form-control product-list" id="modal-focus" ></td>
+									<td><input id ="alter-product-add-unit" class="form-control product-list" id="modal-focus" ></td>
 									<td><input id ="alter-product-add-bought" class="form-control" ></td>
 									<td><input id ="alter-product-add-percentage" class="form-control" ></td>
 									<td><input id ="alter-product-add-sale" class="form-control" ></td>
