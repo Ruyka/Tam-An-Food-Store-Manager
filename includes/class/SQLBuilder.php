@@ -29,7 +29,7 @@ Class SQLBuilder{
     		$tempID[$i] = 'Name';
 
 		            	
-		return $this->select(array("Name", SQLBuilder::sql_as("Unit", "UnitName"), "Price", SQLBuilder::sql_as("ID", "Id"), SQLBuilder::sql_as("Product_ID", "ProductId"), "Bought"))
+		return $this->select(array("Name", SQLBuilder::sql_as("Unit", "UnitName"), "Price", SQLBuilder::sql_as("ID", "Id"), SQLBuilder::sql_as("Product_ID", "ProductId"), SQLBuilder::sql_as("Bought","Import_Price")))
 					->from("tam_an.product")->where()
 					->or_recursive('like', $tempID, $keywords)
 					->to_string();
