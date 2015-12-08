@@ -765,7 +765,7 @@ DROP PROCEDURE IF EXISTS get_list_of_product_info$$
 
 CREATE PROCEDURE get_list_of_product_info()
 BEGIN
-  SELECT Name, Unit AS 'UnitName', Price, ID AS 'Id', Product_ID AS 'ProductId', Bought FROM tam_an.product WHERE Price != 0;
+  SELECT Name, Unit AS 'UnitName', Price, ID AS 'Id', Product_ID AS 'ProductId', Bought AS 'Import_Price' FROM tam_an.product WHERE Price != 0;
 END $$
 
 DELIMITER $$
@@ -773,7 +773,7 @@ DROP PROCEDURE IF EXISTS get_list_of_product_info_with_query$$
 
 CREATE PROCEDURE get_list_of_product_info_with_query(pname varchar(100) CHARSET utf8)
 BEGIN
-  SELECT Name, Unit AS 'UnitName', Price, ID AS 'Id', Product_ID AS 'ProductId', Bought FROM tam_an.product WHERE Price != 0 AND Name LIKE CONCAT('%', pname, '%') ;
+  SELECT Name, Unit AS 'UnitName', Price, ID AS 'Id', Product_ID AS 'ProductId', Bought AS 'Import_Price' FROM tam_an.product WHERE Price != 0 AND Name LIKE CONCAT('%', pname, '%') ;
 END $$
 
 DELIMITER $$
