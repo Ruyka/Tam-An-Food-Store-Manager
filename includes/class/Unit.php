@@ -8,17 +8,13 @@
 		private $unit_name;
 		//price of per unit of product, in Vietnam currency
 		private $price;
-		//buying price of per unit of product, in Vietnam currency
-		private $bought;
-		
 
 		//Constructor:
 		//constructor allow to create a Unit with name and price
 		//Default parameter, Unit_name = "" , price = 0
-		public function __construct($unit_name = "", $price = 0, $bought = 0){
+		public function __construct($unit_name = "", $price = 0){
 			$this->unit_name = $unit_name;
 			$this->price = $price;
-			$this->bought = $bought;
 		}
 
 
@@ -33,10 +29,6 @@
 			return $this->price;
 		}
 
-		//methdo to get buying price of the Unit
-		public function get_bought(){
-			return $this->bought;
-		}
 
 		// convert object to json format
 		// code = true, return json encode, else just return object data encode as an array
@@ -44,8 +36,7 @@
 			//2 properties of Unit intance
 			$json = array(
 	        	'unit_name' => $this->unit_name,
-	        	'price' => $this->price,
-	        	'bought' => $this->bought,
+	        	'price' => $this->price
     		);
 
     		// code = true, return json encode, else just return object data encode as an array
@@ -63,8 +54,6 @@
  			if (json_last_error() == JSON_ERROR_NONE){
  				$this->unit_name = $data['unit_name'];
 				$this->price = $data['price'];
-				$this->bought = $data['bought'];
-				
  			}
 		}
 		
@@ -74,7 +63,6 @@
 			if ( isset($data['unit_name']) && isset($data['price']) ){
  				$this->unit_name = $data['unit_name'];
 				$this->price = $data['price'];
-				$this->bought = $data['bought'];
 			}
 		} 
 

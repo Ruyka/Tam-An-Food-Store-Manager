@@ -160,9 +160,17 @@ function alter_product_make_list_product(list_product){
                     , parseFloat(alter_data['sale']));
     }
     else{
-      new_product_tr = replace_token(new_product_tr, list_product[i]['product_id']
-                    , list_product[i]['name'], list_product[i]['unit']['unit_name']
-                    ,"","", parseFloat(list_product[i]['unit']['price']));
+      //console.log(list_product[i]);
+      if (parseFloat(list_product[i]['import_price']) != 0)
+        new_product_tr = replace_token(new_product_tr, list_product[i]['product_id']
+                      ,list_product[i]['name'], list_product[i]['unit']['unit_name']
+                      ,parseFloat(list_product[i]['import_price'])
+                      ,parseFloat(list_product[i]['unit']['price'])*100/parseFloat(list_product[i]['import_price'])
+                      ,parseFloat(list_product[i]['unit']['price']));
+      else 
+        new_product_tr = replace_token(new_product_tr, list_product[i]['product_id']
+                      , list_product[i]['name'], list_product[i]['unit']['unit_name']
+                      ,parseFloat(list_product[i]['import_price']),"", parseFloat(list_product[i]['unit']['price']));
     }
     str += new_product_tr;
   }

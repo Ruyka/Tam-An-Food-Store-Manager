@@ -13,7 +13,7 @@ if(isset($_GET['q']) && !empty($_GET['q'])) {
         case 'get_data_with_query_from_server':
         	//get query out of POST
     	    $query = $_POST['query'];
-        	$data = get_product_data_from_server($query);
+        	$data = get_import_product_data_from_server($query);
         	if (is_object($data)){
         		echo $data->json_encode();
         	}
@@ -76,9 +76,9 @@ function push_new_product_data_to_server($array){
 }
 
 
-function get_product_data_from_server($query){
+function get_import_product_data_from_server($query){
 	$manager = new Management();
-    $data = $manager->get_list_of_product_info($query);
+    $data = $manager->get_list_of_import_product_info($query);
     if (!isset($data['error'])){
 	    $list = new Receipt();
 	    $list->get_data_from_array($data);
