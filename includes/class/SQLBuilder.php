@@ -18,6 +18,9 @@ Class SQLBuilder{
 	}
 
 	// this return SQL command to query searching for product in alter product view
+	// SELECT ....
+	// FROM tam_an.product
+	// WHERE Name = '...' OR ....
 	public function alter_product_query($data){
 		///format key word to tokens
 		$keywords = SQLLexical::format_product_query_to_array($data);
@@ -35,7 +38,9 @@ Class SQLBuilder{
 					->to_string();
 	}
 
-	// 
+	// delete an existing rows
+	// DELETE FROM tam_an.product
+	// WHERE ID IN (...)
 	public function alter_product_remove_product_query($data){		            	
 		return $this->sql_delete()
 					->from("tam_an.product")->where()
@@ -43,7 +48,11 @@ Class SQLBuilder{
 					->to_string();
 	}
 
-	// 
+	// update an existing rows
+	// UPDATE tam_an.product
+	// SET Name = '...', Bought = '...', Price = '...', Unit = '...'
+	// WHERE ID = ...;
+	// UPDATE ....
 	public function alter_product_update_product_query($data){
 		$input = SQLLexical::make_update_product_list($data['list_product']);
 
@@ -60,6 +69,11 @@ Class SQLBuilder{
 		return $this->to_string();
 	}
 
+	// add new product 
+	// INSERT INTO tam_an.product VALUES
+	// (Name, Bought, Price, Unit),
+	// ...
+	// (Name, Bought, Price, Unit);
 	public function alter_product_new_product_query($data){
 		$input = SQLLexical::make_new_product_list($data['list_product']);
 		            	
@@ -67,6 +81,26 @@ Class SQLBuilder{
 					->sql_insert_values_recursive($input)
 					->end_query()
 					->to_string();
+	}
+
+	// sql query to check if user exist
+	// SELECT ID AS 'Id', Name
+	// FROM tam_an.user
+	// WHERE username LIKE $username AND password LIKE $password
+	public function check_user_login($username, $password){
+
+		return $this->select(array(SQLBuilder::sql_as('ID','Id'), 'Name'))
+					->from('tam_an.user')
+					->where()
+					->and_recursive('LIKE',array('Username', 'Password'), array($username, $password))
+					->to_string();
+	}
+
+	public function get_list_of_product_info(){
+		return $this->select(array("Name", SQLBuilder::sql_as("Unit", "UnitName"), "Price", SQLBuilder::sql_as("ID", "Id"), SQLBuilder::sql_as("Product_ID", "ProductId"), SQLBuilder::sql_as("Bought","Import_Price")))
+			->from("tam_an.product")->where()
+			->not_equals('Price',0)
+			->to_string();
 	}
 
 	//PRIVATE method
@@ -231,7 +265,7 @@ Class SQLBuilder{
 			$this->sql_and();
 		}
 
-		$len = strlen($this->query) - 3;
+		$len = strlen($this->query) - 4;
 		$this->query = substr($this->query, 0, $len).' ';
 
 		return $this;

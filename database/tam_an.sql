@@ -776,26 +776,6 @@ BEGIN
   SELECT Name, Unit AS 'UnitName', Price, ID AS 'Id', Product_ID AS 'ProductId', Bought AS 'Import_Price' FROM tam_an.product WHERE Price != 0 AND Name LIKE CONCAT('%', pname, '%') ;
 END $$
 
-DELIMITER $$
-DROP PROCEDURE IF EXISTS check_user_login$$
-
-CREATE PROCEDURE check_user_login( uname varchar(50), pass  varchar(100))
-BEGIN
-  SELECT ID AS 'Id', Name FROM tam_an.user WHERE Username LIKE uname AND Password LIKE pass;
-END $$
-
-
-DELIMITER $$
-DROP FUNCTION IF EXISTS insert_receipt_to_database$$
-
-CREATE FUNCTION insert_receipt_to_database( id int, quantity  float)
-RETURNS INT
-BEGIN
-  -- TODO
-  RETURN 0;
-END $$
-
-
 DELIMITER ;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
