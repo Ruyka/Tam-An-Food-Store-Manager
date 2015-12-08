@@ -26,7 +26,6 @@ function get_list_of_product(query){
         data: {query:query},
         success: function (data) {
           tmp = JSON.parse(data);
-          console.log(JSON.parse(data));
       }  
     });
     //return list of product
