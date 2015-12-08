@@ -185,11 +185,8 @@
 			
 			// for each value in data list product, push into the list product
 			foreach ($list_data_product as $value) {
-				
 				//get the product factory to get the right product object type
-				$product = ProductFactory::create_product($value['object_type']);
-				//get data from value array
-				$product->get_data_from_array($value);
+				$product = ProductFactory::create_product($value);
 				//add product to list_product
 				$this->add($product);
 	    	}

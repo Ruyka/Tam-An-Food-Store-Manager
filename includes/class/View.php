@@ -37,6 +37,25 @@
 			// return the receipt in json format
 			return $receipt->json_encode();
 		}
+
+		// convert list of product get from database into object
+		//return: array of Product
+		public function list_import_product_to_json_data($data){
+			//new a new receipt
+			//basically, a Reiceipt is a list of product...
+			$receipt = new Receipt();
+			foreach ($data as $value) {
+				//new Product
+				$product = new ImportProduct($value['Import_Price']);
+				// add attribute to it
+				$product->add_attribute($value['Name'],new Unit($value['UnitName']
+					,$value['Price']),$value['Id'],$value['ProductId']);
+				//add the product to the receipt
+				$receipt->add($product);
+			}	
+			// return the receipt in json format
+			return $receipt->json_encode();
+		}
 		
 		//this function create a list of user name
 		//return: array of user Name

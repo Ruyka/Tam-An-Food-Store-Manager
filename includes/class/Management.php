@@ -55,6 +55,17 @@
 				return $this->get_response_from_message("get list of product info",json_encode($q));
 			}
 		}
+
+		//send the message to server to get the list of import product info
+		//return array type
+		public function get_list_of_import_product_info($query = NULL){
+			if (is_null($query))
+				return $this->get_response_from_message("get list of import product info");
+			else{
+				$q['query'] = $query; 
+				return $this->get_response_from_message("get list of import product info",json_encode($q));
+			}
+		}
 		
 		//send message to server to get the list of user name
 		//return array type
@@ -101,7 +112,7 @@
 	//test code
 	// require_once(CLASS_PATH."Receipt.php");	
 	// $manager = new Management();
- //    $data = $manager->get_list_of_product_info();
+ //    $data = $manager->get_list_of_import_product_info();
  //    $receipt = new Receipt();
  //    $receipt->get_data_from_array($data);
  //    TEST($receipt->json_encode(false));
