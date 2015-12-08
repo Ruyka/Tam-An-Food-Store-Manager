@@ -29,7 +29,7 @@ Class SQLBuilder{
     		$tempID[$i] = 'Name';
 
 		            	
-		return $this->select(array("Name", SQLBuilder::sql_as("Unit", "UnitName"), "Price", SQLBuilder::sql_as("ID", "Id"), SQLBuilder::sql_as("Product_ID", "ProductId")))
+		return $this->select(array("Name", SQLBuilder::sql_as("Unit", "UnitName"), "Price", SQLBuilder::sql_as("ID", "Id"), SQLBuilder::sql_as("Product_ID", "ProductId"), "Bought"))
 					->from("tam_an.product")->where()
 					->or_recursive('like', $tempID, $keywords)
 					->to_string();
@@ -45,7 +45,19 @@ Class SQLBuilder{
 
 	// 
 	public function alter_product_update_product_query($data){
-		// TODO
+		$input = SQLLexical::make_update_product_list($data['list_product']);
+
+		$id_array = array("Name", "Bought", "Price", "Unit");
+
+		foreach ($input as $key => $value) {
+			$this->update('tam_an.product')
+				 ->set($id_array, $value)
+				 ->where()
+				 ->equals('ID',$key)
+				 ->end_query();
+		}
+
+		return $this->to_string();
 	}
 
 	public function alter_product_new_product_query($data){
@@ -99,10 +111,8 @@ Class SQLBuilder{
 
 	// UPDATE table,....
 	private function update($param){
-		if(!is_array($param))
-			$param = array($param);
 
-		$this->query .= "UPDATE ".implode(', ', $param).' ';
+		$this->query .= "UPDATE ".$param.' ';
 		
 		return $this;
 	}
@@ -140,7 +150,7 @@ Class SQLBuilder{
 	private function in($id, $array){
 		if(!is_array($array))
 			$array = array($array);
-		$this->query .= $id.' IN ('.implode(', ', $array).') ';
+		$this->query .= $id.' IN (\''.implode('\', \'', $array).'\') ';
 
 		return $this;
 	}
@@ -154,14 +164,14 @@ Class SQLBuilder{
 
 	// $id = $value
 	private function equals($id, $value){
-		$this->query .= $id.' = '.$value.' ';
+		$this->query .= $id.' = \''.$value.'\' ';
 		
 		return $this;
 	}
 
 	// $id != $value
 	private function not_equals($id, $value){
-		$this->query .= $id.' != '.$value.' ';
+		$this->query .= $id.' != \''.$value.'\' ';
 		
 		return $this;
 	}
@@ -293,6 +303,5 @@ Class SQLBuilder{
 
 
 // $builder = new SQLBuilder();
-// TEST($builder->alter_product_new_product_query(array('list_product'=>array(array('test1',1,1),array('test2',2,2),array('test3',3,3))))->to_string());
 
 ?>
