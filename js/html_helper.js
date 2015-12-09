@@ -1,12 +1,12 @@
 	// generate new row
     // perform by manually add html codes in variable and piece it together
-    var product = '<td><select id="product%ID%" class="product-list form-control" name="product%ID%" onchange="observe_change(\'%ID%\')"></select></td>';
+    var product = '<td><select id="product%ID%" class="receipt-product-list form-control" name="product%ID%" onchange="observe_change(\'%ID%\')"></select></td>';
     // make input quantity
-    var quantity = '<td id="td%ID%_quantity"><input id="product%ID%_quantity" class="form-control" name="product%ID%_quantity" onfocus="observe_change(\'%ID%\')" onchange="observe_change(\'%ID%\')" style="width: 80px" type="number" min="0" value="0" placeholder="Số lượng" style="width: 80px"></td>';
+    var quantity = '<td id="td%ID%_quantity"><input id="product%ID%_quantity" class="receipt-product-quantity form-control" name="product%ID%_quantity" onfocus="observe_change(\'%ID%\')" onchange="observe_change(\'%ID%\')" style="width: 80px" type="number" min="0" value="0" placeholder="Số lượng" style="width: 80px"></td>';
     // price of product
-    var price  = '<td><p id="product%ID%_price" class="product-price form-control">Product Price</p></td>';
+    var price  = '<td><p id="product%ID%_price" class="receipt-product-price form-control">Product Price</p></td>';
     // total price
-    var total = '<td><p id="product%ID%_total" class="total-price  form-control">Total price</p></td>';
+    var total = '<td><p id="product%ID%_total" class="receipt-product-total  form-control">Total price</p></td>';
     // add button (guess it's not need now) lol :v
     var button = '<td><p id="add%ID%" class="btn btn-default btn-add form-control" tabindex="-1" style="opacity:0"><span class="glyphicon glyphicon-plus"></span></button></td>';
     // piece every thing together
@@ -22,6 +22,8 @@
     var receipt_info_table = "<table><tr><td><b>Địa Chỉ: </b></td><td>%ADDRESS%</td></tr><tr><td><b>Điện thoại: </b></td><td>%TEL%</td></tr><tr><td><b>Ngày: </b></td><td>%DATE%  %TIME%</td></tr><tr><td><b>Thu ngân: </b></td><td>%CASHIER%</td></tr></table>";
     // Tam An address
     var tam_an_address = "Địa chỉ 66, Phạm Hùng, Quy Nhơn, Bình Định.";
+    // Tam An address
+    var tam_an_tel = "01236037979";
     // thank you quote
     var receipt_thanks = "<br /><p><b> Cám ơn và hẹn gặp lại! </b></p>";
 

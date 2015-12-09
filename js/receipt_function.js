@@ -269,12 +269,7 @@ function make_print_section(receipt_list){
     var re_object3 = new RegExp('%OBJECT3%', 'g');
 
     // info
-    var re_address = new RegExp('%ADDRESS%', 'g');
-    var re_tel = new RegExp('%TEL%', 'g');
     var re_receiptid = new RegExp('%RECEIPTID%', 'g');
-    var re_date = new RegExp('%DATE%', 'g');
-    var re_time = new RegExp('%TIME%', 'g');
-    var re_cashier = new RegExp('%CASHIER%', 'g');
 
     // get date & time
     var date = new Date();
@@ -286,12 +281,12 @@ function make_print_section(receipt_list){
     var receipt_quote = receipt_thanks;
 
     // make infomation section
-    receipt_info = receipt_info.replace(re_address, tam_an_address);
-    receipt_info = receipt_info.replace(re_tel, "");
+    receipt_info = receipt_info.replace(new RegExp('%ADDRESS%', 'g'), tam_an_address);
+    receipt_info = receipt_info.replace(new RegExp('%TEL%', 'g'), tam_an_tel);
     // receipt_info = receipt_info.replace(re_receiptid, "-1");
-    receipt_info = receipt_info.replace(re_date, receipt_date);
-    receipt_info = receipt_info.replace(re_time, receipt_time);
-    receipt_info = receipt_info.replace(re_cashier, user_name);
+    receipt_info = receipt_info.replace(new RegExp('%DATE%', 'g'), receipt_date);
+    receipt_info = receipt_info.replace(new RegExp('%TIME%', 'g'), receipt_time);
+    receipt_info = receipt_info.replace(new RegExp('%CASHIER%', 'g'), user_name);
 
     // make printable div
     var len = receipt_list.length;
@@ -304,7 +299,12 @@ function make_print_section(receipt_list){
     total = total + price;
     var receipt_rows = "";
 
-    var new_row = receipt_dashed_row.replace(re_object2, list_product[key]['name'] + "("+list_product[key]['unit']['unit_name']+")");
+    var new_row = receipt_row.replace(re_object1, "SL");
+    new_row = new_row.replace(re_object2,"Sản phẩm");
+    new_row = new_row.replace(re_object3,"Thành tiền(VND)");
+    receipt_rows = receipt_rows + new_row;
+
+    new_row = receipt_dashed_row.replace(re_object2, list_product[key]['name'] + "("+list_product[key]['unit']['unit_name']+")");
     new_row = new_row.replace(re_object1, quantity);
     new_row = new_row.replace(re_object3, numberWithCommas(price));
     receipt_rows = receipt_rows + new_row;

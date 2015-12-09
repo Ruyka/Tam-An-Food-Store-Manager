@@ -223,3 +223,24 @@ input[type=checkbox]
 #alter-product-id-column{
   padding:0px 0px 0px 5px;
 }
+
+.receipt-product-quantity {
+  width: 100%;
+  min-width: 50px;
+}
+
+.receipt-product-price{
+  width: 100%;
+  min-width: 100px;
+
+}
+
+.receipt-product-total{
+  width: 100%;
+  min-width: 100px;
+}
+
+.receipt-product-list {
+  width: 100%;
+  min-width: 250px;
+}

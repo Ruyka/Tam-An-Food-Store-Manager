@@ -54,7 +54,7 @@ Class SQLBuilder{
 	// WHERE ID = ...;
 	// UPDATE ....
 	public function alter_product_update_product_query($data){
-		$input = SQLLexical::make_update_product_list($data['list_product']);
+		$input = SQLLexical::make_product_list($data['list_product']);
 
 		$id_array = array("Name", "Bought", "Price", "Unit");
 
@@ -75,7 +75,7 @@ Class SQLBuilder{
 	// ...
 	// (Name, Bought, Price, Unit);
 	public function alter_product_new_product_query($data){
-		$input = SQLLexical::make_new_product_list($data['list_product']);
+		$input = SQLLexical::make_product_list($data['list_product']);
 		            	
 		return $this->sql_insert('tam_an.product',array('Name','Bought','Price', 'Unit'))
 					->sql_insert_values_recursive($input)

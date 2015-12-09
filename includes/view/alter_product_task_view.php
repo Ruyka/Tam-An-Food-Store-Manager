@@ -11,7 +11,7 @@
 					<span class="glyphicon glyphicon-plus"></span>
 					1
 				</button> 
-				<button type="button" class="btn btn-primary" tabindex="-1">Hàng loạt từ file</button> 
+				<button type="button" class="btn btn-primary hide" tabindex="-1">Hàng loạt từ file</button> 
 			</td>
 		</tr>
 		<tr>
@@ -82,7 +82,7 @@
 				<td>
 					<button id ="alter_product_remove_btn" type="button" class="btn btn-primary" 
 							onclick ="confirm('Xóa sản phẩm này khỏi danh sách? (Không thể phục hồi)');alter_product_remove_item();" tabindex="-1">Xóa mục đã chọn</button> 
-					<button type="button" class="btn btn-primary" tabindex="-1">Xuất file</button>
+					<button type="button" class="btn btn-primary hide" tabindex="-1">Xuất file</button>
 					
 					<button type="button" class="btn btn-primary" onclick ="save_data()" tabindex="-1">Lưu</button>
 				</td>
