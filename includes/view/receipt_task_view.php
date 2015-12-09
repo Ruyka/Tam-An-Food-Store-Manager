@@ -32,20 +32,20 @@ require_once($_SERVER['DOCUMENT_ROOT'] . 'Tam-An-Food-Store-Manager/'. 'config.p
 				<tbody>
 					<tr id="receipt-row">
 
-						<td><select id="product" class="product-list form-control" name="product" onchange="observe_change('')"></select></td>
+						<td><select id="product" class="receipt-product-list form-control" name="product" onchange="observe_change('')"></select></td>
 
-						<td id="td_quantity"><input id="product_quantity" class="form-control" name="product_quantity" onfocus="observe_change('')" onchange="observe_change('')" type="number" min="0" value="0" placeholder="Số lượng" style="width: 80px"></td>
+						<td id="td_quantity"><input id="product_quantity" class="receipt-product-quantity form-control" name="product_quantity" onfocus="observe_change('')" onchange="observe_change('')" type="number" min="0" value="0" placeholder="Số lượng" style="width: 80px"></td>
 
-						<td><p id="product_price" class="product-price form-control">Product Price</p></td>
+						<td><p id="product_price" class="receipt-product-price form-control">Product Price</p></td>
 
-						<td><p id="product_total" class="total-price form-control">Total price</p></td>
+						<td><p id="product_total" class="receipt-product-total form-control">Total price</p></td>
 
 						<td><button id="add" class="btn btn-default btn-add form-control" tabindex="-1" style="opacity:0"<span class="glyphicon glyphicon-plus"></span></button></td>
 					</tr>
 				</tbody>
 				<tfoot >
 					<tr class="table-footer-row">
-						<td colspan="4" style="text-align:right"><p>Thành tiền</p></td><td><p id="Total_all" class="total-price form-control"></p></td>
+						<td colspan="3" style="text-align:right"><p>Thành tiền</p></td><td><p id="Total_all" class="product-total form-control"></p></td><td><input  class="hide" type="checkbox" name="VAT" value="VAT"><span  class="hide"receipt->VAT</span></td>
 					</tr>
 				</tfoot>
 			</table>

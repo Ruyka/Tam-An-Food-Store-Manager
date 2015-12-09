@@ -66,7 +66,8 @@
 		public function check_user_login($user_data){
 			$username = $user_data['username'];
 			$password = $user_data['password'];
-			$sql = mysqli_query($this->db,"CALL check_user_login('$username', '".md5($password)."');");
+			$builder = new SQLBuilder;
+			$sql = mysqli_query($this->db, $builder->check_user_login($username, md5($password)));
 					
             if($sql && mysqli_num_rows($sql)!=0){
                 $result = mysqli_fetch_array($sql,MYSQL_ASSOC);
@@ -131,12 +132,12 @@
 			return $result;
 		}
 		public function get_list_of_product_info($data = NULL){
+            $sqlbuilder = new SQLBuilder;
             if (is_null($data))
-            	$sql = mysqli_query($this->db,"CALL get_list_of_product_info();");
-            else{
-            	$sqlbuilder = new SQLBuilder;
+            	$sql = mysqli_query($this->db, $sqlbuilder->get_list_of_product_info());
+            else
             	$sql = mysqli_query($this->db, $sqlbuilder->alter_product_query($data));
-            }
+            
     		$result = NULL;
             if($sql && mysqli_num_rows($sql)!=0){    
                 $result = array();
@@ -151,7 +152,6 @@
 
 		public function get_list_of_user_name(){
 			
-            
             $sql = mysqli_query($this->db,"SELECT * FROM Employee");
     				
             if($sql && mysqli_num_rows($sql)!=0){    

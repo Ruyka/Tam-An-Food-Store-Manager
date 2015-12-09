@@ -126,6 +126,7 @@ CREATE TABLE IF NOT EXISTS `input product` (
   `ProductID` int NOT NULL,
   `ProviderID` int NOT NULL,
   `ReceiptID` int NOT NULL,
+  `Status` boolean default false,
   PRIMARY KEY (`ProductID`,`ProviderID`,`ReceiptID`),
   KEY `FK_Input Product_Input Product Receipt` (`ReceiptID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -726,7 +727,7 @@ ALTER TABLE `input product receipt`
 -- Constraints for table `output product`
 --
 ALTER TABLE `output product`
-  ADD CONSTRAINT `FK_Output Product_Product` FOREIGN KEY (`ProductID`) REFERENCES `product` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  -- ADD CONSTRAINT `FK_Output Product_Product` FOREIGN KEY (`ProductID`) REFERENCES `product` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `FK_Output Product_Output Product Receipt` FOREIGN KEY (`ReceiptID`) REFERENCES `output product receipt` (`ReceiptID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
@@ -759,41 +760,6 @@ ALTER TABLE `receipt`
   
 ALTER TABLE `user`
   ADD CONSTRAINT `FK_User_Employee` FOREIGN KEY (`Employee_ID`) REFERENCES `employee` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-DELIMITER $$
-DROP PROCEDURE IF EXISTS get_list_of_product_info$$
-
-CREATE PROCEDURE get_list_of_product_info()
-BEGIN
-  SELECT Name, Unit AS 'UnitName', Price, ID AS 'Id', Product_ID AS 'ProductId', Bought AS 'Import_Price' FROM tam_an.product WHERE Price != 0;
-END $$
-
-DELIMITER $$
-DROP PROCEDURE IF EXISTS get_list_of_product_info_with_query$$
-
-CREATE PROCEDURE get_list_of_product_info_with_query(pname varchar(100) CHARSET utf8)
-BEGIN
-  SELECT Name, Unit AS 'UnitName', Price, ID AS 'Id', Product_ID AS 'ProductId', Bought AS 'Import_Price' FROM tam_an.product WHERE Price != 0 AND Name LIKE CONCAT('%', pname, '%') ;
-END $$
-
-DELIMITER $$
-DROP PROCEDURE IF EXISTS check_user_login$$
-
-CREATE PROCEDURE check_user_login( uname varchar(50), pass  varchar(100))
-BEGIN
-  SELECT ID AS 'Id', Name FROM tam_an.user WHERE Username LIKE uname AND Password LIKE pass;
-END $$
-
-
-DELIMITER $$
-DROP FUNCTION IF EXISTS insert_receipt_to_database$$
-
-CREATE FUNCTION insert_receipt_to_database( id int, quantity  float)
-RETURNS INT
-BEGIN
-  -- TODO
-  RETURN 0;
-END $$
 
 
 DELIMITER ;

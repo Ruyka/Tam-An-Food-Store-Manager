@@ -25,16 +25,7 @@
 		}
 
 		// make input product list
-		static function make_new_product_list($product_list){
-			$result_array = array();
-			foreach ($product_list as $key => $value) {
-				$result_array[] = array($value['name'], $value['import_price'], $value['unit']['price'],$value['unit']['unit_name']);
-			}
-			return $result_array;
-		}
-
-		// make input product list
-		static function make_update_product_list($product_list){
+		static function make_product_list($product_list){
 			$result_array = array();
 			foreach ($product_list as $key => $value) {
 				$result_array[$value['product_id']] = array($value['name'], $value['import_price'], $value['unit']['price'],$value['unit']['unit_name']);
