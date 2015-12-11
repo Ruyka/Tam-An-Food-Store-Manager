@@ -22,27 +22,27 @@
 		
 		
 		<div class="no-print"> 
-				<?php require_once(VIEW_PATH."header.php");?>
+			<?php require_once(VIEW_PATH."header.php");?>
 
-				<div id ="loadpanel1">
-					
-					<div class="inner-content">
-						<select id="task1" tabindex="-1" class="form-control " onchange="switch_task(1)">
-							<option value="receipt">In hóa đơn</option>
-							<option value="alter-product">Chỉnh sửa sản phẩm</option>
-						</select>	
+			<div id ="loadpanel1">
+				
+				<div class="inner-content">
+					<select id="task1" tabindex="-1" class="form-control " onchange="switch_task(1)">
+						<option value="receipt">In hóa đơn</option>
+						<option value="alter-product">Chỉnh sửa sản phẩm</option>
+					</select>	
 
-						<div id="load1">
-							
-						</div>		
-					</div>
-				</div>			
+					<div id="load1">
+						
+					</div>		
+				</div>
+			</div>
+			<!-- make a toast here -->
+			<div id="toast" style="display:none">Toast event</div>			
 		</div>
 		<!-- Only the latest submit print is accepted  -->
 		<div id="print_here" class="print-blocks">IF YOU SEE THIS THEN PRINT FUNCTION IS NOT WORKING</div>
 		
-		<!-- make a toast here -->
-		<div class="no-print" id="toast" style="display:none">Toast event</div>
 	</body>
 
 </html>
