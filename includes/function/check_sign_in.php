@@ -22,6 +22,7 @@
 			$_SESSION['is_login'] = true;
 			$_SESSION['username'] = $user_data['Name'];
 			$_SESSION['user_id'] = $user_data['Id'];
+			$_SESSION['user_type'] = $user_data['User_type'];
 		}
 		
 	}

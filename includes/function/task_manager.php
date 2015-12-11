@@ -6,15 +6,14 @@ require_once($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.p
 <?php 
     // list of option
     $task_option = array(array("blank",CONFIG_PATH("view")."blank.php","blank"), array("receipt",CONFIG_PATH("view")."receipt_task_view.php","In hóa đơn"), array("alter-product",CONFIG_PATH("view")."alter_product_task_view.php","Quản lý sản phẩm"));
-    $admin = "Tâm An";
 
 	if(isset($_GET['q']) && !empty($_GET['q'])){
     	$get = json_decode($_GET['q'], true);
     	$action = $get['action'];
     	switch ($action) {
             case 'get_task_options';
-                $username = $_SESSION['username'];
-                if(strcmp($admin, $username) == 0){
+                $user_type = $_SESSION['user_type'];
+                if(strcmp($user_type, "admin") == 0){
                     echo json_encode($task_option);
                 }
                 else
