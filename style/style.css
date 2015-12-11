@@ -225,7 +225,7 @@ input[type=checkbox]
 }
 
 .receipt-product-quantity {
-  width: 100%;
+  width: auto;
   min-width: 50px;
 }
 

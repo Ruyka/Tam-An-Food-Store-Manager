@@ -1,9 +1,7 @@
 // get server application path
 task_manager_path = get_path("function","task_manager.php");
 // list of option
-task_option = ["receipt", "alter-product"];
-// coresponding text for each option
-task_option_text = ["In hóa đơn", "Quản lý sản phẩm"];
+task_option = get_task_options();
 // get the number of option
 option_num = task_option.length;
 
@@ -16,31 +14,34 @@ $(document).ready(function(){
 // default function which only called once
 function task_init(){	
 	// set value to select
-	document.getElementById("task1").value = task_option[0];
-	document.getElementById("task2").value = task_option[1];
+	document.getElementById("task1").value = task_option[1][0];
 
 	// reload task for select
 	switch_task(1);
-	switch_task(2);
+}
+
+function get_task_options(){
+	var task_options = null;
+    $.ajax({
+        async: false,
+        url: task_manager_path,
+        type: "get",
+        data: "q="+JSON.stringify({action:'get_task_options'}),
+        success: function (option) {
+          	task_options = JSON.parse(option);
+          	console.log(JSON.parse(option));
+      }  
+  });
+    return task_options;
 }
 
 // change task name to its coresponding path 
 function get_task_path(task){
-	var path = null;
-	switch(task){
-		case 'receipt':
-		// if task is "receipt" then get path of "receipt_task_view.php"
-		path = get_path("view","receipt_task_view.php");
-		break;
-		case 'alter-product':
-		// if task is "product" then get path of "alter_product_task_view.php"
-		path = get_path("view","alter_product_task_view.php");
-		break;
-		default:
-		// if none matched return "blank.php"
-		path = get_path("view","blank.php");
+	for(var i in task_option){
+		if(task_option[i][0].localeCompare(task) == 0)
+			return task_option[i][1];
 	}
-	return path;
+	return task_option[0][1];
 }
 
 // Switch task upon selected task
@@ -49,27 +50,9 @@ function switch_task(task_id) {
 	var task_div = document.getElementById("task"+task_id);
 	// get the chosen option
 	var task = task_div.value;
-	
+	console.log(get_task_path(task));
 	// load corresphong task to div
 	$("#load"+task_id).load(get_task_path(task));
-	// update it to session for easier identification later
-	update_taskid_task(task_id, task);
-
-	// remove the option of that task on the other div
-	toggle_options_list(task_id, task);
-}
-
-// hide or un-hide option
-function toggle_options_list(task_id, task){
-	// get the other task id
-	var task2_id = task_id == 1 ? 2 : 1;
-
-	// remove class hide of previous hided option
-	if($("#task"+task2_id).children(".hide").length != 0)
-		$("#task"+task2_id).children(".hide").toggleClass('hide');
-
-	// hide the option
-	$("#task"+task2_id+" option[value='"+task+"']").toggleClass('hide');
 }
 
 function get_taskid_from_task(task){
@@ -83,7 +66,6 @@ function get_taskid_from_task(task){
           	task_id = id;
       }  
   });
-		console.log(task_id)
     return task_id;
 }
 

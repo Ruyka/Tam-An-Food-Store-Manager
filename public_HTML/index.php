@@ -24,37 +24,19 @@
 		<div class="no-print"> 
 				<?php require_once(VIEW_PATH."header.php");?>
 
-				<div id ="loadpanel1" class="col-md-6">
+				<div id ="loadpanel1">
 					
 					<div class="inner-content">
 						<select id="task1" tabindex="-1" class="form-control " onchange="switch_task(1)">
 							<option value="receipt">In hóa đơn</option>
 							<option value="alter-product">Chỉnh sửa sản phẩm</option>
-							<option value="2">Quản lý nhập</option>
-							<option value="3">Quản lý dư</option>
 						</select>	
 
 						<div id="load1">
 							
 						</div>		
 					</div>
-				</div>
-
-				<div id ="loadpanel2" class="col-md-6">
-					
-					<div class="inner-content">
-						<select id="task2" tabindex="-1" class="form-control" onchange="switch_task(2)">
-							<option value="receipt">In hóa đơn</option>
-							<option value="alter-product">Chỉnh sửa sản phẩm</option>
-							<option value="2">Quản lý nhập</option>
-							<option value="3">Quản lý dư</option>
-						</select>
-						<div id="load2">
-							
-						</div>	
-					</div>
-				</div>
-			
+				</div>			
 		</div>
 		<!-- Only the latest submit print is accepted  -->
 		<div id="print_here" class="print-blocks">IF YOU SEE THIS THEN PRINT FUNCTION IS NOT WORKING</div>

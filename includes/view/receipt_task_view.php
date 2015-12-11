@@ -34,7 +34,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . 'Tam-An-Food-Store-Manager/'. 'config.p
 
 						<td><select id="product" class="receipt-product-list form-control" name="product" onchange="observe_change('')"></select></td>
 
-						<td id="td_quantity"><input id="product_quantity" class="receipt-product-quantity form-control" name="product_quantity" onfocus="observe_change('')" onchange="observe_change('')" type="number" min="0" value="0" placeholder="Số lượng" style="width: 80px"></td>
+						<td id="td_quantity"><input id="product_quantity" class="receipt-product-quantity form-control" name="product_quantity" onfocus="observe_change('')" onchange="observe_change('')" type="number" min="0" value="0" placeholder="Số lượng"></td>
 
 						<td><p id="product_price" class="receipt-product-price form-control">Product Price</p></td>
 
@@ -60,7 +60,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . 'Tam-An-Food-Store-Manager/'. 'config.p
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Preview</h4>
+					<h4 class="modal-title">Xem trước</h4>
 				</div>
 				
 				<div class="modal-body">
