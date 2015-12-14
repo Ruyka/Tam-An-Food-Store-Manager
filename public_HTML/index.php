@@ -18,31 +18,35 @@
 <html>
 
 <?php require_once(VIEW_PATH . "head.php");?>
-<body style = "background-color : #C6E2FF;">
-		
-		
-		<div class="no-print"> 
-			<?php require_once(VIEW_PATH."header.php");?>
+<style type="text/css">
+	.main-screen:before{	
+	  background-image: url("<?php echo CONFIG_PATH('image').'test3.jpg'; ?>");
+	}
+</style>
 
-			<div id ="loadpanel1">
-				
-				<div class="inner-content">
-					<select id="task1" tabindex="-1" class="form-control " onchange="switch_task(1)">
-						<option value="receipt">In hóa đơn</option>
-						<option value="alter-product">Chỉnh sửa sản phẩm</option>
-					</select>	
+<body >		
+	<div class="no-print main-screen"> 
+		<?php require_once(VIEW_PATH."header.php");?>
 
-					<div id="load1">
-						
-					</div>		
-				</div>
+		<div id ="loadpanel1" class="container">
+			
+			<div class="inner-content">
+				<select id="task1" tabindex="-1" class="form-control " onchange="switch_task(1)">
+					<option value="receipt">In hóa đơn</option>
+					<option value="alter-product">Chỉnh sửa sản phẩm</option>
+				</select>	
+
+				<div id="load1">
+					
+				</div>		
 			</div>
-			<!-- make a toast here -->
-			<div id="toast" style="display:none">Toast event</div>			
 		</div>
-		<!-- Only the latest submit print is accepted  -->
-		<div id="print_here" class="print-blocks">IF YOU SEE THIS THEN PRINT FUNCTION IS NOT WORKING</div>
-		
-	</body>
-
+	</div>
+	<div  class="no-print">
+		<!-- make a toast here -->
+		<div id="toast" style="display:none">Toast event</div>			
+	</div>
+	<!-- Only the latest submit print is accepted  -->
+	<div id="print_here" class="print-blocks">IF YOU SEE THIS THEN PRINT FUNCTION IS NOT WORKING</div>
+</body>
 </html>
