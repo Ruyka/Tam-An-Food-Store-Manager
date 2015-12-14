@@ -1,5 +1,5 @@
 <!-- Header part of Tam An webpage can import when has include config.php -->
-<div id="navbar navbar-default no-print">
+<div id="navbar navbar-default no-print" style ="opacity:0.9">
    
     <div class = "inner-nav-content">
         <div class="navbar-header">
