@@ -34,7 +34,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . 'Tam-An-Food-Store-Manager/'. 'config.p
 
 						<td><select id="product" class="receipt-product-list form-control" name="product" onchange="observe_change('')"></select></td>
 
-						<td id="td_quantity"><input id="product_quantity" class="receipt-product-quantity form-control" name="product_quantity" onfocus="observe_change('')" onchange="observe_change('')" type="number" min="0" value="0" placeholder="Số lượng"></td>
+						<td class="td_quantity"><input id="product_quantity" class="receipt-product-quantity form-control" name="product_quantity" onfocus="observe_change('')" onchange="observe_change('')" type="number" min="0" value="0" placeholder="Số lượng"></td>
 
 						<td><p id="product_price" class="receipt-product-price form-control">Product Price</p></td>
 

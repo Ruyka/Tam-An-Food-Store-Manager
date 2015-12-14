@@ -2,7 +2,7 @@
     // perform by manually add html codes in variable and piece it together
     var product = '<td><select id="product%ID%" class="receipt-product-list form-control" name="product%ID%" onchange="observe_change(\'%ID%\')"></select></td>';
     // make input quantity
-    var quantity = '<td id="td%ID%_quantity"><input id="product%ID%_quantity" class="receipt-product-quantity form-control" name="product%ID%_quantity" onfocus="observe_change(\'%ID%\')" onchange="observe_change(\'%ID%\')" type="number" min="0" value="0" placeholder="Số lượng"></td>';
+    var quantity = '<td class="td_quantity"><input id="product%ID%_quantity" class="receipt-product-quantity form-control" name="product%ID%_quantity" onfocus="observe_change(\'%ID%\')" onchange="observe_change(\'%ID%\')" type="number" min="0" value="0" placeholder="Số lượng"></td>';
     // price of product
     var price  = '<td><p id="product%ID%_price" class="receipt-product-price form-control">Product Price</p></td>';
     // total price
