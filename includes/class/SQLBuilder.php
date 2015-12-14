@@ -89,7 +89,7 @@ Class SQLBuilder{
 	// WHERE username LIKE $username AND password LIKE $password
 	public function check_user_login($username, $password){
 
-		return $this->select(array(SQLBuilder::sql_as('ID','Id'), 'Name'))
+		return $this->select(array(SQLBuilder::sql_as('ID','Id'), 'Name', 'User_type'))
 					->from('tam_an.user')
 					->where()
 					->and_recursive('LIKE',array('Username', 'Password'), array($username, $password))

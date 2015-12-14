@@ -29,7 +29,6 @@ function get_task_options(){
         data: "q="+JSON.stringify({action:'get_task_options'}),
         success: function (option) {
           	task_options = JSON.parse(option);
-          	console.log(JSON.parse(option));
       }  
   });
     return task_options;
@@ -50,7 +49,6 @@ function switch_task(task_id) {
 	var task_div = document.getElementById("task"+task_id);
 	// get the chosen option
 	var task = task_div.value;
-	console.log(get_task_path(task));
 	// load corresphong task to div
 	$("#load"+task_id).load(get_task_path(task));
 }
