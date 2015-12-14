@@ -24,14 +24,20 @@
                                 href="<?php echo CONFIG_PATH('style')."login/animate-custom.css" ?>"/>
         
     </head>
+    
     <script type="text/javascript" src="<?php echo CONFIG_PATH('js')."login_function.js"; ?>"></script>
-    <body style = "background-color : #C6E2FF;">
-        <div class="container">
+    <style>
+      .login-cover:before{
+        background-image: url("<?php echo CONFIG_PATH('image').'background.jpg'; ?>");
+      }
+    }
+    </style>
+    <body >
+        <div class="container login-cover" >
             <section>  
-                  
-              <div id="container_demo">
+              <div id="container_demo" >
                   <div id="wrapper">
-                      <div id="login" class="animate form">
+                      <div id="login" style="background-color:white; opacity:0.9" class="animate form">
 
                           <form  id ="login-form" autocomplete="on" method = "POST" class="form-group"> 
                               <h1>Xin Chào</h1> 
