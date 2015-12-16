@@ -4,26 +4,10 @@
   if (isset($_SESSION['is_login'])){
     redirect_to(CONFIG_PATH('public_HTML'));
   }
-  
-  require_once(VIEW_PATH. "head.php");
+  require_once(VIEW_PATH. "login_head.php");
   require_once(VIEW_PATH. "header.php");
-
 ?>
-
-
-  <html lang="en" class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-        
-        <link rel="stylesheet" type="text/css" 
-                            href="<?php echo CONFIG_PATH('style')."login/demo.css" ?>"/>
-        <link rel="stylesheet" type="text/css" 
-                            href="<?php echo CONFIG_PATH('style')."login/style.css" ?>" />
-        <link rel="stylesheet" type="text/css" 
-                                href="<?php echo CONFIG_PATH('style')."login/animate-custom.css" ?>"/>
-        
-    </head>
+  <html lang="en" class="no-js"> 
     
     <script type="text/javascript" src="<?php echo CONFIG_PATH('js')."login_function.js"; ?>"></script>
     <style>
