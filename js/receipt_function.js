@@ -183,16 +183,10 @@ function observe_change(id){
     var ppval = $(ppid).val();
     
     // check if quantity is a number
-    if(isNaN(ppval)){
+    if(isNaN(ppval) || ppval < 0){
         ppval = 0;  
         $(ppid).val(0);
     }
-    // check if it does not exceed max quantity
-    // if(ppval > parseInt(list_product[key]['total_number'])){
-    //     // print error msg if it realy exceed
-    //     $("#product"+id+"_total").html("Không đủ sản phẩm (Còn lại:"+list_product[key]['total_number']+")");
-    //     return;
-    // }
     // calculate total value
     var oldTotal = 0;
     if($("#product"+id+"_total").html() != "Total price"){

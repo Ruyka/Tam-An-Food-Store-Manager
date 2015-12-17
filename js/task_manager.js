@@ -51,6 +51,8 @@ function switch_task(task_id) {
 	var task = task_div.value;
 	// load corresphong task to div
 	$("#load"+task_id).load(get_task_path(task));
+  // update task with server
+  update_taskid_task(task_id, task);
 }
 
 function get_taskid_from_task(task){
@@ -62,6 +64,7 @@ function get_taskid_from_task(task){
         data: "q="+JSON.stringify({action:'get_taskid_from_task', 'task':task}),
         success: function (id) {
           	task_id = id;
+        console.log(task_id);
       }  
   });
     return task_id;
