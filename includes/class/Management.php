@@ -3,11 +3,6 @@
 		
 	//use this class to control data frrom server
 	class Management{
-		
-		public function __construct(){
-			//$server = new Server;
-
-		}
 
 		public function check_username_existed($data){
 			$user_info = array('username' => $data);

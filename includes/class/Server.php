@@ -3,12 +3,16 @@
 	require_once(CLASS_PATH."Rest.inc.php");
 	require_once(CLASS_PATH."Database.php");
 	require_once(CLASS_PATH."View.php");
+	require_once(CLASS_PATH."Package.php");
 	require_once(CLASS_PATH."ListOfPeople.php");
+
 	class Server extends REST{
+		const DB_VARIABLE_NAME = "db";
+		const VIEW_VARIABLE_NAME = "view";
+
 		//Properties
 		private $db;
 		private $view;
-
 
 		//Constructor
 		public function __construct(){
@@ -64,47 +68,55 @@
 				// If the method not exist with in this class, response would be "Page not found".
 		}
 
-		//add receipt to database.
-		public function add_receipt($client_data = NULL){
-			if (!is_null($client_data))
-				$this->db->add_receipt(json_decode($client_data,true));
+
+		///send a package to db to execute
+		private function send_package($msg, $data, $target){
+			$package = new Package($msg, $data);
+			$this->$target->execute($package);
 		}
+
+		
+		//get package executed from database
+		private function get_package_from($target){
+			return $this->$target->get_package();
+		}
+
+
+
+		//add receipt to database.
+		private function add_receipt($client_data = NULL){
+			if (!is_null($client_data)){
+				$this->send_package(Database::ADD_RECEIPT
+									,json_decode($client_data,true),self::DB_VARIABLE_NAME);
+			}
+		}
+
 
 		//input: array of product id
 		private function remove_product($client_data = NULL){
-			if (!is_null($client_data))
-				$this->db->remove_product(json_decode($client_data,true));
+			if (!is_null($client_data)){
+				$this->send_package(Database::REMOVE_PRODUCT
+									,json_decode($client_data,true),self::DB_VARIABLE_NAME);
+			}
 		}
+
 
 		//input:  list of product
 		private function push_alter_product_data($client_data = NULL){
-			if (!is_null($client_data))
-				$this->db->push_alter_product_data(json_decode($client_data,true));
+			if (!is_null($client_data)){
+
+				$this->send_package(Database::PUSH_ALTER_PRODUCT_DATA
+									,json_decode($client_data,true),self::DB_VARIABLE_NAME);
+
+			}
 		}
 
 		//input: list of product
 		private function push_new_product_data($client_data = NULL){
-			if (!is_null($client_data))
-				$this->db->push_new_product_data(json_decode($client_data,true));
-		}
+			if (!is_null($client_data)){
+				$this->send_package(Database::PUSH_NEW_PRODUCT_DATA
+									,json_decode($client_data,true),self::DB_VARIABLE_NAME);
 
-		
-		//check if the function are existed or not
-		private function check_username_existed($client_data = NULL){
-			if (!is_null($client_data)){
-				// return a message
-				$data = $this->db->check_username_existed(json_decode($client_data,true));
-				$json_data = json_encode($data);
-				$this->response($json_data, 200);
-			}
-		}
-		//add account to database
-		private function sign_up($client_data = NULL){
-			if (!is_null($client_data)){
-				// return a message
-				$data = $this->db->sign_up(json_decode($client_data,true));
-				$json_data = json_encode($data);
-				$this->response($json_data, 200);
 			}
 		}
 		
@@ -114,8 +126,13 @@
 		private function check_user_login($client_data = NULL){
 			
 			if (!is_null($client_data)){
+				
 				// if exist users, return client data
-				$user_data = $this->db->check_user_login(json_decode($client_data,true));		
+				$this->send_package(Database::CHECK_USER_LOGIN
+									,json_decode($client_data,true),self::DB_VARIABLE_NAME);
+				
+				$user_data = $this->get_package_from(self::DB_VARIABLE_NAME);
+				
 				//encode to json
 				$json_data = json_encode($user_data);
 				//respone
@@ -131,7 +148,11 @@
 				$client_data = json_decode($client_data,true);
 				$client_data = $client_data['query'];
 			}
-			$list_product_info = $this->db->get_list_of_product_info($client_data);
+
+			$this->send_package(Database::GET_LIST_OF_PRODUCT_INFO
+									,json_decode($client_data,true),self::DB_VARIABLE_NAME);
+				
+			$list_product_info = $this->get_package_from(self::DB_VARIABLE_NAME);
 			
 			//call method convert list product into json
 			if (!is_null($list_product_info))
@@ -153,7 +174,11 @@
 				$client_data = json_decode($client_data,true);
 				$client_data = $client_data['query'];
 			}
-			$list_product_info = $this->db->get_list_of_product_info($client_data);
+			
+			$this->send_package(Database::GET_LIST_OF_PRODUCT_INFO
+									,json_decode($client_data,true),self::DB_VARIABLE_NAME);
+				
+			$list_product_info = $this->get_package_from(self::DB_VARIABLE_NAME);
 			
 			//call method convert list product into json
 			if (!is_null($list_product_info))
@@ -167,6 +192,32 @@
 			$this->response($json_data, 200);
 			
 		}
+
+		//NOT DONE YET VVVVV
+		//check if the function are existed or not
+		private function check_username_existed($client_data = NULL){
+			if (!is_null($client_data)){
+				// return a message
+				$package = new Package(Database::CHECK_USERNAME_EXISTED
+									,json_decode($client_data,true));
+				$data = $this->db->execute($package);
+				 
+				$json_data = json_encode($data);
+				$this->response($json_data, 200);
+			}
+		}
+
+
+		//add account to database
+		private function sign_up($client_data = NULL){
+			if (!is_null($client_data)){
+				// return a message
+				$data = $this->db->sign_up(json_decode($client_data,true));
+				$json_data = json_encode($data);
+				$this->response($json_data, 200);
+			}
+		}
+
 
 		//get list of user name
 		private function get_list_of_user_name($client_data = NULL){
@@ -195,13 +246,14 @@
 	//Server will work indepently. These code is to start the server
 	$server = new Server();
 	$server->process();
+	
 	// $data = array();
 	// $data['query'] = "Đ";
 	//TEST($server->get_list_of_import_product_info());
 
-	// $user_info = array('username' => 'thtrieu');
-	// TEST($server->check_username_existed(json_encode($user_info)));
-	// 
+	// $user_info = array('username' => 'ltkmai','password' =>'870814');
+	// $server->check_user_login(json_encode($user_info));
+	
 
 	 // $tmp = new SoldProduct(113);
   //    $tmp->add_attribute("Sữa",100,new Unit("hộp",10000), "SUA1111",

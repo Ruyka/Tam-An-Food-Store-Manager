@@ -1,10 +1,9 @@
 <!-- 
-    Header part of Tam An webpage
+    Header part of Tam An login page
     can import when has include config.php
 -->
 <head>
-	<title>Tâm An Store</title>
-
+	<title>Đăng Nhập</title>
 	<meta charset="utf-16" />
 	<meta http-equiv="cache-control" content="max-age=0" />
 	<meta http-equiv="cache-control" content="no-cache" />
@@ -15,24 +14,21 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	
 	<!-- icon of the head-->
-	<link rel="shortcut icon" href="<?php echo CONFIG_PATH('image')."main_page_icon.jpg"; ?>">
-
+	<link rel="shortcut icon" href="<?php echo CONFIG_PATH('image')."login_icon.png"; ?>">
+	
 	<!-- css library -->
 	<link rel="stylesheet" type="text/css" href="<?php echo CONFIG_PATH('lib')."bootstrap/css/bootstrap.min.css"; ?>">
-	<link rel="stylesheet" type="text/css" href="<?php echo CONFIG_PATH('lib')."select2/select2.css"; ?>">
-	<link rel="stylesheet" type="text/css" href="<?php echo CONFIG_PATH('lib')."select2/select2-bootstrap.css"; ?>">
 
 	<!-- project css library -->
 	<link rel="stylesheet" type="text/css" href="<?php echo CONFIG_PATH('style')."style.css"; ?>">
-	
+	<link rel="stylesheet" type="text/css" href="<?php echo CONFIG_PATH('style')."login/demo.css" ?>"/>
+    <link rel="stylesheet" type="text/css" href="<?php echo CONFIG_PATH('style')."login/style.css" ?>" />
+    <link rel="stylesheet" type="text/css" href="<?php echo CONFIG_PATH('style')."login/animate-custom.css" ?>"/>
+
 	<!-- javascript library -->
 	<script type="text/javascript" src="<?php echo CONFIG_PATH('lib')."jquery.min.js"; ?>" ></script>
 	<script type="text/javascript" src="<?php echo CONFIG_PATH('lib')."bootstrap/js/bootstrap.min.js"; ?>"></script>
-	<script type="text/javascript" src="<?php echo CONFIG_PATH('lib')."select2/select2.min.js"; ?>"></script>
-	<script type="text/javascript" src="<?php echo CONFIG_PATH('lib')."sorttable_custom.js"; ?>"></script>
 	
-	<!-- project javascript library -->
+	<!-- project js library -->
 	<script type="text/javascript" src="<?php echo CONFIG_PATH('js')."general.js"; ?>"></script>
-	<script type="text/javascript" src="<?php echo CONFIG_PATH('js')."task_manager.js"; ?>"></script>
-	<script type="text/javascript" src="<?php echo CONFIG_PATH('js')."html_helper.js"; ?>"></script>
 </head>
