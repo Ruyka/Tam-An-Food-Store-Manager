@@ -1,6 +1,6 @@
 <?php
 	require_once($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php');
-		
+	require_once(CLASS_PATH . "Package.php");		
 	//use this class to control data frrom server
 	class Management{
 
@@ -72,20 +72,15 @@
 		//send message to server and get response
 		private function get_response_from_message($message, $json_data = NULL){
 			//set the url of the server we need to request
-			$url = CONFIG_PATH('class'). 'Server.php';
+   			$url = CONFIG_PATH('class'). 'Server.php';
 			
-			//put request into data
-			$data = array();
-			$data['request'] = $message;
-			
-			//if there is the data that need to be push in server, push it in
-			if (!is_null($json_data)) 
-				$data['data'] = $json_data;
+			//put message request into package
+			$package = new Package($message, $json_data);
 
 			$options = array(
 			  'http' => array(
 			    'method'  => 'POST',
-			    'content' => json_encode( $data ),
+			    'content' => $package->json_encode(),
 			    'header'=>  "Content-Type: application/json\r\n" .
 			                "Accept: application/json\r\n".
 			                "Connection: close\r\n"
@@ -106,7 +101,8 @@
 	}
 	//test code
 	// require_once(CLASS_PATH."Receipt.php");	
-	// $manager = new Management();
+	//$manager = new Management();
+	//TEST($manager->check_user_login("ltkmai","870814"));
  //    $data = $manager->get_list_of_import_product_info();
  //    $receipt = new Receipt();
  //    $receipt->get_data_from_array($data);

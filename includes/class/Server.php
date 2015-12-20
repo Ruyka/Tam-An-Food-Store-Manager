@@ -47,11 +47,15 @@
 				//decode data into array
 				$data = json_decode($json_data, true);
 				
+				//use a package to store the object
+				$package = new Package();
+				//data is in json encode form, so must decode it
+				$package->get_data_from($data, true);
+		  		
 		  		// get request
-				$input = $data['request'];
+				$input = $package->get_message();
 				// get data of clients if available
-				if (isset($data['data']))
-					$client_data = $data['data']; 
+				$client_data = $package->get_data(); 
 
 			}
 				
@@ -87,7 +91,7 @@
 		private function add_receipt($client_data = NULL){
 			if (!is_null($client_data)){
 				$this->send_package(Database::ADD_RECEIPT
-									,json_decode($client_data,true),self::DB_VARIABLE_NAME);
+									,$client_data, self::DB_VARIABLE_NAME);
 			}
 		}
 
@@ -96,7 +100,7 @@
 		private function remove_product($client_data = NULL){
 			if (!is_null($client_data)){
 				$this->send_package(Database::REMOVE_PRODUCT
-									,json_decode($client_data,true),self::DB_VARIABLE_NAME);
+									,$client_data, self::DB_VARIABLE_NAME);
 			}
 		}
 
@@ -106,7 +110,7 @@
 			if (!is_null($client_data)){
 
 				$this->send_package(Database::PUSH_ALTER_PRODUCT_DATA
-									,json_decode($client_data,true),self::DB_VARIABLE_NAME);
+									,$client_data ,self::DB_VARIABLE_NAME);
 
 			}
 		}
@@ -115,7 +119,7 @@
 		private function push_new_product_data($client_data = NULL){
 			if (!is_null($client_data)){
 				$this->send_package(Database::PUSH_NEW_PRODUCT_DATA
-									,json_decode($client_data,true),self::DB_VARIABLE_NAME);
+									,$client_data ,self::DB_VARIABLE_NAME);
 
 			}
 		}
@@ -129,7 +133,7 @@
 				
 				// if exist users, return client data
 				$this->send_package(Database::CHECK_USER_LOGIN
-									,json_decode($client_data,true),self::DB_VARIABLE_NAME);
+									, $client_data ,self::DB_VARIABLE_NAME);
 				
 				$user_data = $this->get_package_from(self::DB_VARIABLE_NAME);
 				
@@ -145,12 +149,11 @@
 		private function get_list_of_product_info($client_data = NULL){
 			//access to database db, call function to query list of product info
 			if (!is_null($client_data)){
-				$client_data = json_decode($client_data,true);
 				$client_data = $client_data['query'];
 			}
 
 			$this->send_package(Database::GET_LIST_OF_PRODUCT_INFO
-									,json_decode($client_data,true),self::DB_VARIABLE_NAME);
+									, $client_data, self::DB_VARIABLE_NAME);
 				
 			$list_product_info = $this->get_package_from(self::DB_VARIABLE_NAME);
 			
@@ -171,12 +174,11 @@
 		private function get_list_of_import_product_info($client_data = NULL){
 			//access to database db, call function to query list of product info
 			if (!is_null($client_data)){
-				$client_data = json_decode($client_data,true);
 				$client_data = $client_data['query'];
 			}
 			
 			$this->send_package(Database::GET_LIST_OF_PRODUCT_INFO
-									,json_decode($client_data,true),self::DB_VARIABLE_NAME);
+									, $client_data ,self::DB_VARIABLE_NAME);
 				
 			$list_product_info = $this->get_package_from(self::DB_VARIABLE_NAME);
 			
@@ -198,8 +200,7 @@
 		private function check_username_existed($client_data = NULL){
 			if (!is_null($client_data)){
 				// return a message
-				$package = new Package(Database::CHECK_USERNAME_EXISTED
-									,json_decode($client_data,true));
+				$package = new Package(Database::CHECK_USERNAME_EXISTED, $client_data);
 				$data = $this->db->execute($package);
 				 
 				$json_data = json_encode($data);
@@ -212,7 +213,7 @@
 		private function sign_up($client_data = NULL){
 			if (!is_null($client_data)){
 				// return a message
-				$data = $this->db->sign_up(json_decode($client_data,true));
+				$data = $this->db->sign_up($client_data);
 				$json_data = json_encode($data);
 				$this->response($json_data, 200);
 			}
