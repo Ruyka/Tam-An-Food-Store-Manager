@@ -2,8 +2,9 @@
 <?php
 	require_once($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php');
 	require_once(CLASS_PATH."Receipt.php");
-	require_once(CLASS_PATH."SQLBuilder.php");
+	require_once(CLASS_PATH."SQLFactory.php");
 	require_once(CLASS_PATH."Package.php");
+	require_once(CLASS_PATH."Feature.php");
 
 	class Database{
 		// this infomation can be found in config file
@@ -14,32 +15,34 @@
 	   	const DB_NAME = DBNAME;
 		
 
-		//method name
-		const CHECK_USERNAME_EXISTED = "check_username_existed";
-		const CHECK_USER_LOGIN = "check_user_login";
-		const ADD_RECEIPT = "add_receipt";
-		const REMOVE_PRODUCT = "remove_product";
-		const PUSH_ALTER_PRODUCT_DATA = "push_alter_product_data";
-		const PUSH_NEW_PRODUCT_DATA = "push_new_product_data";
-		const GET_LIST_OF_PRODUCT_INFO = "get_list_of_product_info";
-
 		//store the database object
 		private $db = NULL;
+		
 		//store the previous executed data;
 		private $executed_data = NULL;
-		//Method
-
+		
+		
 		//execute the Package
 		public function execute($package){
 
 			//get the message inside the package
-			$func_name = $package->get_message();
+			$feature_name = $package->get_message();
 
 			//get data of the package
-			$func_data = $package->get_data();
+			$data = $package->get_data();
 
-			//execute the command
-			return $this->$func_name($func_data);
+			//SQL Factory to create SQL 
+			$sql_factory = new SQLFactory();
+			
+			//create feature type SQL
+			$sql = $sql_factory->create_sql($feature_name, $data);
+			
+			//execute the SQL            
+            $sql->execute($this->db);
+        	
+        	//get the data
+            $this->executed_data = $sql->get_return_data();
+
 		}
 
 
@@ -57,6 +60,7 @@
             
             //if can connect to SQL, connect to Database 
 			if($this->db){
+
 				$isConnect = mysqli_select_db($this->db, self::DB_NAME);
 				// if (!$isConnect){
 				// 	$this->create_default_database();
@@ -80,152 +84,14 @@
 			
 		}
 
-
-		//check database connectivity
-		public function is_connect(){
-			return !is_null($this->db);
-		}
-		
-
-		//check if user login are validated
-		public function check_user_login($user_data){
-			$username = $user_data['username'];
-			$password = $user_data['password'];
-			$builder = new SQLBuilder;
-			$sql = mysqli_query($this->db, $builder->check_user_login($username, md5($password)));
-					
-            if($sql && mysqli_num_rows($sql)!=0){
-                $result = mysqli_fetch_array($sql,MYSQL_ASSOC);
-                $this->executed_data = $result;
-			}
-		}
-		
-
-		//add receipt to database
-		public function add_receipt($receipt_data){
-			//new receipt
-			$receipt = new Receipt();
-			// get data
-			$receipt->get_data_from_array($receipt_data);
-			TEST($receipt->json_encode(false));
-			//compute the sequence of sql to add this receipt to db
-			$comma_seperated_list = $receipt->get_seperated_list();
-			TEST($comma_seperated_list);
-			//mysqli_query($this->db, "CALL test('$comma_seperated_list');");
-			
-		}
-
-
-		//input: array of product id
-		public function remove_product($client_data = NULL){
-			$builder = new SQLBuilder();
-			$result = mysqli_query($this->db, $builder->alter_product_remove_product_query($client_data));
-			$this->executed_data = $result;
-		}
-
-
-		//input:  list of product
-		public function push_alter_product_data($client_data = NULL){
-			$builder = new SQLBuilder();
-			$result = mysqli_query($this->db, $builder->alter_product_update_product_query($client_data));
-			$this->executed_data = $result;
-		}
-
-
-		//input: list of product
-		public function push_new_product_data($client_data = NULL){
-			$builder = new SQLBuilder();
-			$result = mysqli_query($this->db, $builder->alter_product_new_product_query($client_data));
-			$this->executed_data = $result;
-		}
-
-
-		public function get_list_of_product_info($data = NULL){
-            $sqlbuilder = new SQLBuilder;
-            if (is_null($data))
-            	$sql = mysqli_query($this->db, $sqlbuilder->get_list_of_product_info());
-            else
-            	$sql = mysqli_query($this->db, $sqlbuilder->alter_product_query($data));
-            
-    		$result = NULL;
-            if($sql && mysqli_num_rows($sql)!=0){    
-                $result = array();
-				while($rlt = mysqli_fetch_array($sql,MYSQL_ASSOC)){
-					
-					$result[] = $rlt;
-				}          
-            }
-
-            $this->executed_data = $result;
-		}
-
-		//NOT DONE YET
-		public function get_list_of_user_name(){
-			
-            $sql = mysqli_query($this->db,"SELECT * FROM Employee");
-    				
-            if($sql && mysqli_num_rows($sql)!=0){    
-                $result = array();
-				while($rlt = mysqli_fetch_array($sql,MYSQL_ASSOC)){
-					$result[] = $rlt;
-				}          
-            }
-            return $result;
-		}
-		
-		public function check_username_existed($user_data){
-			$username = $user_data['username'];
-			$sql = mysqli_query($this->db,"SELECT Id FROM employee WHERE username = '$username'");
-    					
-            if($sql && mysqli_num_rows($sql)!=0){
-             	//if account exist             
-                $result = mysqli_fetch_array($sql,MYSQL_ASSOC);
-				
-	            $result = array('message' => "existed");			
-               
-			}
-			else
-				$result = array('message' => "not existed"); 
-			
-			$this->executed_data = $result;
-		}
-
-
-		//sign up
-		public function sign_up($user_data){
-			$name = $user_data['name'];
-			$username = $user_data['username'];
-			$password = $user_data['password'];
-			//check if the account exist or not
-			$sql = mysqli_query($this->db,"SELECT Id FROM employee WHERE username = '$username'");
-    					
-            if($sql && mysqli_num_rows($sql)!=0){
-             	//if account exist             
-                $result = mysqli_fetch_array($sql,MYSQL_ASSOC);
-				
-	            $result = array('message' => "existed");			
-               
-			}
-            else{
-            	
-                //account not exist, ready to add into the database
-                $sql = mysqli_query($this->db,"INSERT INTO employee (Name, Username, Password) 
-                					VALUES ('$name', '$username', '".md5($password)."')");
-				
-                if($sql != false){
-                    $result = array('message' => 'Success');
-                    
-				}
-			}
-			return $result;
-		}
 	}
 
 	  // $db = new Database();
 	  // $db->connect();
- 	  //	$package = new Package(Database::GET_LIST_OF_PRODUCT_INFO);
- 	  //	TEST($db->execute($package));
- 	  //TEST($db->get_list_of_product_info());
+	  // $data = array('username' =>'ltkmai', 'password' => '870814');
+	  // $db->check_user_login($data);
+	  // TEST($db->get_package());
+ 	  
 	// $tmp = new SoldProduct(113);
  //     $tmp->add_attribute("Sữa",100, NULL, "100", "SUA1111",
  //     		NULL,"17/11/2015");

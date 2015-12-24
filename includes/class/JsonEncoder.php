@@ -5,18 +5,18 @@
 	//convert input get from Database into Class Object 
 	// then convert it into View { json Format} to transfer for user
 	
-	class View{
-		//unique view
-		static $view = NULL;
+	class JsonEncoder{
+		//unique JsonEncoder
+		static $jsonEncoder = NULL;
 		//private constructor
 		private function __construct(){}
 		//get object view
-		public static function get_view(){
-			// if do not have any object view, create one
-			if (is_null(View::$view))
-				View::$view = new View();
+		public static function get_json_encoder(){
+			// if do not have any object JsonEncoder, create one
+			if (is_null(JsonEncoder::$jsonEncoder))
+				JsonEncoder::$jsonEncoder = new JsonEncoder();
 			//return view
-			return View::$view;
+			return JsonEncoder::$jsonEncoder;
 		}
 
 		// convert list of product get from database into object
@@ -68,9 +68,13 @@
 		}
 	}
 	
-	// $view =  View::get_view();
+	// $jsonEncoder =  JsonEncoder::get_json_encoder();
 	// $tmp = new Database();
 	// $tmp->connect();
-	// $list_product_info = $tmp->get_list_of_product_info();
-	// TEST(json_decode($view->list_product_to_json_data($list_product_info),true);
+	// $package = new Package(Feature::GET_LIST_OF_PRODUCT_INFO
+	// 								, "");
+	// $tmp->execute($package);
+	// $list_product_info = $tmp->get_package();
+	
+	// TEST(json_decode($jsonEncoder->list_product_to_json_data($list_product_info),true));
 ?>
