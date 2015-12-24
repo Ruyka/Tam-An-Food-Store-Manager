@@ -61,7 +61,7 @@
 				<th class="sorttable_numeric" id="alter-product-sale-column">Giá bán
 					<span class="glyphicon glyphicon-arrow-up btn btn-small sort-button" onclick="alter_product_sort('ASC','alter-product-sale-column')" ></span><span class="glyphicon glyphicon-arrow-down btn btn-small sort-button" onclick="alter_product_sort('DESC','alter-product-sale-column')" ></span> 
 				</th>
-				<th class="sorttable_nosort" style="padding-bottom:10px"> <input type="checkbox" style="width:40px;" tabindex="-1" onClick="toggle(this)" /></th> 
+				<th class="sorttable_nosort" style="padding-bottom:10px"> <input type="checkbox" style="width:30px;" tabindex="-1" onClick="toggle(this)" /></th> 
 				<th class="sorttable_nosort" style="min-width:90px; padding:0px 0px 10px 5px; ">Hành Động</th></tr>
 			</thead>
 			

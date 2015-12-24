@@ -195,7 +195,7 @@ input[type=checkbox]
 }
 /* restrict height of product table*/
 .restrict-table-area{  
-    max-height: 560px ;
+    max-height: 540px ;
     overflow-y: auto;
 }
 .no-id-product{
