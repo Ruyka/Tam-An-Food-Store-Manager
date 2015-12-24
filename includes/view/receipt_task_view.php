@@ -18,7 +18,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . 'Tam-An-Food-Store-Manager/'. 'config.p
 			<span class="icon-bar black-icon-bar"></span>   
 		</button>
 
-		<div class="form-group collapse navbar-collapse navbar2" style ="padding:0;">
+		<div class="form-group collapse navbar-collapse navbar2" style ="margin-top:10px; padding:0;">
 
 			<input type="button" value="In" onclick="print_button()" id="print" class="btn btn-primary pull-right bigBtn" tabindex="-1">
 			<input type="button" value="Xem trước" onclick="preview_button()" id="preview" class="btn btn-primary pull-right bigBtn" data-toggle="modal" data-target="#preview_modal" tabindex="-1">
