@@ -4,7 +4,6 @@ var url = window.location.href;
 url = url.split("/");
 config_url = "http://"+url[2]+"/Tam-An-Food-Store-Manager/includes/function/general_function.php";
 
-
 // get list pf product from database
 function get_list_of_product(query){
     // if there is no query, get list of product from receipt function

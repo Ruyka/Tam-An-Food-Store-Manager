@@ -2,7 +2,10 @@
 $(document).ready(function(){
     $("#login-form").submit(function(event){
       event.preventDefault();
+
   });
+    $("#login-form").hide();
+    $("#login-form").show(500);
 });
 
 // get check_sign_in.php path
@@ -32,7 +35,6 @@ function check_sign_in(){
       $("#error_message").html(login_message);
       $("#error_message").show("fast");
       $("#password").focus();
-      $("#password").html("");
     }
     //else we redirect to HOME page
     else
