@@ -34,7 +34,7 @@ $(document).ready(function(){
     });
     $("#receipt-form").submit(function(event){
       event.preventDefault();
-  });
+    });
 });
 
 

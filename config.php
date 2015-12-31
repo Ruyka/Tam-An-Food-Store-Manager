@@ -1,6 +1,5 @@
 <?php
 
-
     //store database
 defined("DATABASE_PATH")
 or define("DATABASE_PATH", realpath(dirname(__FILE__) . '/database/' ).'/');            
