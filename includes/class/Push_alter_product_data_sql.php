@@ -15,6 +15,13 @@
 	
 	class Push_alter_product_data_sql extends SQL{
 		
+		public function execute($db){
+			if (is_null($this->sql_query)){	
+				$this->sql_query = $this->build_director();
+			}
+			return mysqli_multi_query($db, $this->sql_query);
+		}
+
 		public function build_director(){
 			//get data from SQL
 			$data = $this->get_data();
