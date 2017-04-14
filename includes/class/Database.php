@@ -55,19 +55,12 @@
 		//connect to database
 		public function connect(){
 			//connect to SQl
-			$this->db = mysqli_connect(self::DB_SERVER, self::DB_USER, self::DB_PASSWORD)
-            or die("Couldn't connect to SQL Server") ;
+			$this->db = mysqli_connect(self::DB_SERVER, self::DB_USER, self::DB_PASSWORD, self::DB_NAME)
+            or die("Couldn't connect to My Server") ;
             
             //if can connect to SQL, connect to Database 
 			if($this->db){
 
-				$isConnect = mysqli_select_db($this->db, self::DB_NAME);
-				// if (!$isConnect){
-				// 	$this->create_default_database();
-				// 	mysqli_select_db($this->db, self::DB_NAME);
-				// }
-				if ($isConnect)
-				//set Vietnamese
 				mysqli_query($this->db, "SET character_set_results = 'utf8', character_set_client = 'utf8', 
 	    		character_set_connection = 'utf8', character_set_database = 'utf8', character_set_server = 'utf8'");
 				
@@ -83,11 +76,19 @@
 			$qr = $db->exec($sql);
 			
 		}
-
+		//TESTING method
+		public function executeQuery($tmp){
+			TEST($tmp);
+			mysqli_multi_query($this->db,$tmp);
+		}
 	}
 
 	  // $db = new Database();
+	  
+	  // $query = "UPDATE tam_an.product SET Name = 'Đèn đá tượng phật32ASD33' , Bought = '132' , Price = '17480000000.76' , Unit = 'kgeee' WHERE ID = '19' ; UPDATE tam_an.product SET Name = 'Đèn đá xây dựng323ASD23' , Bought = '133242' , Price = '17480000000.76' , Unit = 'kgeee' WHERE ID = '21' "; 
+	  
 	  // $db->connect();
+	  // $db->executeQuery($query);
 	  // $data = array('username' =>'ltkmai', 'password' => '870814');
 	  // $db->check_user_login($data);
 	  // TEST($db->get_package());

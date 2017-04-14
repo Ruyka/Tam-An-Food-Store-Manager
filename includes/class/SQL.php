@@ -1,5 +1,5 @@
 <?php
-
+	require_once($_SERVER["DOCUMENT_ROOT"] . 'Tam-An-Food-Store-Manager/'. 'config.php');
 	abstract class SQL{
 		
 		private $sql_query = NULL;
@@ -27,10 +27,9 @@
 		//execute the SQl query 
 		//return: desired data
 		public function execute($db){
-			
-			if (is_null($this->sql_query))
+			if (is_null($this->sql_query)){	
 				$this->sql_query = $this->build_director();
-			
+			}
 			return mysqli_query($db, $this->sql_query);
 		}
 

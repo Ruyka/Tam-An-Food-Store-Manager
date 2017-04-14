@@ -57,7 +57,6 @@
 				$input = $package->get_message();
 				// get data of clients if available
 				$client_data = $package->get_data(); 
-
 			}
 				
 			//change value in $input into lower case
@@ -238,28 +237,55 @@
 	//Server will work indepently. These code is to start the server
 	$server = new Server();
 	$server->process();
-	
-	// $data = array();
-	// $data['query'] = "Đ";
-	//TEST($server->get_list_of_import_product_info());
 
-	// $user_info = array('username' => 'ltkmai','password' =>'870814');
-	// $server->check_user_login(json_encode($user_info));
-	
 
-	 // $tmp = new SoldProduct(113);
-  //    $tmp->add_attribute("Sữa",100,new Unit("hộp",10000), "SUA1111",
-  //    		new Trademark("RH11221",
-  //    			new BasicInfo("Hồ Hữu Phát","hhphat@apcs.vn","0906332121","4 ABCD")
-  //    			,"Việt Nam","google.com.vn"
-  //    		)
-  //    		,"17/11/2015");
 
-  //    $BasicInfo = new BasicInfo("Kim Nhật Thành","knthanh@apcs.vn","0923232121","4 ABCD");
+// $tmp = array();
+// $tmp['action'] = "Đổi giá trị.";
+// $tmp['bought'] = "132";
 
-  //    $receipt = new Receipt(1,1,new Employee("31313",$BasicInfo,10000,1,"1313131"), new Customer($BasicInfo));
-	
-  //    $receipt->add($tmp);
-  //    $receipt->add($tmp);
-  //    $server->add_receipt($receipt);
+// $tmp['id'] = "19";
+// $tmp['name'] = "Đèn đá tượng phật32ASD33";
+// $tmp['percentage'] = "13242424242.999998";
+// $tmp['sale'] = "17480000000.76";
+// $tmp['unit_name'] ="kgeee";
+
+// $tmp2 = array();
+// $tmp2['action'] = "Đổi giá trị.";
+// $tmp2['bought'] = "133242";
+
+// $tmp2['id'] = "21";
+// $tmp2['name'] = "Đèn đá xây dựng323ASD23";
+// $tmp2['percentage'] = "13242424242.999998";
+// $tmp2['sale'] = "17480000000.76";
+// $tmp2['unit_name'] ="kgeee";
+// $arr[0]= $tmp;
+// $arr[1]= $tmp2;
+
+// $receipt = new Receipt();
+// foreach ($arr as $product){
+//         if (isset($product['id'])){    
+//                 $import_product = new ImportProduct($product['bought']);
+//                 $import_product->add_attribute($product['name'],new Unit($product['unit_name'], $product['sale']),$product['id']);
+//                 $receipt->add($import_product);
+           
+//         }
+// }
+// $package = new Package('push_alter_product_data', $receipt->json_encode(true));
+
+// //decode data into array
+// 				$data = json_decode($package->json_encode(), true);
+				
+// 				//use a package to store the object
+// 				$package = new Package();
+// 				//data is in json encode form, so must decode it
+// 				$package->get_data_from($data, true);
+		  		
+// 		  		// get request
+// 				$input = $package->get_message();
+// 				// get data of clients if available
+// 				$client_data = $package->get_data(); 
+
+				
+// $server->push_alter_product_data($client_data);
 ?>	
