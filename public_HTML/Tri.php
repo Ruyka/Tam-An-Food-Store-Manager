@@ -4,38 +4,143 @@
 <html>
 
 <?php require_once(VIEW_PATH . "head.php");?>
+<style>
+	#qlmh {
+		float: left;
+		width: 50%;
+	}
+	.verticalLine {
+    border-right: 1px solid black;
+	height: 100%;
+	}
+	td {
+		padding:0 15px 0 15px;
+		
+		
+	}
+	p {
+		padding:15px 0 0 15px;
+	}
+	<!--tr.row2 td {
+    padding-top: 40px; -->
+}
 
+</style>
 <body>
-	<?php require_once(VIEW_PATH."header.php");?>
-	<div class="khung"> 
-	<div class="row">
-		<div class="TacVu col-md-6">
-			<form method="post" action=<?php echo CONFIG_PATH('view')."switch_task.php";?>>
-				<select name="task1" style="margin:10px;">
-					<option value="1">In hóa đơn</option>
-					<option value="2">Quản lý nhập</option>
-					<option value="3">Quản lý dư</option>
-				</select>
-				<input type="submit" value="Check" />
-			</form>
-			<table class="table table-striped table-bordered" id="tb1">
-			<tr class="success"><th>Name</th><th> Age </th> </tr>
-			<tr><td>TriQuach</td><td> 20 </td>
-			<tr class="danger"><td>KNThanh</td><td> 18 </td>
-			<tr><td>HHPhat</td><td> 19 </td>
-			
-		</table>
-		</div>
-
-		<div class="TacVu col-md-6">
-			<select name="task2" style="margin:10px;">
+<?php require_once(VIEW_PATH."header.php");?>
+	
+	<div id="qlmh" class="verticalLine">
+		<form method="post" action=<?php echo CONFIG_PATH('view')."switch_task.php";?>>
+			<select name="task1" style="margin:10px;">
 				<option value="1">In hóa đơn</option>
 				<option value="2">Quản lý nhập</option>
 				<option value="3">Quản lý dư</option>
-			</select>
+				</select>			
+		</form>
+		
+		
+		
+		<table>
+			
+			<tr class="row1"><td>Thêm mới:</td><td> <button type="button" id="show">+1</button> </td> <td> <button type="button">Hàng loạt từ file</button> </td>
 
-		</div>	
+		</table>
+		
+		<table>
+			<tr class="row2"><td>Tra cứu</td><td> <input type="text" placeholder="Lọc|"/> </td> <td padding-right:"0px"> <input type="text" placeholder="Tìm..." /> </td> <td padding-left:"0px"><button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button> </td>
+
+		</table>
+		<p> Kết Quả </p>
+		<div contenteditable="true">
+		<table class="table table-striped table-bordered" id="tb1">
+			<tr ><th contenteditable="false">STT</th><th contenteditable="false"> Tên </th><th contenteditable="false"> Giá mua </th><th contenteditable="false"> % Chi phí </th><th contenteditable="false"> Giá bán </th><th contenteditable="false"> <input type="checkbox" onClick="toggle(this)" /> Toggle All<br/>  </th> </tr>
+			<tr><td contenteditable="false">1</td><td contenteditable="true">Lọc xanh</td><td></td><td></td><td>20.000</td><td><input type="checkbox" name="foo" value="bar1"><br/></td>
+			<tr><td contenteditable="false">2</td><td>Lọc đỏ</td><td></td><td></td><td>10.000</td><td><input type="checkbox" name="foo" value="bar1"><br/></td>
+			<tr><td contenteditable="false">3</td><td>Bột lọc</td><td>10.000</td><td>150</td><td>15.000</td><td><input type="checkbox" name="foo" value="bar1"><br/></td>
+			<tr><td contenteditable="false">4</td><td>Cá lóc</td><td></td><td></td><td>5.000</td><td><input type="checkbox" name="foo" value="bar1"><br/></td>
+
+			
+		</table>
+		</div>
+		
+		<table>
+			
+			<tr ><td>Hành động:</td><td> <button type="button" id="delete">Xóa mục đã chọn</button> </td> <td> <button type="button">Xuất file</button> </td>
+
+		</table>
+		
+		<script language="JavaScript">
+function toggle(source) {
+  checkboxes = document.getElementsByName('foo');
+  for(var i=0, n=checkboxes.length;i<n;i++) {
+    checkboxes[i].checked = source.checked;
+  }
+}
+</script>
+
+
+	
+<dialog id="window">
+    <div contenteditable="true">
+		<table class="table table-striped table-bordered" id="tb1">
+			<tr ><th contenteditable="false">STT</th><th contenteditable="false"> Tên </th><th contenteditable="false"> Giá </th><th contenteditable="false"> % Chi phí </th><th contenteditable="false"> Giá mua </th><th>  Discard  </th> </tr>
+			<tr><td contenteditable="false">1</td><td contenteditable="true"></td><td></td><td></td><td></td><td><input type="checkbox" name="foo" value="bar1"><br/></td>
+			
+
+			
+		</table>
 	</div>
-</div>
+	<button id="adđ">Add</button>
+    <button id="exit">Exit</button>
+</dialog>
+
+
+<script type="text/javascript">
+(function() {
+   	var dialog = document.getElementById('window');
+	document.getElementById('show').onclick = function() {
+		dialog.show();
+	};
+	document.getElementById('exit').onclick = function() {
+		dialog.close();
+	};
+})();
+
+</script>
+
+
+<dialog id="window2">
+	<p> Bạn có chắc muốn xóa vĩnh viễn các mục dã chọn </p>
+    <button id="exit">Yes</button>
+	<button id="exit2">Exit</button>
+	
+</dialog>
+<script type="text/javascript">
+(function() {
+   	var dialog = document.getElementById('window2');
+	document.getElementById('delete').onclick = function() {
+		dialog.show();
+	};
+	document.getElementById('exit2').onclick = function() {
+		dialog.close();
+	};
+})();
+
+</script>
+
+		
+		
+	</div>
+	<div id="fuck">
+	
+		<form method="post" action=<?php echo CONFIG_PATH('view')."switch_task.php";?>>
+			<select name="task1" style="margin:10px;">
+				<option value="1">In hóa đơn</option>
+				<option value="2">Quản lý nhập</option>
+				<option value="3">Quản lý dư</option>
+				</select>			
+		</form>
+	</div>
+	
 </body>
 </html>

@@ -8,7 +8,6 @@
 		private $unit_name;
 		//price of per unit of product, in Vietnam currency
 		private $price;
-		
 
 		//Constructor:
 		//constructor allow to create a Unit with name and price
@@ -25,10 +24,11 @@
 			return $this->unit_name;
 		}
 		
-		//methdo to get price of the Unit
+		//method to get price of the Unit
 		public function get_price(){
 			return $this->price;
 		}
+
 
 		// convert object to json format
 		// code = true, return json encode, else just return object data encode as an array
@@ -36,7 +36,7 @@
 			//2 properties of Unit intance
 			$json = array(
 	        	'unit_name' => $this->unit_name,
-	        	'price' => $this->price,
+	        	'price' => $this->price
     		);
 
     		// code = true, return json encode, else just return object data encode as an array
@@ -54,7 +54,6 @@
  			if (json_last_error() == JSON_ERROR_NONE){
  				$this->unit_name = $data['unit_name'];
 				$this->price = $data['price'];
-				
  			}
 		}
 		

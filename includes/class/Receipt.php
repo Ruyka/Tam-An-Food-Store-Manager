@@ -16,7 +16,7 @@
 		//each receipt will has a unique id
 		private $receipt_id;
 
-		//time of the receipt has been mad
+		//time of the receipt has been made
 		private $time;
 
 		//The Info of the Employee who receives the Receipt
@@ -32,18 +32,9 @@
 		public function __construct($receipt_id = -1, $time = "", $receiver = NULL, $clients = NULL){
 			$this->receipt_id = $receipt_id;
 			$this->time = $time;
-
-			//if receiver is NULL then create an empty receiver
-			if (is_null($receiver))
-				$this->receiver = new Employee();
-			else	
-				$this->receiver = $receiver;
-			
-			//if clients is null then create an empty clients
-			if (is_null($clients))
-				$this->clients = new Customer();
-			else 
-				$this->clients = $clients;
+			$this->receiver = $receiver;
+			$this->clients = $clients;
+			$this->list_product = array();
 		}
 
 		//Method:
@@ -54,9 +45,9 @@
 			if (isset($list_of_product)){
 				
 				//if list_product = NULL, init it with an empty array
-				if (!isset($this->list_product)){
-					$this->list_product = array();
-				}
+				// if (!isset($this->list_product)){
+				// 	$this->list_product = array();
+				// }
 				// if list of product has many value
 				if (is_array($list_of_product)){
 					//add value to the end of array list_product
@@ -72,8 +63,21 @@
     		}	
 		}
 
-		//convert data of Receipt to HTML to display
-		public function convert_to_HTML(){
+		//get data back in comma format
+		public function get_seperated_list(){
+			//time
+			$str = '%time%' . $this->time . '%time%';
+			//receiver_id
+			if (!is_null($this->receiver)) 
+				$str = $str . '%receive_id%' . $this->receiver->get_id() . '%receiver_id%';
+			//client_id
+			if (!is_null($this->clients))
+				$str = $str . '%client_id%' . $this->clients->get_id() . '%client_id%';
+			//list of product
+			foreach ($this->list_product as $product) {
+				$str = $str . '%product%' . $product->get_seperated_list() . '%product%';
+			}
+			return $str;
 
 		}
 
@@ -102,20 +106,26 @@
 			// basic elements of the product must have
 			 
 			$json = array(
-				
 		        'receipt_id' => $this->receipt_id,
 		        'time' => $this->time,
-		        // json_encode parameter = false, return object not encode with json
-		        'receiver' => $this->receiver->json_encode(false),	
-		        'clients'  => $this->clients->json_encode(false),	
 	    	);
+
+	    	if(!is_null($this->receiver))
+	    		$json['receiver'] = $this->receiver->json_encode(false);	
+	    	else
+	    		$json['receiver'] = null;
+
 	    	
+	    	if(!is_null($this->clients))
+	    		$json['clients'] = $this->receiver->json_encode(false);
+	    	else
+	    		$json['clients'] = null;
+
 	    	//for each productm add and value that are encoding to array data
 			$i = 0;
 			foreach ($this->list_product as $value) {
 				
-				$json['list_product']["$i"] = $value->json_encode(false);
-				++$i;
+				$json['list_product'][$i++] = $value->json_encode(false);
 				
 	    	}
 
@@ -142,8 +152,7 @@
 		public function get_data_from_array($data){
 			// a right Basic info array must have 5 properties
 			// name, total_number, unit, trademark, dated
-			if ( isset($data['name']) && isset($data['total_number']) && isset($data['unit']) 
-					&& isset($data['trademark']) && isset($data['dated']) ){
+			if (isset($data['receipt_id'])){
 				
 				$this->get_data($data);
 			}
@@ -158,44 +167,46 @@
 			$this->time = $data['time'];
 			
 			// get clients data
-			$this->clients->get_data_from_array($data['clients']);
-			
+			if (is_null($data['clients']))
+				$this->clients = null;
+			else {
+				$this->clients = new Customer();
+				$this->clients->get_data_from_array($data['clients']);
+			}
 			//get receiver data
-			$this->receiver->get_data_from_array($data['receiver']);
-			
+			if (is_null($data['receiver']))
+				$this->receiver = null;
+			else{
+				$this->receiver = new Employee();
+				$this->receiver->get_data_from_array($data['receiver']);
+			}
 			//get list of product 
 			$list_data_product = $data['list_product'];
+			
 			// for each value in data list product, push into the list product
 			foreach ($list_data_product as $value) {
-				
 				//get the product factory to get the right product object type
-				$product = ProductFactory::create_product($value['object_type']);
-				//get data from value array
-				$product->get_data_from_array($value);
+				$product = ProductFactory::create_product($value);
 				//add product to list_product
 				$this->add($product);
 	    	}
 		} 
 	}
-
 	
 	//SAMPLE CODE TO TEST, READ FOR FUN lol :V
 
-     // $tmp = new SoldProduct(113);
-     // $tmp->add_attribute("Sữa",100,new Unit("hộp",10000), 
-     // 		new Trademark(
-     // 			new BasicInfo("Hồ Hữu Phát","hhphat@apcs.vn","0906332121","4 ABCD")
-     // 			,"Việt Nam","google.com.vn"
-     // 		)
-     // 		,"17/11/2015");
+      // $tmp = new SoldProduct(113);
+      // $tmp->add_attribute("Sữa", NULL, "100", "SUA1111",
+      // 		NULL,"17/11/2015");
 
-     // $BasicInfo = new BasicInfo("Kim Nhật Thành","knthanh@apcs.vn","0923232121","4 ABCD");
+      // $BasicInfo = new BasicInfo("Kim Nhật Thành","knthanh@apcs.vn","0923232121","4 ABCD");
 
-     // $receipt = new Receipt(1,1,new Employee($BasicInfo,10000,1,"1313131"), new Customer($BasicInfo));
+      // $receipt = new Receipt(1,1,new Employee("EM011",$BasicInfo,10000,1,"1313131"));
     
-     // $receipt->add($tmp);
-     // $receipt->add($tmp);
-     // $receipt2 = new Receipt();
-     // $receipt2->get_data_from_json($receipt->json_encode());
-     // TEST($receipt2->json_encode(false));
+      // $receipt->add($tmp);
+      // $receipt->add($tmp);
+     
+      // $receipt2 = new Receipt();
+      // $receipt2->get_data_from_json($receipt->json_encode());
+      // TEST($receipt2->json_encode(false));
 ?>

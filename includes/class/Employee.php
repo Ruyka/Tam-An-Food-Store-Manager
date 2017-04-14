@@ -13,18 +13,14 @@
 		private $salary;
 
 		//Constructor
-		public function __construct($basic_info = NULL, $salary = 0, $role_id = 1, $CMND = ""){
+		public function __construct($employee_id="",$basic_info = NULL, $salary = 0, $role_id = 1, $CMND = ""){
 			//call parent to construct
-			parent::__construct($basic_info);
+			parent::__construct($employee_id, $basic_info);
 			$this->salary = $salary;
 			$this->role_id = $role_id;
 			$this->CMND = $CMND;
 			$this->object_type = "Employee";
 		}
-		public function convert_to_HTML(){
-            
-		}
-
 
 		//Method:
 		// convert object to json format
@@ -46,6 +42,7 @@
     			return $json;
 		
 		}
+		
 		//get data from json_data 
 		public function get_data_from_json($json_data){
 			// decode input using json decode
@@ -77,9 +74,9 @@
 
     //test code
     // $basic = new BasicInfo("Trịnh Hoàng Triều","0903302234","thtrieu@apcs.vn","asdsadsad");
-    // $e = new Employee($basic,10000,1,"131313");
+    // $e = new Employee("3D1SSA13",$basic,10000,1,"131313");
     // TEST($e->json_encode(false));
     // $ee = new Employee();
     // $ee->get_data_from_json($e->json_encode());
-    // TEST($ee->json_encode(false));
+    //  TEST($ee->json_encode(false));
 ?>
